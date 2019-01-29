@@ -1,0 +1,13 @@
+<div>
+  <!-- <p [ngClass]="{switchOn:switchPosition, switchOff:!switchPosition}"> -->
+  <p [ngStyle]="{backgroundColor:colorSelector()}">
+    <span *ngIf="switchPosition; else switchIsOff">Switch Is On</span>
+    <ng-template #switchIsOff>
+        <span >Switch Is Off</span>  
+    </ng-template>
+    
+  </p>
+  <button (click)="switchButtonClicked()">Switch</button>
+  <p  *ngFor="let item of items">soemthing</p>
+</div>
+
