@@ -1,6 +1,6 @@
 <h3>List of Servers</h3>
 <p>
-    <label>{{serverName}}</label>
+    <!-- <label>{{serverName}}</label> -->
     <!-- <input 
         type="text" 
         class="form-control"
@@ -13,7 +13,8 @@
 <button (click)="onCreateServer()" [disabled]="!allowNewServer"  class="btn btn-primary">Add Server</button>
 <!-- <p [innerText]="allowNewServer"></p> -->
 </p>
-<p>{{serverCreationStatus}}</p>
+<!-- <p>{{serverCreationStatus}}</p> -->
 
-<app-server></app-server>
-<app-server></app-server>
+<p *ngIf="serverCreated">Server was created, server name is {{serverName}}</p>
+
+<app-server *ngFor="let item of servers"></app-server>

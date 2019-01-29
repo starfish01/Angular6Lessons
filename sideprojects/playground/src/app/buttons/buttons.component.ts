@@ -8,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class ButtonsComponent implements OnInit {
 
   switchPosition=false;
-  items=10;
+  items=[1,2,1,2,1,2,1,2];
   constructor() { }
+
+  arrayButtonClicked(val){
+    alert(val)
+  }
 
   ngOnInit() {
   }

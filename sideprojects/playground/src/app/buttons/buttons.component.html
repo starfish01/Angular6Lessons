@@ -3,11 +3,13 @@
   <p [ngStyle]="{backgroundColor:colorSelector()}">
     <span *ngIf="switchPosition; else switchIsOff">Switch Is On</span>
     <ng-template #switchIsOff>
-        <span >Switch Is Off</span>  
+        <span>Switch Is Off</span>  
     </ng-template>
     
   </p>
-  <button (click)="switchButtonClicked()">Switch</button>
-  <p  *ngFor="let item of items">soemthing</p>
+  <button (click)="switchButtonClicked()">Switch <span *ngIf="!switchPosition">on</span><span *ngIf="switchPosition">off</span></button>
+
+  <button *ngFor="let item of items; let i = index" (click)="arrayButtonClicked(i)">{{item}}</button>
+
 </div>
 
