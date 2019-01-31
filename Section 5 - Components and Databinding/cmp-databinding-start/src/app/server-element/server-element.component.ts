@@ -7,7 +7,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, DoCheck, AfterConte
 })
 export class ServerElementComponent implements OnInit,OnChanges,DoCheck,AfterContentChecked,AfterContentInit,OnDestroy {
 
-  @Input('srvElement') element: {type:string, name:string, content:string};
+  @Input('srvElement') element;
 
   constructor() { 
     console.log('constructor called')
