@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipesComponent implements OnInit {
 
+  itemClicked;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  recipeItemClicked(itemClicked) {
+    this.itemClicked = itemClicked;
   }
 
 }
