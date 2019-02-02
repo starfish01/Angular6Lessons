@@ -29,7 +29,6 @@
       <hr>
 
       <ul class="list-group">
-
         <div *appUnless="onlyOdd">
           <li [ngClass]="{odd: odd % 2 !== 0}" class="list-group-item" *ngFor="let oddNumber of oddNumbers">
             {{ oddNumber }}
