@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form (ngSubmit)="onSubmit()" #form="ngForm">
+        <!-- email -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+            type="text" 
+            id="email" 
+            class="form-control" 
+            ngModel name="email"
+            required
+            email
+            #email="ngModel"
+            >
+            <span *ngIf="!email.valid && email.touched" class="help-block">*This is not a valid email</span>
+        </div>
+
+
+        <div class="form-group">
+          <label for="dropdownSelect">Select subscription</label>
+          <select name="dropdownSelect" id="dropdownSelect" class="form-control" [(ngModel)]="defaultDownSelect">
+            <option value="b">Basic</option>
+            <option value="a">Advanced</option>
+            <option value="p">Pro</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input name="password" required #password="ngModel" ngModel type="text" class="form-control">
+          <span *ngIf="!password.valid && password.touched" class="help-block">*Password is required</span>
+        </div>
+
+        <!-- password -->
+        <!-- submit button -->
+        <button class="btn btn-primary" type="submit" >Submit</button>
+      </form>
+      
+      <!-- [disabled]="!form.valid" -->
+      
+      <!-- Display a warning message if the Form is invalid AND was touched. Display a warning message below each input if it's invalid.
+           Upon submitting the form, you should simply print the Value of the Form to the Console.
+           Optionally, display it in your template.
+      -->
+    </div>
+  </div>
+</div>
