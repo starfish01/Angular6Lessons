@@ -18,6 +18,10 @@ export class RecipeDetailComponent implements OnInit {
               private router: Router) {
   }
 
+  deleteRecipe() {
+    this.recipeService.deleteRecipe(this.id);
+  }
+
   ngOnInit() {
     this.route.params
       .subscribe(

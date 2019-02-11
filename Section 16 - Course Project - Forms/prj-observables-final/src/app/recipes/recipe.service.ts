@@ -4,6 +4,7 @@ import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class RecipeService {
@@ -29,8 +30,14 @@ export class RecipeService {
   ];
 
   
+  deleteRecipe(id:number) {
+    this.recipes.splice(id,1);
+    this.recipesChanged.next(this.recipes.slice())
+    this.router.navigate(['/recipes'])
+  }
+  
 
-  constructor(private slService: ShoppingListService) {}
+  constructor(private slService: ShoppingListService, private router: Router) {}
 
   getRecipes() {
     return this.recipes.slice();
