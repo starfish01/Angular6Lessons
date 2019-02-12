@@ -32,6 +32,10 @@ export class AppComponent {
 
   constructor(private server:ServerService) {}
 
+  loading=false;
+
+  appName=this.server.getAppName();
+
   saveServers() {
     this.server.storeServers(this.servers)
     .subscribe(
@@ -45,13 +49,15 @@ export class AppComponent {
   }
 
   getServers() {
+    this.loading = true;
     this.server.getServers().subscribe(
-      (res) => {
-        const data = res.json();
-        console.log(data)
-        this.servers = data;
+      (servers:any[]) => {
+        this.servers = servers;
+        this.loading = false;
       },
-      (err) => {}
+      (err) => {
+        this.loading = false;
+      }
     );
   }
 
