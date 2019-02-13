@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { throwError } from 'rxjs';
 import { RecipeService } from '../recipes/recipe.service';
 import { Recipe } from '../recipes/recipe.model';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,7 @@ export class HeaderComponent {
 
   loadingData =false;
 
-  constructor(private dSS: DataStroageService, private recipeService:RecipeService) { }
+  constructor(private dSS: DataStroageService, private recipeService:RecipeService, private authService: AuthService) { }
 
   saveRecipes() {
     this.loadingData = true 
@@ -26,6 +27,10 @@ export class HeaderComponent {
         this.loadingData = false
       }
     );
+  }
+
+  onLogout() {
+    this.authService.logOut()
   }
 
   getRecipes() {
