@@ -27,6 +27,12 @@ export class RecipeService {
       ])
   ];
 
+  resetRecipesWithNewData(newRecipes) {
+    this.recipes = newRecipes
+    this.recipesChanged.next(this.recipes.slice());
+
+  }
+
   constructor(private slService: ShoppingListService) {}
 
   getRecipes() {
