@@ -16,6 +16,9 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
+import { UserdetailsComponent } from './userdetails/userdetails.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { UserService } from './auth/user.service';
 
 
 @NgModule({
@@ -25,17 +28,19 @@ import { environment } from '../environments/environment';
     ZendeskBodyComponent,
     LoginComponent,
     SignupComponent,
-    LogoutComponent
+    LogoutComponent,
+    UserdetailsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
   ],
-  providers: [AuthService],
+  providers: [AuthService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
