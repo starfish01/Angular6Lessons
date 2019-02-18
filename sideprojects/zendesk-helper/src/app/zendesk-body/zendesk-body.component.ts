@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
@@ -19,6 +19,9 @@ export class ZendeskBodyComponent implements OnInit {
 
   addCategoryBool = false;
 
+  @ViewChild("cat") nameField: ElementRef;
+ 
+
   constructor(private authService:AuthService) { 
   }
 
@@ -35,9 +38,18 @@ export class ZendeskBodyComponent implements OnInit {
   }
 
   addCategoryItem(value){
-    this.addCategoryBool = false;
     console.log(value)
-
+    this.addCategoryBool = false;
+    console.log(this.addCategoryBool)
   }
+
+  addCategory() {
+    this.addCategoryBool = true;
+    setTimeout(() => {
+      this.nameField.nativeElement.focus();
+    }, 0.1);
+    
+  }
+
 
 }

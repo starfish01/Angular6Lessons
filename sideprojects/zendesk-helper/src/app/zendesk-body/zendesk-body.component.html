@@ -7,10 +7,15 @@
         class="list-group-item list-group-item-action">{{ item.category }}</button>
 
       <ng-template [ngIf]="authService.authenticated">
-        <div (click)="addCategoryBool = true" class="add-item list-group-item list-group-item-action">
-          
+        <div (click)="addCategory()" class="add-item list-group-item list-group-item-action">
+
           <span *ngIf="!addCategoryBool"><img src="../../assets/tag-cat.svg"> Add Category</span>
-          <span><input (keyup.enter)="addCategoryItem(cat.value)" *ngIf="addCategoryBool" #cat type="text" class="form-control"></span>
+          <span *ngIf="addCategoryBool">
+            <div class="input-and-button">
+              <input #cat (keyup.enter)="addCategoryItem(cat.value)"  type="text" class="form-control input-item"> <img (click)="addCategoryItem(cat.value)" class="button-item" src="../../assets/tag-cat.svg">
+            </div>
+          </span>
+          
         </div>
       </ng-template>
     </div>
