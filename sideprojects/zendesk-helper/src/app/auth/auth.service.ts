@@ -7,7 +7,13 @@ import * as firebase from 'firebase/app';
 @Injectable()
 export class AuthService {
 
+    userToken:string;
+
     constructor(public afAuth: AngularFireAuth){}
+
+    isAuthenticated() {
+        return this.userToken != null;
+    }
 
     doGoogleLogin(){
         return new Promise<any>((resolve, reject) => {
@@ -17,6 +23,10 @@ export class AuthService {
           this.afAuth.auth
           .signInWithPopup(provider)
           .then(res => {
+            firebase.auth().currentUser.getIdToken()
+            .then(
+                (token: string) => this.userToken = token
+            );
             resolve(res);
           })
         })
@@ -26,6 +36,10 @@ export class AuthService {
         return new Promise<any>((resolve, reject) => {
           firebase.auth().createUserWithEmailAndPassword(value.email, value.password)
           .then(res => {
+            firebase.auth().currentUser.getIdToken()
+            .then(
+                (token: string) => this.userToken = token
+            );
             resolve(res);
           }, err => reject(err))
         })
@@ -35,6 +49,12 @@ export class AuthService {
         return new Promise<any>((resolve, reject) => {
           firebase.auth().signInWithEmailAndPassword(value.email, value.password)
           .then(res => {
+            firebase.auth().currentUser.getIdToken()
+            .then(
+                (token: string) => {
+                    this.userToken = token
+                } 
+            );
             resolve(res);
           }, err => reject(err))
         })
@@ -43,7 +63,8 @@ export class AuthService {
       doLogout(){
         return new Promise((resolve, reject) => {
           if(firebase.auth().currentUser){
-            this.afAuth.auth.signOut()
+            this.afAuth.auth.signOut();
+            this.userToken = null;
             resolve();
           }
           else{

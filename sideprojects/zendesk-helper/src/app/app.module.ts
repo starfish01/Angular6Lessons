@@ -19,6 +19,7 @@ import { environment } from '../environments/environment';
 import { UserdetailsComponent } from './userdetails/userdetails.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './auth/user.service';
+import { AuthGuard } from './auth/auth.guard';
 
 
 @NgModule({
@@ -40,7 +41,7 @@ import { UserService } from './auth/user.service';
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
   ],
-  providers: [AuthService, UserService],
+  providers: [AuthService, UserService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
