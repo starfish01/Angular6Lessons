@@ -15,6 +15,9 @@ export class SignupComponent implements OnInit {
   errorMessage: string = '';
   successMessage: string = '';
 
+  loading = false;
+
+
   private initForm() {
     let email = '';
     let password ='';
@@ -41,7 +44,7 @@ export class SignupComponent implements OnInit {
   }
 
   tryRegister(){
-
+    this.loading = true;
     let value = this.signupForm.value;
 
     this.authService.doRegister(value)
@@ -49,10 +52,13 @@ export class SignupComponent implements OnInit {
       console.log(res);
       this.errorMessage = "";
       this.successMessage = "Your account has been created";
+      this.loading = false;
+      this.router.navigate(['/user'])
     }, err => {
       console.log(err);
       this.errorMessage = err.message;
       this.successMessage = "";
+      this.loading = false;
     })
   }
 

@@ -9,7 +9,17 @@ export class AuthService {
 
     userToken:string;
 
-    constructor(public afAuth: AngularFireAuth){}
+    private authState: any;
+
+    constructor(public afAuth: AngularFireAuth){
+        this.afAuth.authState.subscribe((auth)=>{
+            this.authState = auth
+        })
+    }
+
+    get authenticated(): boolean {
+        return this.authState !== null;
+    }
 
     isAuthenticated() {
         return this.userToken != null;

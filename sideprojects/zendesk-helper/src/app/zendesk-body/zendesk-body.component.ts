@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-zendesk-body',
@@ -16,7 +17,10 @@ export class ZendeskBodyComponent implements OnInit {
 
   selectedTopic = null;
 
-  constructor() { }
+  addCategoryBool = false;
+
+  constructor(private authService:AuthService) { 
+  }
 
   ngOnInit() {
   }
@@ -28,6 +32,12 @@ export class ZendeskBodyComponent implements OnInit {
 
   onTopicSelect(item) {
     this.selectedTopic = item;
+  }
+
+  addCategoryItem(value){
+    this.addCategoryBool = false;
+    console.log(value)
+
   }
 
 }

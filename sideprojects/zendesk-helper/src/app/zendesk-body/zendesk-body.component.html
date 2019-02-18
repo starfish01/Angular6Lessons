@@ -1,30 +1,38 @@
-<div class="container">
-  <div class="row">
+<div class="row">
 
-    <div class="col-sm-2 categories">
+  <div class="col-sm-3 categories">
 
-      <div class="list-group">
-        <button *ngFor="let item of categories; let i = index" (click)="onCategorySelect(item)" href="#" class="list-group-item list-group-item-action">{{ item.category }}</button>
-      </div>
+    <div class="list-group">
+      <button *ngFor="let item of categories; let i = index" (click)="onCategorySelect(item)" href="#"
+        class="list-group-item list-group-item-action">{{ item.category }}</button>
 
-    </div>
-    <div *ngIf="selectedCategory != null" class="col-sm-4">
-        <button *ngFor="let item of selectedCategory.topic; let i = index" (click)="onTopicSelect(item)" href="#" class="list-group-item list-group-item-action">{{ item.title }}</button>
-    </div>
-    <div *ngIf="selectedTopic != null" class="col-sm-6">
-      <div class="row">
-        <div class="col-xs-12">
-          <h3>{{ selectedTopic.title }}</h3>
+      <ng-template [ngIf]="authService.authenticated">
+        <div (click)="addCategoryBool = true" class="add-item list-group-item list-group-item-action">
+          
+          <span *ngIf="!addCategoryBool"><img src="../../assets/tag-cat.svg"> Add Category</span>
+          <span><input (keyup.enter)="addCategoryItem(cat.value)" *ngIf="addCategoryBool" #cat type="text" class="form-control"></span>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
-          {{ selectedTopic.description }}
-        </div>
-      </div>
-
-      <!-- {{selectedTopic.description}} -->
+      </ng-template>
     </div>
 
   </div>
+  <div *ngIf="selectedCategory != null" class="col-sm-3">
+    <button *ngFor="let item of selectedCategory.topic; let i = index" (click)="onTopicSelect(item)" href="#"
+      class="list-group-item list-group-item-action">{{ item.title }}</button>
+  </div>
+  <div *ngIf="selectedTopic != null" class="col-sm-6">
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>{{ selectedTopic.title }}</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        {{ selectedTopic.description }}
+      </div>
+    </div>
+
+    <!-- {{selectedTopic.description}} -->
+  </div>
+
 </div>

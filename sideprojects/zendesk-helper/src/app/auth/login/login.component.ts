@@ -12,6 +12,8 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
+  loading =false;
+
   constructor(private authService: AuthService, private router:Router) { }
 
   ngOnInit() {
@@ -30,12 +32,14 @@ export class LoginComponent implements OnInit {
   }
 
   tryLogin(){
-
+    this.loading = true;
     let value = this.loginForm.value;
     this.authService.doLogin(value)
     .then(res => {
+      this.loading = false;
       this.router.navigate(['/user']);
     }, err => {
+      this.loading = false;
       console.log(err);
     })
   }
