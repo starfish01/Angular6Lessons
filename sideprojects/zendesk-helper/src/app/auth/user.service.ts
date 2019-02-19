@@ -8,15 +8,20 @@ import * as firebase from 'firebase/app';
 export class UserService {
 
   constructor(
-  //  public db: AngularFirestore,
-   public afAuth: AngularFireAuth
- ){
- }
+    //  public db: AngularFirestore,
+    public afAuth: AngularFireAuth
+  ) {
+  }
+
+  getCurrentUserID() {
+    let user = firebase.auth().currentUser.uid;
+    return user;
+  }
 
 
-  getCurrentUser(){
+  getCurrentUser() {
     return new Promise<any>((resolve, reject) => {
-      var user = firebase.auth().onAuthStateChanged(function(user){
+      var user = firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
           resolve(user);
         } else {
@@ -26,7 +31,7 @@ export class UserService {
     })
   }
 
-  updateCurrentUser(value){
+  updateCurrentUser(value) {
     return new Promise<any>((resolve, reject) => {
       var user = firebase.auth().currentUser;
       user.updateProfile({

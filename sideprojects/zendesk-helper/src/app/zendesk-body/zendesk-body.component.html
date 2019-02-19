@@ -23,7 +23,7 @@
 
   </div>
   <div *ngIf="selectedCategory != null" class="col-sm-3">
-    <button *ngFor="let item of selectedCategory.topic; let i = index" (click)="onTopicSelect(item)" href="#"
+    <button *ngFor="let item of selectedCategory.entries; let i = index" (click)="onTopicSelect(item)" href="#"
       class="list-group-item list-group-item-action">{{ item.title }}</button>
 
 

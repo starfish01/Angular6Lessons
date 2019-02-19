@@ -1,8 +1,11 @@
 export class Entry {
     constructor(
         public title:string,
+        public uID:string,
+        public createdAt =  Math.round((new Date()).getTime() / 1000),
         // public decription:string,
-        public displayed= 1,
+        public displayed = 1,
+        
     ) {}
 }
 
