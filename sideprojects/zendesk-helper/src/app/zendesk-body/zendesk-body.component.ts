@@ -12,7 +12,7 @@ import { Storage } from '../shared/storage.service';
 })
 export class ZendeskBodyComponent implements OnInit {
 
-  categoriesNew: Category[] = [new Category('Funnel'), new Category('eduapp')]
+  categoriesNew: Category[] = [new Category('Funnel',''), new Category('eduapp','')]
 
   selectedCategory = null;
 
@@ -43,8 +43,37 @@ export class ZendeskBodyComponent implements OnInit {
     this.selectedTopic = item;
   }
 
+
   addCategoryItem(value) {
-    this.categoriesNew.push(new Category(value, this.getUserID()))
+    let createdCategory = new Category(value, this.getUserID())
+    this.categoriesNew.push(createdCategory)
+
+    // Look at using the service method
+    
+    // let promise = new Promise((res,rej)=>{
+
+    //   let p = this.storage.storeCategory(createdCategory)
+
+    //   p.then((res)=>{
+    //     console.log(res)
+    //   }
+
+    //   )
+
+    //   setTimeout(() => {
+    //     console.log("Async Work Complete");
+    //     res(()=>{
+
+    //     });
+    //   }, 5000);
+    //   return promise
+    // })
+
+
+
+
+    let q = this.storage.storeCategory(createdCategory)
+    console.log(q)
     this.addCategoryBool = false;
   }
 
