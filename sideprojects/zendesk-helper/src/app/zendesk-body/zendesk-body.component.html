@@ -3,7 +3,7 @@
   <div class="col-sm-3 categories">
 
     <div class="list-group">
-      <button *ngFor="let item of categories; let i = index" (click)="onCategorySelect(item)" href="#"
+      <button *ngFor="let item of categoriesNew; let i = index" (click)="onCategorySelect(item)" href="#"
         class="list-group-item list-group-item-action">{{ item.category }}</button>
 
       <ng-template [ngIf]="authService.authenticated">
@@ -12,10 +12,11 @@
           <span *ngIf="!addCategoryBool"><img src="../../assets/tag-cat.svg"> Add Category</span>
           <span *ngIf="addCategoryBool">
             <div class="input-and-button">
-              <input #cat (keyup.enter)="addCategoryItem(cat.value)"  type="text" class="form-control input-item"> <img (click)="addCategoryItem(cat.value)" class="button-item" src="../../assets/tag-cat.svg">
+              <img class="button-item" src="../../assets/tag-cat.svg">
+              <input #cat (keyup.enter)="addCategoryItem(cat.value)" type="text" class="form-control input-item">
             </div>
           </span>
-          
+
         </div>
       </ng-template>
     </div>
@@ -24,6 +25,26 @@
   <div *ngIf="selectedCategory != null" class="col-sm-3">
     <button *ngFor="let item of selectedCategory.topic; let i = index" (click)="onTopicSelect(item)" href="#"
       class="list-group-item list-group-item-action">{{ item.title }}</button>
+
+
+
+      <ng-template [ngIf]="authService.authenticated">
+          <div (click)="addEntry()" class="add-item list-group-item list-group-item-action">
+  
+            <span *ngIf="!addEntryBool"><img src="../../assets/tag-cat.svg"> Add Category</span>
+            <span *ngIf="addEntryBool">
+              <div class="input-and-button">
+                <img class="button-item" src="../../assets/tag-cat.svg">
+                <input #entry (keyup.enter)="addEntryItem(entry.value)" type="text" class="form-control input-item">
+              </div>
+            </span>
+  
+          </div>
+        </ng-template>
+
+
+
+
   </div>
   <div *ngIf="selectedTopic != null" class="col-sm-6">
     <div class="row">
