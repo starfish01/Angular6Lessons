@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { JsonPipe } from '@angular/common';
@@ -6,6 +6,7 @@ import { JsonPipe } from '@angular/common';
 @Injectable()
 export class Storage {
     constructor(private db: AngularFirestore) { }
+
 
     objectTansform(object) {
         return JSON.parse(JSON.stringify(object))
@@ -24,34 +25,60 @@ export class Storage {
         })
     }
 
-    storeEntry(data) {
+    storeEntry(categoryID, data) {
+        console.log(data)
+        data['categoryID'] = categoryID;
         let jsonData = this.objectTansform(data)
-        // this.db.collection('entries').doc(jsonData.title).set(
-        //     jsonData, {merge}
-        // )
+        let itemKey = this.db.createId();
+
+        return this.db.collection('entries').doc(itemKey).set(
+            jsonData, { merge: true }
+        ).then(() => {
+            jsonData['id'] = itemKey
+            return jsonData;
+        }).catch((error) => {
+            console.log(error)
+            return null;
+        })
     }
 
     storeCategory(data) {
         let jsonData = this.objectTansform(data)
         let itemKey = this.db.createId();
 
+        jsonData['id'] = itemKey;
+
         let p = this.db.collection('category').doc(itemKey).set(
             jsonData, { merge: true }
-        ).then((val) => {
+        ).then(val => {
             console.log('saved!')
-            return itemKey
+            jsonData["id"] = itemKey;
+            return jsonData
         }).catch(() => {
             console.log('failed')
             return null
         })
-
+        this.getCategories();
         return p
     }
 
+    getCategories() {
+        return this.db.firestore.collection('category').get().then(data => {
+            return data;
+        }).catch((error) => {
+            console.log(error)
+            return null;
+        })
+    }
 
-    //get document
-    // this.db.collection('category').doc(itemKey).ref.get().then(data=>{
-    //     console.log(data)
-    // })
+    getEntries(categoryID) {
+        return this.db.collection('entries', ref => ref.where('categoryID', "==", categoryID))
+        .ref.get().then((querySnapshot)=>{
+            return querySnapshot
+        }).catch((error)=>{
+            console.log(error)
+            return null
+        })
+    }
 
 }

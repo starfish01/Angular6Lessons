@@ -12,16 +12,18 @@ import { Storage } from '../shared/storage.service';
 })
 export class ZendeskBodyComponent implements OnInit {
 
-  categoriesNew: Category[] = [new Category('Funnel',''), new Category('eduapp','')]
+  categoriesNew: Category[] = []
 
   selectedCategory = null;
 
+  initLoad = false;
   selectedTopic = null;
 
   addCategoryBool = false;
   lodingCategory = false;
 
   addEntryBool = false;
+  loadingEntry = false;
 
 
 
@@ -33,15 +35,33 @@ export class ZendeskBodyComponent implements OnInit {
 
 
 
-  constructor(private authService: AuthService, private userService: UserService, private storage:Storage) {
-  }
+  constructor(private authService: AuthService, private userService: UserService, private storage: Storage) {}
 
   ngOnInit() {
-    console.log(this.categoriesNew)
+    this.initLoad = true;
+    this.storage.getCategories().then((data)=>{
+      this.initLoad = false;
+     data.forEach(element => {
+       this.categoriesNew.push(element.data())
+     });
+    }).catch((error)=>{
+      this.initLoad = false;
+    })
   }
 
   onCategorySelect(selectedCategory) {
-    console.log(selectedCategory)
+    
+    this.storage.getEntries(selectedCategory.id).then((data)=>{
+      data.forEach(element => {
+        selectedCategory.entries.push(element.data())
+        console.log()
+      });
+    }).catch((error)=>{
+      console.log(error)
+    });
+  
+
+
     this.selectedCategory = selectedCategory
   }
 
@@ -54,18 +74,15 @@ export class ZendeskBodyComponent implements OnInit {
     this.lodingCategory = true;
     let createdCategory = new Category(value, this.getUserID())
 
-    this.storage.storeCategory(createdCategory).then((data)=> {
-      console.log(data)
-      this.categoriesNew.push(createdCategory)
+    this.storage.storeCategory(createdCategory).then((data) => {
+      this.categoriesNew.push(data)
       this.lodingCategory = false;
-    }).catch((err)=>{
+    }).catch((err) => {
       this.lodingCategory = false;
       console.log(err)
     })
 
     this.addCategoryBool = false;
-
-    // console.log(q)
   }
 
   addCategory() {
@@ -77,6 +94,7 @@ export class ZendeskBodyComponent implements OnInit {
 
   addEntry() {
     this.addEntryBool = true;
+
     setTimeout(() => {
       this.entryField.nativeElement.focus();
     }, 0.1);
@@ -88,10 +106,20 @@ export class ZendeskBodyComponent implements OnInit {
 
   addEntryItem(value) {
     this.addEntryBool = false;
-    this.selectedCategory.entries.push(new Entry(value, this.getUserID()))
-    this.saveData()
-  }
+    this.loadingEntry = true;
 
+    let newEntry = new Entry(value,this.getUserID());
+
+    this.storage.storeEntry(this.selectedCategory.id,newEntry)
+    .then((data)=>{
+      this.selectedCategory.entries.push(data)
+      this.loadingEntry = false;
+    }).catch((error)=>{
+      this.loadingEntry = false;
+    })
+    
+  }
+  
   saveData() {
     this.storage.saveData(this.categoriesNew)
   }

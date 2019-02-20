@@ -1,4 +1,9 @@
-<div class="row">
+
+<span *ngIf="initLoad">
+  <img src="../../assets/loading.svg" style="width:30px">
+</span>
+
+<div class="row" *ngIf="!initLoad">
 
   <div class="col-sm-3 categories">
 
@@ -33,12 +38,15 @@
       <ng-template [ngIf]="authService.authenticated">
           <div (click)="addEntry()" class="add-item list-group-item list-group-item-action">
   
-            <span *ngIf="!addEntryBool"><img src="../../assets/tag-cat.svg"> Add Category</span>
-            <span *ngIf="addEntryBool">
+            <span *ngIf="!addEntryBool && !loadingEntry"><img src="../../assets/tag-cat.svg"> Add Category</span>
+            <span *ngIf="addEntryBool && !loadingEntry">
               <div class="input-and-button">
                 <img class="button-item" src="../../assets/tag-cat.svg">
                 <input #entry (keyup.enter)="addEntryItem(entry.value)" type="text" class="form-control input-item">
               </div>
+            </span>
+            <span *ngIf="loadingEntry">
+              <img src="../../assets/loading.svg" style="width:30px">
             </span>
   
           </div>

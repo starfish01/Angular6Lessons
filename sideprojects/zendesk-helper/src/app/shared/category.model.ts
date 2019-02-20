@@ -5,7 +5,6 @@ export class Category {
         public category: string,
         public uID:string,
         public updatedAt =  Math.round((new Date()).getTime() / 1000),
-        public entries: Entry[] = [],
         public groupID = 'digistorm'
 
     ) { }
