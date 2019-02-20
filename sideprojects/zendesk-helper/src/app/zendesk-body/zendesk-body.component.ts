@@ -50,18 +50,34 @@ export class ZendeskBodyComponent implements OnInit {
   }
 
   onCategorySelect(selectedCategory) {
+
     
+    //need to do some work here checking if the categories already exist
+
     this.storage.getEntries(selectedCategory.id).then((data)=>{
       data.forEach(element => {
-        selectedCategory.entries.push(element.data())
-        console.log()
+        let newEntryID = element.data().id
+        let ifExists = false;
+        selectedCategory.entries.forEach(element => {
+          if(newEntryID === element.id) {
+            ifExists = true;
+          }
+        });
+
+
+        if(!ifExists){
+          console.log(ifExists)
+          selectedCategory.entries.push(element.data())
+        }        
+
+
+
+
       });
     }).catch((error)=>{
       console.log(error)
     });
   
-
-
     this.selectedCategory = selectedCategory
   }
 

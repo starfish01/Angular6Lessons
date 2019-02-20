@@ -72,7 +72,7 @@ export class Storage {
     }
 
     getEntries(categoryID) {
-        return this.db.collection('entries', ref => ref.where('categoryID', "==", categoryID))
+        return this.db.collection('entries', ref => ref.where('categoryID', "==", categoryID).where('displayed','==', '1'))
         .ref.get().then((querySnapshot)=>{
             return querySnapshot
         }).catch((error)=>{
