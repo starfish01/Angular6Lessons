@@ -34,15 +34,24 @@ export class Storage {
     storeCategory(data) {
         let jsonData = this.objectTansform(data)
         let itemKey = this.db.createId();
-        this.db.collection('category').doc(itemKey).set(
+
+        let p = this.db.collection('category').doc(itemKey).set(
             jsonData, { merge: true }
         ).then((val) => {
             console.log('saved!')
-            return itemKey;
+            return itemKey
         }).catch(() => {
             console.log('failed')
+            return null
         })
 
+        return p
     }
+
+
+    //get document
+    // this.db.collection('category').doc(itemKey).ref.get().then(data=>{
+    //     console.log(data)
+    // })
 
 }

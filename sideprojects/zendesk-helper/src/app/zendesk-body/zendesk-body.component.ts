@@ -19,7 +19,13 @@ export class ZendeskBodyComponent implements OnInit {
   selectedTopic = null;
 
   addCategoryBool = false;
+  lodingCategory = false;
+
   addEntryBool = false;
+
+
+
+
   userToken = null;
 
   @ViewChild("cat") nameField: ElementRef;
@@ -45,36 +51,21 @@ export class ZendeskBodyComponent implements OnInit {
 
 
   addCategoryItem(value) {
+    this.lodingCategory = true;
     let createdCategory = new Category(value, this.getUserID())
-    this.categoriesNew.push(createdCategory)
 
-    // Look at using the service method
-    
-    // let promise = new Promise((res,rej)=>{
+    this.storage.storeCategory(createdCategory).then((data)=> {
+      console.log(data)
+      this.categoriesNew.push(createdCategory)
+      this.lodingCategory = false;
+    }).catch((err)=>{
+      this.lodingCategory = false;
+      console.log(err)
+    })
 
-    //   let p = this.storage.storeCategory(createdCategory)
-
-    //   p.then((res)=>{
-    //     console.log(res)
-    //   }
-
-    //   )
-
-    //   setTimeout(() => {
-    //     console.log("Async Work Complete");
-    //     res(()=>{
-
-    //     });
-    //   }, 5000);
-    //   return promise
-    // })
-
-
-
-
-    let q = this.storage.storeCategory(createdCategory)
-    console.log(q)
     this.addCategoryBool = false;
+
+    // console.log(q)
   }
 
   addCategory() {

@@ -8,13 +8,15 @@
 
       <ng-template [ngIf]="authService.authenticated">
         <div (click)="addCategory()" class="add-item list-group-item list-group-item-action">
-
-          <span *ngIf="!addCategoryBool"><img src="../../assets/tag-cat.svg"> Add Category</span>
-          <span *ngIf="addCategoryBool">
+          <span *ngIf="!addCategoryBool && !lodingCategory"><img src="../../assets/tag-cat.svg"> Add Category</span>
+          <span *ngIf="addCategoryBool && !lodingCategory">
             <div class="input-and-button">
               <img class="button-item" src="../../assets/tag-cat.svg">
               <input #cat (keyup.enter)="addCategoryItem(cat.value)" type="text" class="form-control input-item">
             </div>
+          </span>
+          <span *ngIf="lodingCategory">
+            <img src="../../assets/loading.svg" style="width:30px">
           </span>
 
         </div>
