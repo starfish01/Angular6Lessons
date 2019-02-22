@@ -35,49 +35,39 @@ export class ZendeskBodyComponent implements OnInit {
 
 
 
-  constructor(private authService: AuthService, private userService: UserService, private storage: Storage) {}
+  constructor(private authService: AuthService, private userService: UserService, private storage: Storage) { }
 
   ngOnInit() {
     this.initLoad = true;
-    this.storage.getCategories().then((data)=>{
+    this.storage.getCategories().then((data) => {
       this.initLoad = false;
-     data.forEach(element => {
-       this.categoriesNew.push(element.data())
-     });
-    }).catch((error)=>{
+      data.forEach(element => {
+        this.categoriesNew.push(element.data())
+      });
+    }).catch((error) => {
       this.initLoad = false;
     })
   }
 
   onCategorySelect(selectedCategory) {
 
-    
-    //need to do some work here checking if the categories already exist
-
-    this.storage.getEntries(selectedCategory.id).then((data)=>{
+    this.storage.getEntries(selectedCategory.id).then((data) => {
       data.forEach(element => {
         let newEntryID = element.data().id
         let ifExists = false;
         selectedCategory.entries.forEach(element => {
-          if(newEntryID === element.id) {
+          if (newEntryID === element.id) {
             ifExists = true;
           }
         });
-
-
-        if(!ifExists){
-          console.log(ifExists)
+        if (!ifExists) {
           selectedCategory.entries.push(element.data())
-        }        
-
-
-
-
+        }
       });
-    }).catch((error)=>{
+    }).catch((error) => {
       console.log(error)
     });
-  
+
     this.selectedCategory = selectedCategory
   }
 
@@ -124,18 +114,18 @@ export class ZendeskBodyComponent implements OnInit {
     this.addEntryBool = false;
     this.loadingEntry = true;
 
-    let newEntry = new Entry(value,this.getUserID());
+    let newEntry = new Entry(value, this.getUserID());
 
-    this.storage.storeEntry(this.selectedCategory.id,newEntry)
-    .then((data)=>{
-      this.selectedCategory.entries.push(data)
-      this.loadingEntry = false;
-    }).catch((error)=>{
-      this.loadingEntry = false;
-    })
-    
+    this.storage.storeEntry(this.selectedCategory.id, newEntry)
+      .then((data) => {
+        this.selectedCategory.entries.push(data)
+        this.loadingEntry = false;
+      }).catch((error) => {
+        this.loadingEntry = false;
+      })
+
   }
-  
+
   saveData() {
     this.storage.saveData(this.categoriesNew)
   }

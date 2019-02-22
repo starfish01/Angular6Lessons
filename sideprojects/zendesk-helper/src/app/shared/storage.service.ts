@@ -1,7 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore , AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { JsonPipe } from '@angular/common';
+
 
 @Injectable()
 export class Storage {
@@ -18,7 +19,6 @@ export class Storage {
         this.db.collection('savedData').doc(this.db.createId()).set(
             data, { merge: true }
         ).then((val) => {
-            console.log(val)
             console.log('saved!')
         }).catch(() => {
             console.log('failed')
@@ -26,10 +26,11 @@ export class Storage {
     }
 
     storeEntry(categoryID, data) {
-        console.log(data)
+        let itemKey = this.db.createId();
+        data['id']= itemKey;
         data['categoryID'] = categoryID;
         let jsonData = this.objectTansform(data)
-        let itemKey = this.db.createId();
+        
 
         return this.db.collection('entries').doc(itemKey).set(
             jsonData, { merge: true }
@@ -72,13 +73,17 @@ export class Storage {
     }
 
     getEntries(categoryID) {
-        return this.db.collection('entries', ref => ref.where('categoryID', "==", categoryID).where('displayed','==', '1'))
-        .ref.get().then((querySnapshot)=>{
-            return querySnapshot
-        }).catch((error)=>{
-            console.log(error)
-            return null
-        })
+        return this.db.collection('entries', ref => ref.where('categoryID', "==", categoryID))
+        // .ref.get().then((querySnapshot)=>{
+        //     querySnapshot.forEach(element => {
+        //        console.log(element.data() )
+                
+        //     });
+        //     return querySnapshot
+        // }).catch((error)=>{
+        //     console.log(error)
+        //     return null
+        // })
     }
 
 }
