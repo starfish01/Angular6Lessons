@@ -8,12 +8,14 @@ import { UserdetailsComponent } from './userdetails/userdetails.component';
 import { AuthGuard } from './auth/auth.guard';
 import { EntriesComponent } from './zendesk-body/entries/entries.component';
 import { EntryComponent } from './zendesk-body/entries/entry/entry.component';
+import { EntryEditComponent } from './zendesk-body/entries/entry-edit/entry-edit.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full'},
   { path:'main', component:ZendeskBodyComponent, children:[
     { path:':id', component:EntriesComponent, children: [
-      { path:':entry', component:EntryComponent }
+      { path:':entry', component:EntryComponent },
+      { path: ':entry/edit', component:EntryEditComponent}
     ] },
     // { path:'/entry/:id/edit',component: EditEntryComponent, canActivate:[AuthGuard]}
   ]},

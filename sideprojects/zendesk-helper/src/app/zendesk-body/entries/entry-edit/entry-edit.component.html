@@ -1,3 +1,22 @@
-<p>
-  entry-edit works!
-</p>
+<form [formGroup]="entryUpdateForm" (ngSubmit)="onSubmit()">
+
+  <div class="row">
+    <button class="btn btn-warning" type="submit">Save</button>
+    <button class="btn btn-danger">Delete</button>
+  </div>
+  <hr>
+
+
+  <div class="col-sm-12">
+    <input class="form-control">
+  </div>
+  <hr>
+  <div class="col-sm-12">
+    <textarea class="form-control" name="" id="" rows="6"></textarea>
+  </div>
+
+
+
+
+
+</form>

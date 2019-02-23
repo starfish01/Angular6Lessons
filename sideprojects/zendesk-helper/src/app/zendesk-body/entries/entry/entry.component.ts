@@ -31,14 +31,13 @@ export class EntryComponent implements OnInit {
           if(this.entry == null) {
             this.router.navigate(['main']);
           } else {
-            this.getEntry();
+            // this.getEntry();
           }
         }
       );
   }
 
-  getEntry() {
-
+  editEntry(){
+    this.router.navigate(['edit'], {relativeTo: this.route})
   }
-
 }

@@ -27,23 +27,23 @@ export class Storage {
         })
     }
 
-    storeEntry(categoryID, data) {
-        let itemKey = this.db.createId();
-        data['id']= itemKey;
-        data['categoryID'] = categoryID;
-        let jsonData = this.objectTansform(data)
+    // storeEntry(categoryID, data) {
+    //     let itemKey = this.db.createId();
+    //     data['id']= itemKey;
+    //     data['categoryID'] = categoryID;
+    //     let jsonData = this.objectTansform(data)
         
 
-        return this.db.collection('entries').doc(itemKey).set(
-            jsonData, { merge: true }
-        ).then(() => {
-            jsonData['id'] = itemKey
-            return jsonData;
-        }).catch((error) => {
-            console.log(error)
-            return null;
-        })
-    }
+    //     return this.db.collection('entries').doc(itemKey).set(
+    //         jsonData, { merge: true }
+    //     ).then(() => {
+    //         jsonData['id'] = itemKey
+    //         return jsonData;
+    //     }).catch((error) => {
+    //         console.log(error)
+    //         return null;
+    //     })
+    // }
 
     storeCategory(data) {
         let jsonData = this.objectTansform(data)

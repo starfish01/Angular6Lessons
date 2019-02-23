@@ -46,6 +46,7 @@ import { InformationManagerService } from './zendesk-body/information-manager.se
     AppRoutingModule,
     NgbModule,
     ReactiveFormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features

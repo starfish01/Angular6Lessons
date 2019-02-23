@@ -1,6 +1,14 @@
+<div class="row">
+  <button class="btn btn-primary">Copy</button>
+  <ng-template [ngIf]="authService.authenticated">
+    <button class="btn btn-warning" (click)="editEntry()">Edit</button>
+    <button class="btn btn-danger">Delete</button>
+  </ng-template>
+</div>
+
+<hr>
 <div class="col-sm-12">
   <h3>{{ entry.title }}</h3>
   <hr>
   <p>{{ entry.content }}</p>
 </div>
-
