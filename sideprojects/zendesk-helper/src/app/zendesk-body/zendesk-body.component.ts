@@ -4,6 +4,10 @@ import { Category } from '../shared/category.model';
 import { Entry } from '../shared/entry.model';
 import { UserService } from '../auth/user.service';
 import { Storage } from '../shared/storage.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { InformationManagerService } from './information-manager.service';
+
+var slugify = require('slugify')
 
 @Component({
   selector: 'app-zendesk-body',
@@ -22,63 +26,60 @@ export class ZendeskBodyComponent implements OnInit {
   addCategoryBool = false;
   lodingCategory = false;
 
-  addEntryBool = false;
-  loadingEntry = false;
-
-
 
 
   userToken = null;
 
   @ViewChild("cat") nameField: ElementRef;
-  @ViewChild("entry") entryField: ElementRef;
+  // @ViewChild("entry") entryField: ElementRef;
 
 
 
-  constructor(private authService: AuthService, private userService: UserService, private storage: Storage) { }
+  constructor(private authService: AuthService, private userService: UserService, private storage: Storage, private router: Router,              private route: ActivatedRoute, private iMS: InformationManagerService
+    ) { 
+      this.route.params
+      .subscribe(
+        (params: Params) => {
+          this.iMS.setCategoryIDSelected(null);
+          // this.id = +params['id'];
+          // this.recipe = this.recipeService.getRecipe(this.id);
+        }
+      );
+     }
 
   ngOnInit() {
     this.initLoad = true;
-    this.storage.getCategories().then((data) => {
-      this.initLoad = false;
+    this.iMS.getCategories().subscribe((data)=>{
       data.forEach(element => {
-        this.categoriesNew.push(element.data())
+        this.categoriesNew.push(element)
       });
-    }).catch((error) => {
       this.initLoad = false;
     })
   }
 
   onCategorySelect(selectedCategory) {
 
-    this.storage.getEntries(selectedCategory.id).then((data) => {
-      data.forEach(element => {
-        let newEntryID = element.data().id
-        let ifExists = false;
-        selectedCategory.entries.forEach(element => {
-          if (newEntryID === element.id) {
-            ifExists = true;
-          }
-        });
-        if (!ifExists) {
-          selectedCategory.entries.push(element.data())
-        }
-      });
-    }).catch((error) => {
-      console.log(error)
-    });
+
+    this.iMS.setCategoryIDSelected(selectedCategory.id);
+    this.router.navigate([selectedCategory.slug], {relativeTo: this.route});
 
     this.selectedCategory = selectedCategory
-  }
 
-  onTopicSelect(item) {
-    this.selectedTopic = item;
+    let q = this.storage.getEntries(selectedCategory.id).subscribe((data) => {
+      this.selectedCategory.entries = []
+      data.forEach(element => {
+        this.selectedCategory.entries.push(element)
+      });
+    })
   }
 
 
   addCategoryItem(value) {
     this.lodingCategory = true;
-    let createdCategory = new Category(value, this.getUserID())
+
+    let slug = slugify(value);
+
+    let createdCategory = new Category(value, this.getUserID(), slug)
 
     this.storage.storeCategory(createdCategory).then((data) => {
       this.categoriesNew.push(data)
@@ -98,32 +99,8 @@ export class ZendeskBodyComponent implements OnInit {
     }, 0.1);
   }
 
-  addEntry() {
-    this.addEntryBool = true;
-
-    setTimeout(() => {
-      this.entryField.nativeElement.focus();
-    }, 0.1);
-  }
-
   getUserID() {
     return this.userService.getCurrentUserID();
-  }
-
-  addEntryItem(value) {
-    this.addEntryBool = false;
-    this.loadingEntry = true;
-
-    let newEntry = new Entry(value, this.getUserID());
-
-    this.storage.storeEntry(this.selectedCategory.id, newEntry)
-      .then((data) => {
-        this.selectedCategory.entries.push(data)
-        this.loadingEntry = false;
-      }).catch((error) => {
-        this.loadingEntry = false;
-      })
-
   }
 
   saveData() {

@@ -1,0 +1,28 @@
+<div class="row">
+
+  <div class="col-sm-4">
+    <button *ngFor="let item of entriesList; let i = index" (click)="onTopicSelect(item)"
+      class="list-group-item list-group-item-action">{{ item.title }}</button>
+
+    <ng-template [ngIf]="authService.authenticated">
+      <div (click)="addEntry()" class="add-item list-group-item list-group-item-action">
+
+        <span *ngIf="!addEntryBool && !loadingEntry"><img src="../../assets/tag-cat.svg"> Add Category</span>
+        <span *ngIf="addEntryBool && !loadingEntry">
+          <div class="input-and-button">
+            <img class="button-item" src="../../assets/tag-cat.svg">
+            <input #entry (keyup.enter)="addEntryItem(entry.value)" type="text" class="form-control input-item">
+          </div>
+        </span>
+        <span *ngIf="loadingEntry">
+          <img src="../../assets/loading.svg" style="width:30px">
+        </span>
+
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="col-sm-8">
+    <router-outlet></router-outlet>
+  </div>
+</div>

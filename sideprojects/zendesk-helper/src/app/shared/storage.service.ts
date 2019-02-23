@@ -2,6 +2,8 @@ import { Injectable, OnInit } from '@angular/core';
 
 import { AngularFirestore , AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { JsonPipe } from '@angular/common';
+import { Entry } from './entry.model';
+import { Observable } from 'rxjs';
 
 
 @Injectable()
@@ -72,18 +74,18 @@ export class Storage {
         })
     }
 
-    getEntries(categoryID) {
-        return this.db.collection('entries', ref => ref.where('categoryID', "==", categoryID))
-        // .ref.get().then((querySnapshot)=>{
-        //     querySnapshot.forEach(element => {
-        //        console.log(element.data() )
-                
-        //     });
-        //     return querySnapshot
-        // }).catch((error)=>{
-        //     console.log(error)
-        //     return null
-        // })
+    entriesCollection: AngularFirestoreCollection<Entry>;
+    entries: Observable<Entry[]>;
+
+    getEntries(categoryID):Observable<Entry[]> {
+
+        this.entriesCollection = this.db.collection('entries', ref => ref.where('categoryID', "==", categoryID).where('displayed','==',1))
+
+        this.entries = this.entriesCollection.valueChanges()
+
+        return this.entries
+
+        
     }
 
 }

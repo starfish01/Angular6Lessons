@@ -22,6 +22,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './auth/user.service';
 import { AuthGuard } from './auth/auth.guard';
 import { Storage } from './shared/storage.service';
+import { EntriesComponent } from './zendesk-body/entries/entries.component';
+import { EntryComponent } from './zendesk-body/entries/entry/entry.component';
+import { EntryEditComponent } from './zendesk-body/entries/entry-edit/entry-edit.component';
+import { InformationManagerService } from './zendesk-body/information-manager.service';
 
 
 @NgModule({
@@ -32,7 +36,10 @@ import { Storage } from './shared/storage.service';
     LoginComponent,
     SignupComponent,
     LogoutComponent,
-    UserdetailsComponent
+    UserdetailsComponent,
+    EntriesComponent,
+    EntryComponent,
+    EntryEditComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +50,7 @@ import { Storage } from './shared/storage.service';
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
   ],
-  providers: [AuthService, UserService, AuthGuard,Storage],
+  providers: [AuthService, UserService, AuthGuard,Storage,InformationManagerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

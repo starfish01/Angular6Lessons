@@ -1,0 +1,14 @@
+.add-item {
+    cursor: pointer;
+}
+
+.input-and-button {
+    display: flex;
+    align-items: center;
+    .input-item {
+        width: 80%;
+    }
+    .button-item{
+        margin: auto;
+    }
+}
