@@ -3,14 +3,15 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { Category } from '../shared/category.model';
 import { Observable } from 'rxjs';
 import { Entry } from '../shared/entry.model';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable()
 export class InformationManagerService {
 
-    constructor(private afs:AngularFirestore){}
+    constructor(private afs:AngularFirestore, private router:Router,private route: ActivatedRoute,){}
 
     categorySelectedID: string = null;
-    entrySelected: Entry = null;
+    entrySelected: Entry;
 
     categoriesCollection: AngularFirestoreCollection<Category>;
     categories: Observable<Category[]>;
@@ -48,6 +49,11 @@ export class InformationManagerService {
         if(this.categorySelectedID === null){
             return;
         }
+
+        // this.afs.collection('users').ref.get().then(()=>{
+        //     console.log('something')
+        // })
+
         this.entriesCollection = this.afs.collection('entries', ref => ref.where('categoryID', "==", this.categorySelectedID).where('displayed','==',1))
         this.entries = this.entriesCollection.valueChanges();
         return this.entries;
@@ -72,6 +78,15 @@ export class InformationManagerService {
 
     objectTansform(object) {
         return JSON.parse(JSON.stringify(object))
+    }
+
+    deleteEntry() {
+        this.entriesCollection.doc(this.entrySelected.id).update({displayed:0})
+    }
+
+    updateEntry(data) {
+        this.entriesCollection.doc(this.entrySelected.id).update(data)
+        
     }
 
 }

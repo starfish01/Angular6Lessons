@@ -1,8 +1,12 @@
+<span *ngIf="entry">
 <div class="row">
-  <button class="btn btn-primary">Copy</button>
+  <button (click)="copyToClipboard()" class="btn btn-primary">{{copyButtonText}}</button>
   <ng-template [ngIf]="authService.authenticated">
-    <button class="btn btn-warning" (click)="editEntry()">Edit</button>
-    <button class="btn btn-danger">Delete</button>
+    <button 
+      class="btn btn-warning" 
+      (click)="editEntry()"
+      >Edit</button>
+      
   </ng-template>
 </div>
 
@@ -10,5 +14,6 @@
 <div class="col-sm-12">
   <h3>{{ entry.title }}</h3>
   <hr>
-  <p>{{ entry.content }}</p>
+  <textarea class="form-control" rows="6">{{ entry.content }}</textarea>
 </div>
+</span>

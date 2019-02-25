@@ -10,6 +10,7 @@ import { EntriesComponent } from './zendesk-body/entries/entries.component';
 import { EntryComponent } from './zendesk-body/entries/entry/entry.component';
 import { EntryEditComponent } from './zendesk-body/entries/entry-edit/entry-edit.component';
 
+
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full'},
   { path:'main', component:ZendeskBodyComponent, children:[

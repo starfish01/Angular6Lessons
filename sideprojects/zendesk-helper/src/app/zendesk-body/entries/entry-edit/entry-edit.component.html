@@ -1,22 +1,22 @@
-<form [formGroup]="entryUpdateForm" (ngSubmit)="onSubmit()">
+<form *ngIf="entry" [formGroup]="entryUpdateForm" (ngSubmit)="onSubmit()">
 
   <div class="row">
-    <button class="btn btn-warning" type="submit">Save</button>
-    <button class="btn btn-danger">Delete</button>
+    <button [disabled]="!entryUpdateForm.valid" class="btn btn-warning" type="submit">Save</button>
+    <button class="btn btn-danger" *ngIf="userService.getCurrentUserID() === entry.uID" type="button" (click)="deleteEntry()" >Delete</button>
+    <button [disabled]="!entryUpdateForm.valid" class="btn btn-info" type="button" (click)="cancelEntryChanges()">Cancel</button>
   </div>
   <hr>
 
 
   <div class="col-sm-12">
-    <input class="form-control">
+    <input
+    id="title"
+    formControlName="title" 
+    class="form-control">
   </div>
   <hr>
   <div class="col-sm-12">
-    <textarea class="form-control" name="" id="" rows="6"></textarea>
+    <textarea class="form-control" formControlName="content" id="content" rows="6"></textarea>
   </div>
-
-
-
-
 
 </form>

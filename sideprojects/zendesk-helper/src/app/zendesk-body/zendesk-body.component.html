@@ -16,7 +16,7 @@
           <span *ngIf="addCategoryBool && !lodingCategory">
             <div class="input-and-button">
               <img class="button-item" src="../../assets/tag-cat.svg">
-              <input #cat (keyup.enter)="addCategoryItem(cat.value)" type="text" class="form-control input-item">
+              <input #cat (focusout)="addCategoryBool = false" (keyup.enter)="addCategoryItem(cat.value)" type="text" class="form-control input-item">
             </div>
           </span>
           <span *ngIf="lodingCategory">

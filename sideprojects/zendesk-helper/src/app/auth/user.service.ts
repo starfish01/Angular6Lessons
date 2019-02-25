@@ -9,15 +9,17 @@ export class UserService {
 
   constructor(
     //  public db: AngularFirestore,
-    public afAuth: AngularFireAuth
+    public afAuth: AngularFireAuth,
+    private afs: AngularFirestore
   ) {
   }
+
+  authStatus = 0;
 
   getCurrentUserID() {
     let user = firebase.auth().currentUser.uid;
     return user;
   }
-
 
   getCurrentUser() {
     return new Promise<any>((resolve, reject) => {
@@ -30,6 +32,17 @@ export class UserService {
       })
     })
   }
+
+  getCurrentUserAuthLevel() {
+    this.afs.collection('users').ref.get().then((data) => {
+      console.log(data)
+      return data
+    }).catch(()=>{
+      console.log('error')
+    })
+
+  }
+
 
   updateCurrentUser(value) {
     return new Promise<any>((resolve, reject) => {

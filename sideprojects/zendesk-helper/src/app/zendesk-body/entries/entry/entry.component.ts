@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from 'src/app/auth/user.service';
 import { Entry } from 'src/app/shared/entry.model';
 
+import { ClipboardService } from 'ngx-clipboard'
+
 @Component({
   selector: 'app-entry',
   templateUrl: './entry.component.html',
@@ -17,10 +19,12 @@ export class EntryComponent implements OnInit {
     private router: Router,
     private db:AngularFireModule, 
     private iMS: InformationManagerService,
-    private authService: AuthService, private userService: UserService) { }
+    private authService: AuthService, private userService: UserService,
+    private _clipboardService: ClipboardService) { }
 
     slug:string = null;
     entry: Entry = null;
+    copyButtonText = 'Copy';
 
   ngOnInit() {
     this.route.params
@@ -36,6 +40,17 @@ export class EntryComponent implements OnInit {
         }
       );
   }
+
+  copyToClipboard() {
+    this._clipboardService.copyFromContent(this.entry.content)
+    this.copyButtonText = 'Copied!'
+
+    setTimeout(() => {
+      this.copyButtonText = 'Copy'
+    }, 2000);
+
+  }
+
 
   editEntry(){
     this.router.navigate(['edit'], {relativeTo: this.route})

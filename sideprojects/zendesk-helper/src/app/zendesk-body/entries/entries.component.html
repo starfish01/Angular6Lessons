@@ -11,7 +11,7 @@
         <span *ngIf="addEntryBool && !loadingEntry">
           <div class="input-and-button">
             <img class="button-item" src="../../assets/tag-cat.svg">
-            <input #entry (keyup.enter)="addEntryItem(entry.value)" type="text" class="form-control input-item">
+            <input #entry  (focusout)="addEntryBool = false"  (keyup.enter)="addEntryItem(entry.value)" type="text" class="form-control input-item">
           </div>
         </span>
         <span *ngIf="loadingEntry">
@@ -23,6 +23,7 @@
   </div>
 
   <div class="col-sm-8">
+
     <router-outlet></router-outlet>
   </div>
 </div>

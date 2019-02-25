@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { AngularFireModule } from 'angularfire2';
 import { InformationManagerService } from '../../information-manager.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from 'src/app/auth/user.service';
 import { Entry } from 'src/app/shared/entry.model';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { EventEmitter } from 'events';
 
 @Component({
   selector: 'app-entry-edit',
@@ -20,12 +21,14 @@ export class EntryEditComponent implements OnInit {
     private iMS: InformationManagerService,
     private authService: AuthService, private userService: UserService) { }
 
-  slug: string = null;
-  entry: Entry = null;
+  slug: string;
+  entry: Entry;
 
   entryUpdateForm: FormGroup;
 
   ngOnInit() {
+    
+
     this.route.params
       .subscribe(
         (params: Params) => {
@@ -42,12 +45,35 @@ export class EntryEditComponent implements OnInit {
   }
 
   private initForm() {
+    let title = '';
+    let content = '';
+    const entry = this.entry.id;
+    title = this.entry.title;
+    content = this.entry.content;
+
     this.entryUpdateForm = new FormGroup({
+      'title': new FormControl(title, Validators.required),
+      'content': new FormControl(content, Validators.required)
     })
   }
 
   onSubmit() {
+    this.iMS.updateEntry(this.entryUpdateForm.value);
+    this.router.navigate(['../../'], {relativeTo: this.route})
+  }
 
+  deleteEntry() {
+    this.iMS.deleteEntry();
+    this.redirectAfterChange()
+    this.iMS.setEntrySelected(null);
+  }
+
+  redirectAfterChange() {
+    this.router.navigate(['../../'], {relativeTo: this.route})
+  }
+
+  cancelEntryChanges() {
+    this.router.navigate(['../'], {relativeTo: this.route})
   }
 
 }

@@ -26,7 +26,7 @@ import { EntriesComponent } from './zendesk-body/entries/entries.component';
 import { EntryComponent } from './zendesk-body/entries/entry/entry.component';
 import { EntryEditComponent } from './zendesk-body/entries/entry-edit/entry-edit.component';
 import { InformationManagerService } from './zendesk-body/information-manager.service';
-
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   declarations: [
@@ -50,6 +50,7 @@ import { InformationManagerService } from './zendesk-body/information-manager.se
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
+    ClipboardModule
   ],
   providers: [AuthService, UserService, AuthGuard,Storage,InformationManagerService],
   bootstrap: [AppComponent]

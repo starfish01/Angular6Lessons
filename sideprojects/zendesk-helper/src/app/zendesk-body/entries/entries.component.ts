@@ -26,10 +26,15 @@ export class EntriesComponent implements OnInit {
   entriesList:Entry[] = [];
   addEntryBool = false;
   loadingEntry = false;
+
+  entryExists = false;
+
   @ViewChild("entry") entryField: ElementRef;
 
 
-  selectedTopic = null;
+  setEntryExists(value){
+    this.entryExists = value;
+  }
 
   ngOnInit() {
     this.route.params
@@ -59,9 +64,7 @@ export class EntriesComponent implements OnInit {
   }
 
   onTopicSelect(item) {
-
     this.iMS.setEntrySelected(item);
-
     this.router.navigate([item.slug], {relativeTo: this.route});
   }
 
@@ -74,6 +77,13 @@ export class EntriesComponent implements OnInit {
   }
 
   addEntryItem(value) {
+
+    if(value === ''){
+      this.addEntryBool = false;
+      return;
+    }
+
+
     this.addEntryBool = false;
     this.loadingEntry = true;
 

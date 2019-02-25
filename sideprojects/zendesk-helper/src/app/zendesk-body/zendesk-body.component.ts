@@ -75,6 +75,11 @@ export class ZendeskBodyComponent implements OnInit {
 
 
   addCategoryItem(value) {
+    if(value === ''){
+      this.addCategoryBool = false;
+      return;
+    }
+
     this.lodingCategory = true;
 
     let slug = slugify(value);
