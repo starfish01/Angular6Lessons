@@ -9,16 +9,38 @@
 
     <!-- Sign Up Form -->
     <form [formGroup]="signupForm" (ngSubmit)="tryRegister()">
-      <input type="text" id="email" class="fadeIn second" formControlName="email" placeholder="email">
-      <input type="text" id="password" class="fadeIn third" formControlName="password" placeholder="password">
-      <input *ngIf="!loading" type="submit" class="fadeIn fourth" value="Sign Up">
+      <input type="text" id="name" class="fadeIn" formControlName="name" placeholder="name">
+      <input type="text" id="email" class="fadeIn" formControlName="email" placeholder="email">
+      <input type="text" id="password" class="fadeIn " formControlName="password" placeholder="password">
+      <input type="text" id="confirm" class="fadeIn " formControlName="confirm" placeholder="confirm password">
+
+      
+      <mat-select  placeholder="plans" name="plan">
+        <mat-option *ngFor="let plan of plans" [value]="plan">
+          {{plan.viewValue}}
+        </mat-option>
+      </mat-select>
+      -
+      {{ plan }}
+      -
+      <input *ngIf="plan" type="text" id="orgname" class="fadeIn " formControlName="orgname" placeholder="Organisation">
+
+
+    
+
+
+
+      <input  type="submit" class="fadeIn " value="Sign Up">
+
+
+
       <div style="margin:20px">
         <img *ngIf="loading" style="width:50px" src="../../../assets/loading.svg">
       </div>
     </form>
 
     <!-- Remind Passowrd -->
-    <div id="formFooter" class="fadeIn fifth">
+    <div id="formFooter" class="fadeIn ">
       <a [routerLink]="[ '/login']">Already have an account?</a>
     </div>
 

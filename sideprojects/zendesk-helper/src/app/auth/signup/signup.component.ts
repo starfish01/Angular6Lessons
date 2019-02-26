@@ -17,14 +17,27 @@ export class SignupComponent implements OnInit {
 
   loading = false;
 
+  plans = [
+    {value: 'singlePlan', viewValue: 'Single Plan $0'},
+    {value: 'orgPlan', viewValue: 'Organisation Plan $0'},
+  ];
+
 
   private initForm() {
+    let name ='';
     let email = '';
     let password ='';
+    let confirm = '';
+    let plan = '';
+
+    
 
     this.signupForm = new FormGroup({
+      'name': new FormControl(name,[Validators.required]),
       'email': new FormControl(email,[Validators.required,Validators.email]),
       'password': new FormControl(password,[Validators.required,Validators.minLength(6)]),
+      'confirm': new FormControl(confirm,[Validators.required]),
+      'plan': new FormControl(plan,[Validators.required]),
     })
 
   }

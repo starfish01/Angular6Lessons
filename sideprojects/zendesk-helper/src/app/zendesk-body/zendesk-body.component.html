@@ -2,8 +2,14 @@
   <img src="../../assets/loading.svg" style="width:30px">
 </span>
 
-<mat-grid-list cols="4">
-  <div colspan="1" *ngIf="!initLoad">
+<div class="container1"
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="10px"
+     fxLayoutGap.xs="0">
+
+  <div class="item item-1" fxFlex="30%" *ngIf="!initLoad">
 
     <mat-nav-list>
       <span *ngFor="let item of categoriesNew; let i = index">
@@ -31,7 +37,8 @@
 
     </mat-nav-list>
   </div>
-  <div colspan="1">
+  <div class="item item-2" fxFlex="70%">
     <router-outlet></router-outlet>
   </div>
-</mat-grid-list>
+ 
+</div>

@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 export const firebaseConfig = environment.firebase;
 
 
@@ -28,8 +27,8 @@ import { EntryEditComponent } from './zendesk-body/entries/entry-edit/entry-edit
 import { InformationManagerService } from './zendesk-body/information-manager.service';
 import { ClipboardModule } from 'ngx-clipboard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatToolbarModule,MatGridListModule,MatButtonModule,MatInputModule,MatMenuModule,MatDividerModule,MatCardModule,MatListModule,MatFormFieldModule} from '@angular/material';
-
+import {MatToolbarModule,MatSelectModule,MatGridListModule,MatButtonModule,MatInputModule,MatMenuModule,MatDividerModule,MatCardModule,MatListModule,MatFormFieldModule} from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -48,7 +47,6 @@ import {MatToolbarModule,MatGridListModule,MatButtonModule,MatInputModule,MatMen
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule,
     ReactiveFormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseConfig),
@@ -64,7 +62,9 @@ import {MatToolbarModule,MatGridListModule,MatButtonModule,MatInputModule,MatMen
     MatFormFieldModule,
     MatListModule,
     MatGridListModule,
-    BrowserAnimationsModule
+    FlexLayoutModule,
+    BrowserAnimationsModule,
+    MatSelectModule
   ],
   providers: [AuthService, UserService, AuthGuard,Storage,InformationManagerService],
   bootstrap: [AppComponent]

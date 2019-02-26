@@ -1,6 +1,6 @@
 
-<div class="row">
-  <div class="col-sm-4">
+<div>
+  <div class="item item-3" fxFlex="30%" >
     <mat-nav-list>
       <span *ngFor="let item of entriesList; let i = index">
         <mat-list-item (click)="onTopicSelect(item)">
@@ -31,7 +31,9 @@
     </mat-nav-list>
   </div>
 
-  <div class="col-sm-8">
-    <router-outlet></router-outlet>
+  <div class="item item-3" fxFlex="70%" >
+    
+        <router-outlet></router-outlet>
+    
   </div>
 </div>
