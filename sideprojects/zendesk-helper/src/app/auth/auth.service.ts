@@ -64,14 +64,13 @@ export class AuthService {
   }
 
 
+
   doRegister(value) {
     return new Promise<any>((resolve, reject) => {
       firebase.auth().createUserWithEmailAndPassword(value.email, value.password)
         .then(res => {
 
           this.updateUserData(res.user)
-          resolve(res);
-
           resolve(res);
         }, err => reject(err))
     })
