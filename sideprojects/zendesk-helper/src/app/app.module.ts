@@ -28,6 +28,8 @@ import { EntryEditComponent } from './zendesk-body/entries/entry-edit/entry-edit
 import { InformationManagerService } from './zendesk-body/information-manager.service';
 import { ClipboardModule } from 'ngx-clipboard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatToolbarModule,MatGridListModule,MatButtonModule,MatInputModule,MatMenuModule,MatDividerModule,MatCardModule,MatListModule,MatFormFieldModule} from '@angular/material';
+
 
 
 @NgModule({
@@ -53,6 +55,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
     ClipboardModule, 
+    MatToolbarModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatDividerModule,
+    MatCardModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatListModule,
+    MatGridListModule,
     BrowserAnimationsModule
   ],
   providers: [AuthService, UserService, AuthGuard,Storage,InformationManagerService],

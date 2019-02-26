@@ -2,33 +2,36 @@
   <img src="../../assets/loading.svg" style="width:30px">
 </span>
 
-<div class="row" *ngIf="!initLoad">
+<mat-grid-list cols="4">
+  <div colspan="1" *ngIf="!initLoad">
 
-  <div class="col-sm-3 categories">
-
-    <div class="list-group">
-      <button *ngFor="let item of categoriesNew; let i = index" (click)="onCategorySelect(item)"
-        class="list-group-item list-group-item-action">{{ item.category }}</button>
+    <mat-nav-list>
+      <span *ngFor="let item of categoriesNew; let i = index">
+        <mat-list-item (click)="onCategorySelect(item)">
+          {{ item.category }}</mat-list-item>
+        <mat-divider></mat-divider>
+      </span>
 
       <ng-template [ngIf]="authService.authenticated">
-        <div (click)="addCategory()" class="add-item list-group-item list-group-item-action">
+        <mat-list-item (click)="addCategory()">
           <span *ngIf="!addCategoryBool && !lodingCategory"><img src="../../assets/tag-cat.svg"> Add Category</span>
           <span *ngIf="addCategoryBool && !lodingCategory">
             <div class="input-and-button">
               <img class="button-item" src="../../assets/tag-cat.svg">
-              <input #cat (focusout)="addCategoryBool = false" (keyup.enter)="addCategoryItem(cat.value)" type="text" class="form-control input-item">
+              <input #cat (focusout)="addCategoryBool = false" (keyup.enter)="addCategoryItem(cat.value)" type="text"
+                class="form-control input-item">
             </div>
           </span>
           <span *ngIf="lodingCategory">
             <img src="../../assets/loading.svg" style="width:30px">
           </span>
+        </mat-list-item>
 
-        </div>
       </ng-template>
-    </div>
 
+    </mat-nav-list>
   </div>
-  <div class="col-sm-9">
+  <div colspan="1">
     <router-outlet></router-outlet>
   </div>
-</div>
+</mat-grid-list>

@@ -1,22 +1,21 @@
 <form *ngIf="entry" [formGroup]="entryUpdateForm" (ngSubmit)="onSubmit()">
 
-  <div class="row">
-    <button [disabled]="!entryUpdateForm.valid" class="btn btn-warning" type="submit">Save</button>
-    <button class="btn btn-danger" *ngIf="userService.getCurrentUserID() === entry.uID" type="button" (click)="deleteEntry()" >Delete</button>
-    <button [disabled]="!entryUpdateForm.valid" class="btn btn-info" type="button" (click)="cancelEntryChanges()">Cancel</button>
-  </div>
-  <hr>
+  <mat-form-field class="container-full-width-items" appearance="standard">
+    <input matInput id="title" formControlName="title">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="container-full-width-items">
+    <textarea matInput rows="6" placeholder="Email" id="content" formControlName="content"
+      value="{{ entry.content }}"></textarea>
+  </mat-form-field>
 
 
-  <div class="col-sm-12">
-    <input
-    id="title"
-    formControlName="title" 
-    class="form-control">
-  </div>
-  <hr>
-  <div class="col-sm-12">
-    <textarea class="form-control" formControlName="content" id="content" rows="6"></textarea>
+  <div>
+    <button mat-stroked-button color="primary" [disabled]="!entryUpdateForm.valid" type="submit">Save</button>
+    <button mat-stroked-button color="primary" *ngIf="userService.getCurrentUserID() === entry.uID" type="button"
+      (click)="deleteEntry()">Delete</button>
+    <button mat-stroked-button color="primary" [disabled]="!entryUpdateForm.valid" type="button"
+      (click)="cancelEntryChanges()">Cancel</button>
   </div>
 
 </form>

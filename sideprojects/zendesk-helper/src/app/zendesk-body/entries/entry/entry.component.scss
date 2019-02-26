@@ -11,3 +11,21 @@ button.btn.btn-warning {
 button.btn.btn-primary {
     margin-left: 5%;
 }
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.container > * {
+    width: 100%;    
+}
+
+mat-form-field {
+    width: 100%
+}
+
+h3 {
+    
+    padding-top: 7px;
+}

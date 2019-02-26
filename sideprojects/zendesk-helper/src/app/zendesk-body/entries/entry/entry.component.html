@@ -1,19 +1,22 @@
-<span *ngIf="entry">
-<div class="row">
-  <button (click)="copyToClipboard()" class="btn btn-primary">{{copyButtonText}}</button>
-  <ng-template [ngIf]="authService.authenticated">
-    <button 
-      class="btn btn-warning" 
-      (click)="editEntry()"
-      >Edit</button>
-      
-  </ng-template>
-</div>
+<div class="container">
+  <span *ngIf="entry">
 
-<hr>
-<div class="col-sm-12">
-  <h3>{{ entry.title }}</h3>
-  <hr>
-  <textarea class="form-control" rows="6">{{ entry.content }}</textarea>
+    <h3>{{ entry.title }}</h3>
+    <hr>
+    <mat-form-field appearance="outline">
+      <textarea matInput rows="6" placeholder="Email" value="{{ entry.content }}"></textarea>
+    </mat-form-field>
+
+  </span>
+
+  <div>
+    <button mat-stroked-button color="primary" (click)="copyToClipboard()">{{copyButtonText}}</button>
+    <ng-template [ngIf]="authService.authenticated">
+      <button mat-stroked-button color="primary" (click)="editEntry()">Edit</button>
+    </ng-template>
+
+  </div>
+
+
+
 </div>
-</span>
