@@ -15,24 +15,19 @@
       <input type="text" id="confirm" class="fadeIn " formControlName="confirm" placeholder="confirm password">
 
       
-      <mat-select  placeholder="plans" name="plan">
-        <mat-option *ngFor="let plan of plans" [value]="plan">
+      <mat-select id="plan" formControlName="plan" placeholder="plans" name="plan">
+        <mat-option *ngFor="let plan of plans" [value]="plan.value">
           {{plan.viewValue}}
         </mat-option>
       </mat-select>
-      -
-      {{ plan }}
-      -
-      <input *ngIf="plan" type="text" id="orgname" class="fadeIn " formControlName="orgname" placeholder="Organisation">
 
+      <input *ngIf="signupForm.value.plan == 'orgPlan'" type="text" id="orgName" class="fadeIn" formControlName="orgName" placeholder="organisation name">
 
-    
+      <input [disabled]="signupForm.invalid"  type="submit" class="fadeIn submitButton" value="Sign Up">
 
-
-
-      <input  type="submit" class="fadeIn " value="Sign Up">
-
-
+      <p *ngIf="errorMessage != ''">
+        {{errorMessage}}
+      </p>
 
       <div style="margin:20px">
         <img *ngIf="loading" style="width:50px" src="../../../assets/loading.svg">

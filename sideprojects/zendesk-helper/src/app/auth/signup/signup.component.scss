@@ -1,5 +1,13 @@
+.ng-touched {
+  .ng-touched {
+    border-left: 2px red solid;
+  }
+  .ng-valid {
+    border-left: none;
+  }
+}
 
-  
+
   body {
     font-family: "Poppins", sans-serif;
     height: 100vh;
@@ -21,8 +29,10 @@
     margin: 40px 8px 10px 8px; 
     color: #cccccc;
   }
-  
-  
+
+  .submitButton[disabled]{
+    display: none;
+  }
   
   /* STRUCTURE */
   

@@ -29,6 +29,7 @@ export class SignupComponent implements OnInit {
     let password ='';
     let confirm = '';
     let plan = '';
+    let orgName = '';
 
     
 
@@ -38,6 +39,7 @@ export class SignupComponent implements OnInit {
       'password': new FormControl(password,[Validators.required,Validators.minLength(6)]),
       'confirm': new FormControl(confirm,[Validators.required]),
       'plan': new FormControl(plan,[Validators.required]),
+      'orgName':new FormControl(orgName)
     })
 
   }
@@ -56,9 +58,16 @@ export class SignupComponent implements OnInit {
     )
   }
 
+  
+
+
   tryRegister(){
     this.loading = true;
     let value = this.signupForm.value;
+    
+   
+
+    console.log(this.signupForm)
 
     this.authService.doRegister(value)
     .then(res => {
