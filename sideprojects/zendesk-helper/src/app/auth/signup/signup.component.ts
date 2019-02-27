@@ -65,9 +65,6 @@ export class SignupComponent implements OnInit {
     this.loading = true;
     let value = this.signupForm.value;
     
-   
-
-    console.log(this.signupForm)
 
     this.authService.doRegister(value)
     .then(res => {

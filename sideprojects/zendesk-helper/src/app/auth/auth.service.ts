@@ -9,7 +9,7 @@ import { AngularFirestoreDocument, AngularFirestore } from 'angularfire2/firesto
 interface User {
   uid: string,
   email: string,
-  authStatus:number
+  authStatus: number
 }
 
 @Injectable()
@@ -17,6 +17,7 @@ export class AuthService {
 
 
   userToken: string;
+  authStatus: number;
 
   private authState: any;
 
@@ -50,8 +51,9 @@ export class AuthService {
 
   private updateUserData(user) {
     // Sets user data to firestore on login
-    console.log(user)
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+
+
 
     const data: User = {
       uid: user.uid,
@@ -59,7 +61,11 @@ export class AuthService {
       authStatus: 1
     }
 
-    return userRef.set(data, { merge: true })
+    userRef.set(data, { merge: true })
+
+
+
+
 
   }
 

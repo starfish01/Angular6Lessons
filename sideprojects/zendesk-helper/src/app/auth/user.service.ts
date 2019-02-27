@@ -14,8 +14,6 @@ export class UserService {
   ) {
   }
 
-  authStatus = 0;
-
   getCurrentUserID() {
     let user = firebase.auth().currentUser.uid;
     return user;

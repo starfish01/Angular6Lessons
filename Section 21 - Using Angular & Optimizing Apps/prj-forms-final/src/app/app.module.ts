@@ -16,7 +16,7 @@ import { RecipeService } from './recipes/recipe.service';
 import { DataStroageService } from './shared/data-storage.service';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
-import { ConfigDetails } from 'config';
+import { ConfigDetails } from '../app/shared/config';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
 import { RecipesModule } from './recipes/recipes.module';
