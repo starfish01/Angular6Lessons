@@ -4,11 +4,12 @@ import { Category } from '../shared/category.model';
 import { Observable } from 'rxjs';
 import { Entry } from '../shared/entry.model';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class InformationManagerService {
 
-    constructor(private afs:AngularFirestore, private router:Router,private route: ActivatedRoute,){}
+    constructor(private afs:AngularFirestore, private router:Router,private route: ActivatedRoute,private authSevice:AuthService){}
 
     categorySelectedID: string = null;
     entrySelected: Entry;
@@ -40,6 +41,9 @@ export class InformationManagerService {
     
 
     getCategories() {
+
+        //https://stackoverflow.com/questions/51354305/angular-firebase-cant-get-current-user-after-page-refresh
+
         this.categoriesCollection = this.afs.collection('category');
         this.categories = this.categoriesCollection.valueChanges();
         return this.categories;

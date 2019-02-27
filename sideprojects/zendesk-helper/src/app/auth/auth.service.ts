@@ -27,6 +27,7 @@ export class AuthService {
     })
   }
 
+
   get authenticated(): boolean {
     return this.authState !== null;
   }
@@ -62,10 +63,6 @@ export class AuthService {
     }
 
     userRef.set(data, { merge: true })
-
-
-
-
 
   }
 

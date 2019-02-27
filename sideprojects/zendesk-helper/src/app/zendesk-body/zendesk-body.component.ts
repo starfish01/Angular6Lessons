@@ -49,7 +49,12 @@ export class ZendeskBodyComponent implements OnInit {
 
   ngOnInit() {
     this.initLoad = true;
+    this.getCategories();
+  }
+
+  getCategories(){
     this.iMS.getCategories().subscribe((data)=>{
+      this.categoriesNew = [];
       data.forEach(element => {
         this.categoriesNew.push(element)
       });
@@ -58,7 +63,6 @@ export class ZendeskBodyComponent implements OnInit {
   }
 
   onCategorySelect(selectedCategory) {
-
 
     this.iMS.setCategoryIDSelected(selectedCategory.id);
     this.router.navigate([selectedCategory.slug], {relativeTo: this.route});
