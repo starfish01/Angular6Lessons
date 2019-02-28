@@ -24,9 +24,17 @@ export class AuthService {
   constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore) {
     this.afAuth.authState.subscribe((auth) => {
       this.authState = auth
+      //console.log(auth)
     })
   }
 
+  get authStateLive() {
+    return this.afAuth.authState.subscribe((data)=>{
+      console.log(data)
+      return data.uid
+    })
+    
+  }
 
   get authenticated(): boolean {
     return this.authState !== null;

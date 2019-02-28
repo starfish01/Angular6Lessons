@@ -53,6 +53,9 @@ export class ZendeskBodyComponent implements OnInit {
   }
 
   getCategories(){
+    //console.log(this.authService.authStateLive['uid'])
+
+
     this.iMS.getCategories().subscribe((data)=>{
       this.categoriesNew = [];
       data.forEach(element => {
