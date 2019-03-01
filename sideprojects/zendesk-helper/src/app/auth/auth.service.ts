@@ -24,7 +24,6 @@ export class AuthService {
   constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore) {
     this.afAuth.authState.subscribe((auth) => {
       this.authState = auth
-      //console.log(auth)
     })
   }
 

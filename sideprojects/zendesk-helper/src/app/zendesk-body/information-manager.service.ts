@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { Entry } from '../shared/entry.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import * as firebase from 'firebase/app';
+
 
 @Injectable()
 export class InformationManagerService {
@@ -40,11 +42,9 @@ export class InformationManagerService {
     }
     
 
-    getCategories() {
+    getCategories(uid) {
 
-        //https://stackoverflow.com/questions/51354305/angular-firebase-cant-get-current-user-after-page-refresh
-
-        this.categoriesCollection = this.afs.collection('category');
+        this.categoriesCollection = this.afs.collection('category', ref => ref.where('uID','==',uid));
         this.categories = this.categoriesCollection.valueChanges();
         return this.categories;
     }

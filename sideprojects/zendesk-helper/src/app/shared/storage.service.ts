@@ -61,31 +61,30 @@ export class Storage {
             console.log('failed')
             return null
         })
-        this.getCategories();
+        // this.getCategories();
         return p
     }
 
-    getCategories() {
-        return this.db.firestore.collection('category').get().then(data => {
-            return data;
-        }).catch((error) => {
-            console.log(error)
-            return null;
-        })
-    }
+    // getCategories() {
+    //     return this.db.firestore.collection('category').get().then(data => {
+    //         return data;
+    //     }).catch((error) => {
+    //         console.log(error)
+    //         return null;
+    //     })
+    // }
 
-    entriesCollection: AngularFirestoreCollection<Entry>;
-    entries: Observable<Entry[]>;
+    // entriesCollection: AngularFirestoreCollection<Entry>;
+    // entries: Observable<Entry[]>;
 
-    getEntries(categoryID):Observable<Entry[]> {
+    // getEntries(categoryID):Observable<Entry[]> {
 
-        this.entriesCollection = this.db.collection('entries', ref => ref.where('categoryID', "==", categoryID).where('displayed','==',1))
+    //     this.entriesCollection = this.db.collection('entries', ref => ref.where('categoryID', "==", categoryID).where('displayed','==',1))
 
-        this.entries = this.entriesCollection.valueChanges()
+    //     this.entries = this.entriesCollection.valueChanges()
 
-        return this.entries
-
+    //     return this.entries
         
-    }
+    // }
 
 }

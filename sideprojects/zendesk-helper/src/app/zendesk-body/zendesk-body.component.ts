@@ -6,6 +6,8 @@ import { UserService } from '../auth/user.service';
 import { Storage } from '../shared/storage.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { InformationManagerService } from './information-manager.service';
+import * as firebase from 'firebase/app';
+
 
 var slugify = require('slugify')
 
@@ -26,6 +28,7 @@ export class ZendeskBodyComponent implements OnInit {
   addCategoryBool = false;
   lodingCategory = false;
 
+  currentUser;
 
 
   userToken = null;
@@ -47,16 +50,23 @@ export class ZendeskBodyComponent implements OnInit {
       );
      }
 
+
+
   ngOnInit() {
     this.initLoad = true;
-    this.getCategories();
+
+    this.userService.getCurrentUser().then((data)=>{
+      this.userToken = data.uid;
+      this.getCategories()  
+    }).catch((error)=>{
+      this.userToken = null;
+      console.log(error)
+    })
   }
 
   getCategories(){
-    //console.log(this.authService.authStateLive['uid'])
-
-
-    this.iMS.getCategories().subscribe((data)=>{
+    
+    this.iMS.getCategories(this.userToken).subscribe((data)=>{
       this.categoriesNew = [];
       data.forEach(element => {
         this.categoriesNew.push(element)
@@ -72,7 +82,7 @@ export class ZendeskBodyComponent implements OnInit {
 
     this.selectedCategory = selectedCategory
 
-    let q = this.storage.getEntries(selectedCategory.id).subscribe((data) => {
+    let q = this.iMS.getEntries().subscribe((data) => {
       this.selectedCategory.entries = []
       data.forEach(element => {
         this.selectedCategory.entries.push(element)
@@ -94,7 +104,6 @@ export class ZendeskBodyComponent implements OnInit {
     let createdCategory = new Category(value, this.getUserID(), slug)
 
     this.storage.storeCategory(createdCategory).then((data) => {
-      this.categoriesNew.push(data)
       this.lodingCategory = false;
     }).catch((err) => {
       this.lodingCategory = false;
