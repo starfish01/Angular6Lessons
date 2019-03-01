@@ -9,11 +9,12 @@ import { AuthGuard } from './auth/auth.guard';
 import { EntriesComponent } from './zendesk-body/entries/entries.component';
 import { EntryComponent } from './zendesk-body/entries/entry/entry.component';
 import { EntryEditComponent } from './zendesk-body/entries/entry-edit/entry-edit.component';
+import { UserResolver } from './userdetails/user.resolver';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full'},
-  { path:'main', component:ZendeskBodyComponent, children:[
+  { path:'main', component:ZendeskBodyComponent, resolve: { data: UserResolver}, children:[
     { path:':id', component:EntriesComponent, children: [
       { path:':entry', component:EntryComponent },
       { path: ':entry/edit', component:EntryEditComponent}
@@ -23,7 +24,7 @@ const routes: Routes = [
   { path:'login', component: LoginComponent, canActivate: [AuthGuard]},
   { path: 'signup', component: SignupComponent,canActivate: [AuthGuard]},
   { path: 'logout', component: LogoutComponent },
-  { path:'user', component: UserdetailsComponent },
+  { path:'user', component: UserdetailsComponent, resolve: { data: UserResolver} },
   { path: "**", redirectTo: "/main" }
 ];
 

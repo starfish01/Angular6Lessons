@@ -11,10 +11,9 @@
 
   <div>
     <button mat-stroked-button color="primary" (click)="copyToClipboard()">{{copyButtonText}}</button>
-    <ng-template [ngIf]="authService.authenticated">
+    
       <button mat-stroked-button color="primary" (click)="editEntry()">Edit</button>
-    </ng-template>
-
+   
   </div>
 
 

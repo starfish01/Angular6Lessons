@@ -60,6 +60,7 @@ export class ZendeskBodyComponent implements OnInit {
       this.getCategories()  
     }).catch((error)=>{
       this.userToken = null;
+      this.initLoad = false;
       console.log(error)
     })
   }

@@ -20,11 +20,15 @@ export class HeaderComponent implements OnInit {
 
   logoutUser() {
     this.authService.doLogout();
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
     }
 
     dataButton() {
 
+    }
+
+    isAuthenticated(){
+      return this.authService.isAuthenticated();
     }
 
 

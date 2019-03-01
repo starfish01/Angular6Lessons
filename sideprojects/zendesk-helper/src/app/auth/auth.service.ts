@@ -18,6 +18,7 @@ export class AuthService {
 
   userToken: string;
   authStatus: number;
+  token: string;
 
   private authState: any;
 
@@ -40,7 +41,7 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    return this.userToken != null;
+    return this.authState !== null;
   }
 
   doGoogleLogin() {
@@ -90,12 +91,14 @@ export class AuthService {
     return new Promise<any>((resolve, reject) => {
       firebase.auth().signInWithEmailAndPassword(value.email, value.password)
         .then(res => {
+         
           this.updateUserData(res.user)
 
           resolve(res);
         }, err => reject(err))
     })
   }
+
 
   doLogout() {
     return new Promise((resolve, reject) => {

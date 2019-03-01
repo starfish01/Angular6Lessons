@@ -29,6 +29,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatToolbarModule,MatSelectModule,MatGridListModule,MatButtonModule,MatInputModule,MatMenuModule,MatDividerModule,MatCardModule,MatListModule,MatFormFieldModule} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { UserResolver } from './userdetails/user.resolver';
 
 
 @NgModule({
@@ -66,7 +67,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     BrowserAnimationsModule,
     MatSelectModule
   ],
-  providers: [AuthService, UserService, AuthGuard,Storage,InformationManagerService],
+  providers: [AuthService, UserService, AuthGuard,Storage,InformationManagerService,UserResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

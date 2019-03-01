@@ -41,6 +41,10 @@ export class EntryComponent implements OnInit {
       );
   }
 
+  isAuthenticated() {
+    return this.authService.isAuthenticated();
+  }
+
   copyToClipboard() {
     this._clipboardService.copyFromContent(this.entry.content)
     this.copyButtonText = 'Copied!'
