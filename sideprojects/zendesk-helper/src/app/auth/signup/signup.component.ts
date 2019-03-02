@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { InformationManagerService } from 'src/app/zendesk-body/information-manager.service';
 
 @Component({
   selector: 'app-signup',
@@ -44,7 +45,7 @@ export class SignupComponent implements OnInit {
 
   }
 
-  constructor(private authService:AuthService, private router:Router) { }
+  constructor(private authService:AuthService, private router:Router, private iMS:InformationManagerService) { }
 
   ngOnInit() {
     this.initForm();
@@ -64,11 +65,8 @@ export class SignupComponent implements OnInit {
   tryRegister(){
     this.loading = true;
     let value = this.signupForm.value;
-    
-
     this.authService.doRegister(value)
     .then(res => {
-      console.log(res);
       this.errorMessage = "";
       this.successMessage = "Your account has been created";
       this.loading = false;

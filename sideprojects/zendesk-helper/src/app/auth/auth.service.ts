@@ -105,6 +105,7 @@ export class AuthService {
       if (firebase.auth().currentUser) {
         this.afAuth.auth.signOut();
         this.userToken = null;
+        this.authState = null;
         resolve();
       }
       else {

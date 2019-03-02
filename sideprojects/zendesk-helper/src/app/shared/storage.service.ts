@@ -11,9 +11,7 @@ export class Storage {
     constructor(private db: AngularFirestore) { }
 
 
-    objectTansform(object) {
-        return JSON.parse(JSON.stringify(object))
-    }
+
 
     saveData(data) {
         //need to figure this out
@@ -27,23 +25,9 @@ export class Storage {
         })
     }
 
-    // storeEntry(categoryID, data) {
-    //     let itemKey = this.db.createId();
-    //     data['id']= itemKey;
-    //     data['categoryID'] = categoryID;
-    //     let jsonData = this.objectTansform(data)
-        
-
-    //     return this.db.collection('entries').doc(itemKey).set(
-    //         jsonData, { merge: true }
-    //     ).then(() => {
-    //         jsonData['id'] = itemKey
-    //         return jsonData;
-    //     }).catch((error) => {
-    //         console.log(error)
-    //         return null;
-    //     })
-    // }
+    objectTansform(object) {
+        return JSON.parse(JSON.stringify(object))
+    }
 
     storeCategory(data) {
         let jsonData = this.objectTansform(data)
@@ -61,30 +45,9 @@ export class Storage {
             console.log('failed')
             return null
         })
-        // this.getCategories();
         return p
     }
 
-    // getCategories() {
-    //     return this.db.firestore.collection('category').get().then(data => {
-    //         return data;
-    //     }).catch((error) => {
-    //         console.log(error)
-    //         return null;
-    //     })
-    // }
-
-    // entriesCollection: AngularFirestoreCollection<Entry>;
-    // entries: Observable<Entry[]>;
-
-    // getEntries(categoryID):Observable<Entry[]> {
-
-    //     this.entriesCollection = this.db.collection('entries', ref => ref.where('categoryID', "==", categoryID).where('displayed','==',1))
-
-    //     this.entries = this.entriesCollection.valueChanges()
-
-    //     return this.entries
-        
-    // }
+  
 
 }

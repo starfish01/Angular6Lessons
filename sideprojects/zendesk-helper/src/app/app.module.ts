@@ -30,7 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatToolbarModule,MatSelectModule,MatGridListModule,MatButtonModule,MatInputModule,MatMenuModule,MatDividerModule,MatCardModule,MatListModule,MatFormFieldModule} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { UserResolver } from './userdetails/user.resolver';
-
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -65,7 +65,8 @@ import { UserResolver } from './userdetails/user.resolver';
     MatGridListModule,
     FlexLayoutModule,
     BrowserAnimationsModule,
-    MatSelectModule
+    MatSelectModule,
+    LayoutModule
   ],
   providers: [AuthService, UserService, AuthGuard,Storage,InformationManagerService,UserResolver],
   bootstrap: [AppComponent]

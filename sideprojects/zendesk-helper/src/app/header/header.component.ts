@@ -5,6 +5,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { UserService } from '../auth/user.service';
 import { isBoolean } from 'util';
 import { Storage } from '../shared/storage.service';
+import {LayoutModule, BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-header',
@@ -13,21 +14,39 @@ import { Storage } from '../shared/storage.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private authService:AuthService, private router:Router, private storage:Storage ) { }
+  constructor(private authService:AuthService, private router:Router,  private breakpointObserver: BreakpointObserver) { 
+  }
+
+  isMobile:boolean;
 
   ngOnInit() {
+    this.breakpointObserver.observe(['(min-width: 600px)']).subscribe((state:BreakpointState)=>{
+      if(state.matches) {
+        this.isMobile = false;
+      } else {
+        this.isMobile = true;
+      }
+    })
+
   }
 
   logoutUser() {
-    this.authService.doLogout();
-    this.router.navigate(['/login']);
+    this.authService.doLogout().then((data)=>{
+      this.router.navigate(['/login']);
+    });
+
     }
 
-    dataButton() {
-
+    mobileConnect(value){
+      if(value === 'login') {
+        this.router.navigate(['/login'])
+      } else {
+        this.router.navigate(['/signup'])
+      }
     }
 
     isAuthenticated(){
+      
       return this.authService.isAuthenticated();
     }
 

@@ -7,6 +7,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import * as firebase from 'firebase/app';
 
+var slugify = require('slugify')
+
 
 @Injectable()
 export class InformationManagerService {
@@ -93,4 +95,5 @@ export class InformationManagerService {
         
     }
 
+    
 }
