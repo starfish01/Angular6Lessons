@@ -46,7 +46,7 @@ export class InformationManagerService {
 
     getCategories(uid) {
 
-        this.categoriesCollection = this.afs.collection('category', ref => ref.where('uID','==',uid));
+        this.categoriesCollection = this.afs.collection('category', ref => ref.where('uID','==',uid).where('displayed', '==',1));
         this.categories = this.categoriesCollection.valueChanges();
         return this.categories;
     }
@@ -55,10 +55,6 @@ export class InformationManagerService {
         if(this.categorySelectedID === null){
             return;
         }
-
-        // this.afs.collection('users').ref.get().then(()=>{
-        //     console.log('something')
-        // })
 
         this.entriesCollection = this.afs.collection('entries', ref => ref.where('categoryID', "==", this.categorySelectedID).where('displayed','==',1))
         this.entries = this.entriesCollection.valueChanges();
@@ -92,7 +88,14 @@ export class InformationManagerService {
 
     updateEntry(data) {
         this.entriesCollection.doc(this.entrySelected.id).update(data)
-        
+    }
+
+    updateCategory(data) {
+        this.categoriesCollection.doc(data.id).update(data)
+    }
+    deleteCategory(data) {
+        data['displayed'] = 0
+        this.categoriesCollection.doc(data.id).update(data)
     }
 
     

@@ -5,7 +5,7 @@ export const firebaseConfig = environment.firebase;
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './core/header/header.component';
 import { ZendeskBodyComponent } from './zendesk-body/zendesk-body.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
@@ -31,6 +31,7 @@ import {MatToolbarModule,MatSelectModule,MatGridListModule,MatButtonModule,MatIn
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { UserResolver } from './userdetails/user.resolver';
 import { LayoutModule } from '@angular/cdk/layout';
+import { EditCategoriesComponent } from './edit-categories/edit-categories.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     UserdetailsComponent,
     EntriesComponent,
     EntryComponent,
-    EntryEditComponent
+    EntryEditComponent,
+    EditCategoriesComponent
   ],
   imports: [
     BrowserModule,

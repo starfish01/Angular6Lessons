@@ -14,7 +14,6 @@ export class Storage {
 
 
     saveData(data) {
-        //need to figure this out
 
         this.db.collection('savedData').doc(this.db.createId()).set(
             data, { merge: true }

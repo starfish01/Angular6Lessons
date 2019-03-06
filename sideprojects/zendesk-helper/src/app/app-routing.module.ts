@@ -10,6 +10,7 @@ import { EntriesComponent } from './zendesk-body/entries/entries.component';
 import { EntryComponent } from './zendesk-body/entries/entry/entry.component';
 import { EntryEditComponent } from './zendesk-body/entries/entry-edit/entry-edit.component';
 import { UserResolver } from './userdetails/user.resolver';
+import { EditCategoriesComponent } from './edit-categories/edit-categories.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
     ] },
     // { path:'/entry/:id/edit',component: EditEntryComponent, canActivate:[AuthGuard]}
   ]},
+  { path: 'edit-categories', component: EditCategoriesComponent, resolve: { data: UserResolver}},
   { path:'login', component: LoginComponent, canActivate: [AuthGuard]},
   { path: 'signup', component: SignupComponent,canActivate: [AuthGuard]},
   { path: 'logout', component: LogoutComponent },

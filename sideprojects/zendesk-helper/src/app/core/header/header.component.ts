@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
-import { AuthGuard } from '../auth/auth.guard';
-import { UserService } from '../auth/user.service';
+import { AuthGuard } from '../../auth/auth.guard';
+import { UserService } from '../../auth/user.service';
 import { isBoolean } from 'util';
-import { Storage } from '../shared/storage.service';
+import { Storage } from '../../shared/storage.service';
 import {LayoutModule, BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
 
 @Component({
@@ -45,8 +45,11 @@ export class HeaderComponent implements OnInit {
       }
     }
 
+    editCatBtn(){
+      this.router.navigate(['/edit-categories'])
+    }
+
     isAuthenticated(){
-      
       return this.authService.isAuthenticated();
     }
 

@@ -1,0 +1,33 @@
+<div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div class="item" fxFlex="30%">
+    <mat-nav-list>
+      <span *ngFor="let item of categoriesNew; let i = index">
+        <mat-list-item (click)="editCategory(item)">
+          {{ item.category }}</mat-list-item>
+        <mat-divider></mat-divider>
+      </span>
+    </mat-nav-list>
+  </div>
+  <div class="item" fxFlex="30%">
+
+    <span *ngIf="selectedCat != null">
+      <form [formGroup]="editCategoryForm" (ngSubmit)="onSubmit()">
+
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Cateroty Title</mat-label>
+            <input formControlName="title" id="title" matInput [placeholder]="selectedCat.category">
+          </mat-form-field>
+        </div>
+
+        <div>
+          <button mat-raised-button type="submit" [disabled]="!editCategoryForm.valid">Save</button>
+          <button type="button" mat-raised-button (click)="cancel()">Cancel</button>
+          <button type="button" class="deleteBtn" mat-raised-button (click)="delete()">Delete</button>
+
+        </div>
+      </form>
+
+    </span>
+  </div>
+</div>

@@ -38,9 +38,8 @@ export class ZendeskBodyComponent implements OnInit {
 
 
 
-  constructor(private authService: AuthService, private userService: UserService, private storage: Storage, private router: Router,              private route: ActivatedRoute, private iMS: InformationManagerService
-    ) { 
-      this.route.params
+  constructor(private authService: AuthService, private userService: UserService, private storage: Storage, private router: Router, private route: ActivatedRoute, private iMS: InformationManagerService) {
+    this.route.params
       .subscribe(
         (params: Params) => {
           this.iMS.setCategoryIDSelected(null);
@@ -48,26 +47,26 @@ export class ZendeskBodyComponent implements OnInit {
           // this.recipe = this.recipeService.getRecipe(this.id);
         }
       );
-     }
+  }
 
 
 
   ngOnInit() {
     this.initLoad = true;
 
-    this.userService.getCurrentUser().then((data)=>{
+    this.userService.getCurrentUser().then((data) => {
       this.userToken = data.uid;
-      this.getCategories()  
-    }).catch((error)=>{
+      this.getCategories()
+    }).catch((error) => {
       this.userToken = null;
       this.initLoad = false;
       console.log(error)
     })
   }
 
-  getCategories(){
-    
-    this.iMS.getCategories(this.userToken).subscribe((data)=>{
+  getCategories() {
+
+    this.iMS.getCategories(this.userToken).subscribe((data) => {
       this.categoriesNew = [];
       data.forEach(element => {
         this.categoriesNew.push(element)
@@ -79,7 +78,7 @@ export class ZendeskBodyComponent implements OnInit {
   onCategorySelect(selectedCategory) {
 
     this.iMS.setCategoryIDSelected(selectedCategory.id);
-    this.router.navigate([selectedCategory.slug], {relativeTo: this.route});
+    this.router.navigate([selectedCategory.slug], { relativeTo: this.route });
 
     this.selectedCategory = selectedCategory
 
@@ -93,7 +92,7 @@ export class ZendeskBodyComponent implements OnInit {
 
 
   addCategoryItem(value) {
-    if(value === ''){
+    if (value === '') {
       this.addCategoryBool = false;
       return;
     }
