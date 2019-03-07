@@ -1,8 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './store/app.reducers';
+
+
 export const firebaseConfig = environment.firebase;
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './core/header/header.component';
@@ -55,6 +58,7 @@ import { EditCategoriesComponent } from './edit-categories/edit-categories.compo
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
+    StoreModule.forRoot(reducers),
     ClipboardModule, 
     MatToolbarModule,
     MatButtonModule,
