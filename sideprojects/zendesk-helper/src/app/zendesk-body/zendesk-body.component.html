@@ -16,6 +16,12 @@
 
   <div class="item item-1" fxFlex="30%" *ngIf="!initLoad">
 
+
+    <ul>
+      <!-- <li *ngFor="let item of (categoriesNew1 | async); let i = index">{{item}} ojd</li> -->
+    </ul>
+    
+
     <mat-nav-list>
       <span *ngFor="let item of categoriesNew; let i = index">
         <mat-list-item (click)="onCategorySelect(item)">

@@ -5,6 +5,7 @@ import { Entry } from 'src/app/shared/entry.model';
 export const ADD_CATEGORY = 'ADD_CATEGORY';
 export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
 export const DELETE_CATEGORY = 'DELETE_CATEGORY';
+export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
 
 export const ADD_ENTRY = 'ADD_ENTRY';
 export const UPDATE_ENTRY = 'UPDATE_ENTRY';

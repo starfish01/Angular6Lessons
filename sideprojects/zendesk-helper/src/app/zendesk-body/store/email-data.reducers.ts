@@ -4,7 +4,7 @@ import { Entry } from 'src/app/shared/entry.model';
 
 export interface State {
     categories: Category[];
-    entries: Entry[];
+    // entries: Entry[];
     editedCategoryIndex: number;
     editedEntryIndex: number;
     editedCategory: Category;
@@ -13,7 +13,7 @@ export interface State {
 
 const initalState: State = {
     categories: [],
-    entries: [],
+    // entries: [],
     editedCategoryIndex: -1,
     editedEntryIndex: -1,
     editedCategory: null,
@@ -54,37 +54,37 @@ export function emailDataReducer(state = initalState, action: EmailDataActions.E
             };
         }
 
-        case EmailDataActions.ADD_ENTRY: {
-            return {
-                ...state,
-                entries: [...state.entries, action.payload]
-            }
-        }
-        case EmailDataActions.UPDATE_ENTRY: {
-            const entry = state.categories[state.editedEntryIndex]
-            const updateEntry = {
-                ...entry,
-                ...action.payload.entry
-            };
-            const entries = [...state.entries];
-            entries[state.editedEntryIndex] = updateEntry;
-            return {
-                ...state,
-                entries: entries,
-                editedEntry: null,
-                editedEntryIndex: -1
-            };
-        }
-        case EmailDataActions.DELETE_ENTRY: {
-            const oldEntryList = [...state.categories];
-            oldEntryList.splice(state.editedEntryIndex, 1)
-            return {
-                ...state,
-                categories: oldEntryList,
-                editedEntry: null,
-                editedEntryIndex: -1
-            };
-        }
+        // case EmailDataActions.ADD_ENTRY: {
+        //     return {
+        //         ...state,
+        //         entries: [...state.entries, action.payload]
+        //     }
+        // }
+        // case EmailDataActions.UPDATE_ENTRY: {
+        //     const entry = state.categories[state.editedEntryIndex]
+        //     const updateEntry = {
+        //         ...entry,
+        //         ...action.payload.entry
+        //     };
+        //     const entries = [...state.entries];
+        //     entries[state.editedEntryIndex] = updateEntry;
+        //     return {
+        //         ...state,
+        //         entries: entries,
+        //         editedEntry: null,
+        //         editedEntryIndex: -1
+        //     };
+        // }
+        // case EmailDataActions.DELETE_ENTRY: {
+        //     const oldEntryList = [...state.categories];
+        //     oldEntryList.splice(state.editedEntryIndex, 1)
+        //     return {
+        //         ...state,
+        //         categories: oldEntryList,
+        //         editedEntry: null,
+        //         editedEntryIndex: -1
+        //     };
+        // }
 
         default:
             return state;

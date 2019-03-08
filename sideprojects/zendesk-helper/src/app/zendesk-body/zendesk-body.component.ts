@@ -58,8 +58,11 @@ export class ZendeskBodyComponent implements OnInit {
 
   ngOnInit() {
 
-    this.categoriesNew1 = this.store.select('categories')
+    this.categoriesNew1 = this.store.select('emailData')
 
+    this.categoriesNew1.subscribe((data)=>{
+      console.log(data)
+    })
 
     this.initLoad = true;
 
