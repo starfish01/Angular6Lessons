@@ -7,6 +7,11 @@ import { Storage } from '../shared/storage.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { InformationManagerService } from './information-manager.service';
 import * as firebase from 'firebase/app';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+
+import * as fromApp from '../store/app.reducers';
+import * as EmailDataActions from './store/email-data.actions';
 
 
 var slugify = require('slugify')
@@ -36,9 +41,9 @@ export class ZendeskBodyComponent implements OnInit {
   @ViewChild("cat") nameField: ElementRef;
   // @ViewChild("entry") entryField: ElementRef;
 
+  categoriesNew1: Observable<{categories:Category[]}>
 
-
-  constructor(private authService: AuthService, private userService: UserService, private storage: Storage, private router: Router, private route: ActivatedRoute, private iMS: InformationManagerService) {
+  constructor(private authService: AuthService, private userService: UserService, private storage: Storage, private router: Router, private route: ActivatedRoute, private iMS: InformationManagerService, private store: Store<fromApp.AppState>) {
     this.route.params
       .subscribe(
         (params: Params) => {
@@ -52,6 +57,10 @@ export class ZendeskBodyComponent implements OnInit {
 
 
   ngOnInit() {
+
+    this.categoriesNew1 = this.store.select('categories')
+
+
     this.initLoad = true;
 
     this.userService.getCurrentUser().then((data) => {

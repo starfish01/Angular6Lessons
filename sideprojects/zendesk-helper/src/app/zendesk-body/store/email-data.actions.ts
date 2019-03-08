@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Category } from 'src/app/shared/category.model';
+import { Entry } from 'src/app/shared/entry.model';
 
 export const ADD_CATEGORY = 'ADD_CATEGORY';
 export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
@@ -14,12 +15,12 @@ export const DELETE_ENTRY = 'DELETE_ENTRY';
 
 export class AddCategory implements Action {
     readonly type = ADD_CATEGORY;
-    constructor(public payload: Category){}
+    constructor(public payload: Category) { }
 }
 
 export class UpdateCategory implements Action {
     readonly type = UPDATE_CATEGORY;
-    constructor(public payload: Category){}
+    constructor(public payload: { category: Category }) { }
 }
 
 export class DeleteCategory implements Action {
@@ -30,14 +31,22 @@ export class DeleteCategory implements Action {
 
 export class AddEntry implements Action {
     readonly type = ADD_ENTRY;
-    constructor(public payload: Category){}
+    constructor(public payload: Category) { }
 }
 
 export class UpdateEntry implements Action {
     readonly type = UPDATE_ENTRY;
-    constructor(public payload: Category){}
+    constructor(public payload: { entry: Entry }) { }
 }
 
 export class DeleteEntry implements Action {
     readonly type = DELETE_ENTRY;
 }
+
+
+export type EmailDataActions = AddCategory
+    | UpdateCategory
+    | DeleteCategory
+    | AddEntry
+    | UpdateEntry
+    | DeleteEntry;
