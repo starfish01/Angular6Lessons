@@ -1,6 +1,6 @@
 import { ActionReducerMap } from '@ngrx/store';
 
-import * as fromEmailData from '../zendesk-body/store/email-data.reducers'
+import * as fromEmailData from '../zendesk-body/store/categories.reducers'
 
 export interface AppState {
     emailData: fromEmailData.State

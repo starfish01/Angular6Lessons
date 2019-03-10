@@ -1,4 +1,4 @@
-import * as EmailDataActions from './email-data.actions';
+import * as EmailDataActions from './categories.actions';
 import { Category } from 'src/app/shared/category.model';
 import { Entry } from 'src/app/shared/entry.model';
 
@@ -23,6 +23,14 @@ const initalState: State = {
 export function emailDataReducer(state = initalState, action: EmailDataActions.EmailDataActions) {
 
     switch (action.type) {
+
+        case (EmailDataActions.SET_CATEGORIES):
+        return {
+          ...state,
+          categories: [...action.payload]
+        };
+
+
         case EmailDataActions.ADD_CATEGORY:
             return {
                 ...state,

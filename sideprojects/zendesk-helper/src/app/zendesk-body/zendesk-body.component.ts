@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import * as fromApp from '../store/app.reducers';
-import * as EmailDataActions from './store/email-data.actions';
+import * as EmailDataActions from './store/categories.actions';
 
 
 var slugify = require('slugify')
