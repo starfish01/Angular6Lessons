@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import * as fromApp from '../store/app.reducers';
-import * as EmailDataActions from './store/categories.actions';
+import * as CategoryActions from './store/categories.actions';
 
 
 var slugify = require('slugify')
@@ -60,9 +60,12 @@ export class ZendeskBodyComponent implements OnInit {
 
     this.categoriesNew1 = this.store.select('emailData')
 
-    this.categoriesNew1.subscribe((data)=>{
-      console.log(data)
+    this.store.dispatch(new CategoryActions.FetchCategories());
+
+    this.store.subscribe(()=>{
+        console.log(this.categoriesNew1)
     })
+
 
     this.initLoad = true;
 

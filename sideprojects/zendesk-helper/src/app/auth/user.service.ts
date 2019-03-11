@@ -33,7 +33,7 @@ export class UserService {
 
   getCurrentUserAuthLevel() {
     this.afs.collection('users').ref.get().then((data) => {
-      console.log(data)
+      //console.log(data)
       return data
     }).catch(()=>{
       console.log('error')

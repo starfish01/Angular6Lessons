@@ -1,4 +1,4 @@
-import * as EmailDataActions from './categories.actions';
+import * as CategoryActions from './categories.actions';
 import { Category } from 'src/app/shared/category.model';
 import { Entry } from 'src/app/shared/entry.model';
 
@@ -20,23 +20,23 @@ const initalState: State = {
     editedEntry: null
 }
 
-export function emailDataReducer(state = initalState, action: EmailDataActions.EmailDataActions) {
+export function emailDataReducer(state = initalState, action: CategoryActions.EmailDataActions) {
 
     switch (action.type) {
 
-        case (EmailDataActions.SET_CATEGORIES):
+        case (CategoryActions.SET_CATEGORIES):
         return {
           ...state,
           categories: [...action.payload]
         };
 
 
-        case EmailDataActions.ADD_CATEGORY:
+        case CategoryActions.ADD_CATEGORY:
             return {
                 ...state,
                 categories: [...state.categories, action.payload]
             };
-        case EmailDataActions.UPDATE_CATEGORY:
+        case CategoryActions.UPDATE_CATEGORY:
             const category = state.categories[state.editedCategoryIndex]
             const updatedCategory = {
                 ...category,
@@ -51,7 +51,7 @@ export function emailDataReducer(state = initalState, action: EmailDataActions.E
                 editedCategoryIndex: -1
             };
 
-        case EmailDataActions.DELETE_CATEGORY: {
+        case CategoryActions.DELETE_CATEGORY: {
             const oldCatList = [...state.categories];
             oldCatList.splice(state.editedCategoryIndex, 1)
             return {

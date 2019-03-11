@@ -45,7 +45,6 @@ export class InformationManagerService {
     
 
     getCategories(uid) {
-
         this.categoriesCollection = this.afs.collection('category', ref => ref.where('uID','==',uid).where('displayed', '==',1));
         this.categories = this.categoriesCollection.valueChanges();
         return this.categories;

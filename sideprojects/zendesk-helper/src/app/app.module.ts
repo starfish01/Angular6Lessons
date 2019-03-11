@@ -35,6 +35,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { UserResolver } from './userdetails/user.resolver';
 import { LayoutModule } from '@angular/cdk/layout';
 import { EditCategoriesComponent } from './edit-categories/edit-categories.component';
+import { CategoryEffects } from './zendesk-body/store/categories.effect';
+import { EffectsModule } from '@ngrx/effects';
+import { HttpClientModule } from '@angular/common/http'; 
+
+
 
 @NgModule({
   declarations: [
@@ -59,6 +64,10 @@ import { EditCategoriesComponent } from './edit-categories/edit-categories.compo
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
     StoreModule.forRoot(reducers),
+    // StoreModule.forFeature('recipes', recipeReducer),
+
+    EffectsModule.forRoot([CategoryEffects]),
+    HttpClientModule,
     ClipboardModule, 
     MatToolbarModule,
     MatButtonModule,

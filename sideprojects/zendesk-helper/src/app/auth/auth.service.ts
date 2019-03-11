@@ -30,7 +30,7 @@ export class AuthService {
 
   get authStateLive() {
     return this.afAuth.authState.subscribe((data)=>{
-      console.log(data)
+      //console.log(data)
       return data.uid
     })
     
