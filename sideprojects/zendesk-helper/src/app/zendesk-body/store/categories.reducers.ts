@@ -32,10 +32,17 @@ export function emailDataReducer(state = initalState, action: CategoryActions.Em
 
 
         case CategoryActions.ADD_CATEGORY:
-            return {
+        //create slug
+        //get uid
+        //create object and add it down below
+        //and then add it to firebase
+
+        return {
                 ...state,
                 categories: [...state.categories, action.payload]
             };
+
+
         case CategoryActions.UPDATE_CATEGORY:
             const category = state.categories[state.editedCategoryIndex]
             const updatedCategory = {

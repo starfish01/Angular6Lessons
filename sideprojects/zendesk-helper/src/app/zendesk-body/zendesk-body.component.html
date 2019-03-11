@@ -16,18 +16,22 @@
 
   <div class="item item-1" fxFlex="30%" *ngIf="!initLoad">
 
-=======
-    <ul>
-      <li *ngFor="let item of (categoriesNew1 | async).category; let i = index">{{item}} ojd</li>
-    </ul>
-    
-=======
     <mat-nav-list>
+<!--       OLD
       <span *ngFor="let item of categoriesNew; let i = index">
         <mat-list-item (click)="onCategorySelect(item)">
           {{ item.category }}</mat-list-item>
         <mat-divider></mat-divider>
-      </span>
+      </span> -->
+
+      <span *ngFor="let item of (categoriesNew1 | async).categories">
+          <mat-list-item (click)="onCategorySelect(item)">
+            {{ item.category }}</mat-list-item>
+          <mat-divider></mat-divider>
+        </span>
+  
+
+
 
       <ng-template [ngIf]="authService.authenticated">
         <mat-list-item (click)="addCategory()">

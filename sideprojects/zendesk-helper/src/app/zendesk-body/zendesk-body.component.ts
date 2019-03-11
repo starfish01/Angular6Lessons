@@ -62,33 +62,29 @@ export class ZendeskBodyComponent implements OnInit {
 
     this.store.dispatch(new CategoryActions.FetchCategories());
 
-    this.store.subscribe(()=>{
-        console.log(this.categoriesNew1)
-    })
 
+    //this.initLoad = true;
 
-    this.initLoad = true;
-
-    this.userService.getCurrentUser().then((data) => {
-      this.userToken = data.uid;
-      this.getCategories()
-    }).catch((error) => {
-      this.userToken = null;
-      this.initLoad = false;
-      console.log(error)
-    })
+    // this.userService.getCurrentUser().then((data) => {
+    //   this.userToken = data.uid;
+    //   this.getCategories()
+    // }).catch((error) => {
+    //   this.userToken = null;
+    //  this.initLoad = false;
+    //   console.log(error)
+    // })
   }
 
-  getCategories() {
+  // getCategories() {
 
-    this.iMS.getCategories(this.userToken).subscribe((data) => {
-      this.categoriesNew = [];
-      data.forEach(element => {
-        this.categoriesNew.push(element)
-      });
-      this.initLoad = false;
-    })
-  }
+  //   this.iMS.getCategories(this.userToken).subscribe((data) => {
+  //     this.categoriesNew = [];
+  //     data.forEach(element => {
+  //       this.categoriesNew.push(element)
+  //     });
+  //     this.initLoad = false;
+  //   })
+  // }
 
   onCategorySelect(selectedCategory) {
 
@@ -103,27 +99,32 @@ export class ZendeskBodyComponent implements OnInit {
         this.selectedCategory.entries.push(element)
       });
     })
+
+
   }
 
 
   addCategoryItem(value) {
+
     if (value === '') {
       this.addCategoryBool = false;
       return;
     }
 
-    this.lodingCategory = true;
+    this.store.dispatch(new CategoryActions.AddCategory(value))
 
-    let slug = slugify(value);
+    // this.lodingCategory = true;
 
-    let createdCategory = new Category(value, this.getUserID(), slug)
+    // let slug = slugify(value);
 
-    this.storage.storeCategory(createdCategory).then((data) => {
-      this.lodingCategory = false;
-    }).catch((err) => {
-      this.lodingCategory = false;
-      console.log(err)
-    })
+    // let createdCategory = new Category(value, this.getUserID(), slug)
+
+    // this.storage.storeCategory(createdCategory).then((data) => {
+    //   this.lodingCategory = false;
+    // }).catch((err) => {
+    //   this.lodingCategory = false;
+    //   console.log(err)
+    // })
 
     this.addCategoryBool = false;
   }

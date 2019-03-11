@@ -7,7 +7,8 @@ export class Category {
         public slug:string,
         public updatedAt =  Math.round((new Date()).getTime() / 1000),
         public groupID = 'digistorm',
-        public entries:[] = []
+        public entries:[] = [],
+        public displayed = 1
     ) { }
 
 }
