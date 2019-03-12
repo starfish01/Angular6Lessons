@@ -2,17 +2,21 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {Router} from '@angular/router';
 import {map, tap, switchMap, mergeMap} from 'rxjs/operators';
-import { from } from 'rxjs';
+import { from, Observable } from 'rxjs';
+import { AngularFireAuth } from 'angularfire2/auth';
+
+
 import * as firebase from 'firebase';
 
 import * as AuthActions from './auth.actions';
 
 @Injectable()
 export class AuthEffects {
+  
   @Effect()
   authSignup = this.actions$.pipe(
     ofType(AuthActions.TRY_SIGNUP)
-    ,map((action: AuthActions.TrySignup) => {
+    , map((action: AuthActions.TrySignup) => {
         return action.payload;
       })
       , switchMap((authData: { username: string, password: string }) => {
@@ -37,7 +41,6 @@ export class AuthEffects {
   authSignin = this.actions$.pipe(
     ofType(AuthActions.TRY_SIGNIN)
     ,map((action: AuthActions.TrySignup) => {
-      console.log('a')
         return action.payload;
       })
       , switchMap((authData: { username: string, password: string }) => {
@@ -47,7 +50,7 @@ export class AuthEffects {
         return from(firebase.auth().currentUser.getIdToken());
       })
       , mergeMap((token: string) => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/main']);
         return [
           {
             type: AuthActions.SIGNIN
@@ -66,6 +69,6 @@ export class AuthEffects {
       this.router.navigate(['/']);
     }));
 
-  constructor(private actions$: Actions, private router: Router) {
+  constructor(public afAuth: AngularFireAuth,private actions$: Actions, private router: Router) {
   }
 }

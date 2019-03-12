@@ -21,7 +21,6 @@ export class CategoryEffects {
   categoriesFetch = this.actions$.pipe(
     ofType(CategoriesActions.FETCH_CATEGORIES),
     switchMap((action: CategoriesActions.FetchCategories) => {
-
         return this.afs.collection('category', ref => ref.where('displayed', '==',1)).valueChanges();
 
     return [];

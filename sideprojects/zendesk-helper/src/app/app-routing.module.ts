@@ -11,23 +11,24 @@ import { EntryComponent } from './zendesk-body/entries/entry/entry.component';
 import { EntryEditComponent } from './zendesk-body/entries/entry-edit/entry-edit.component';
 import { UserResolver } from './userdetails/user.resolver';
 import { EditCategoriesComponent } from './edit-categories/edit-categories.component';
+import { HomepageComponent } from './core/homepage/homepage.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/main', pathMatch: 'full'},
-  { path:'main', component:ZendeskBodyComponent, resolve: { data: UserResolver}, children:[
-    { path:':id', component:EntriesComponent, children: [
-      { path:':entry', component:EntryComponent },
-      { path: ':entry/edit', component:EntryEditComponent}
+  { path: '', component:HomepageComponent },
+  { path:'main', component:ZendeskBodyComponent, canActivate: [AuthGuard], children:[
+    { path:':id', component:EntriesComponent, canActivate: [AuthGuard], children: [
+      { path:':entry', component:EntryComponent, canActivate: [AuthGuard] },
+      { path: ':entry/edit', component:EntryEditComponent, canActivate: [AuthGuard]}
     ] },
     // { path:'/entry/:id/edit',component: EditEntryComponent, canActivate:[AuthGuard]}
   ]},
-  { path: 'edit-categories', component: EditCategoriesComponent, resolve: { data: UserResolver}},
+  { path: 'edit-categories', component: EditCategoriesComponent, canActivate: [AuthGuard] },
   { path:'login', component: LoginComponent},
-  { path: 'signup', component: SignupComponent,canActivate: [AuthGuard]},
+  { path: 'signup', component: SignupComponent},
   { path: 'logout', component: LogoutComponent },
-  { path:'user', component: UserdetailsComponent, resolve: { data: UserResolver} },
-  { path: "**", redirectTo: "/main" }
+  { path:'user', component: UserdetailsComponent },
+  { path: "**", redirectTo: '' }
 ];
 
 @NgModule({

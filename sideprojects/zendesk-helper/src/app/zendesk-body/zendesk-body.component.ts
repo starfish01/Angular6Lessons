@@ -43,7 +43,7 @@ export class ZendeskBodyComponent implements OnInit {
 
   categoriesNew1: Observable<{categories:Category[]}>
 
-  constructor(private authService: AuthService, private userService: UserService, private storage: Storage, private router: Router, private route: ActivatedRoute, private iMS: InformationManagerService, private store: Store<fromApp.AppState>) {
+  constructor(private userService: UserService, private storage: Storage, private router: Router, private route: ActivatedRoute, private iMS: InformationManagerService, private store: Store<fromApp.AppState>) {
     this.route.params
       .subscribe(
         (params: Params) => {
@@ -59,6 +59,10 @@ export class ZendeskBodyComponent implements OnInit {
   ngOnInit() {
 
     this.categoriesNew1 = this.store.select('emailData')
+
+    this.categoriesNew1.subscribe((data)=>{
+console.log(data)
+    })
 
     this.store.dispatch(new CategoryActions.FetchCategories());
 

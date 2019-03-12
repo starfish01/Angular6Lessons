@@ -12,6 +12,7 @@ import * as fromApp from '../../store/app.reducers';
 import * as fromAuth from '../../auth/store/auth.reducers';
 import * as AuthActions from '../../auth/store/auth.actions';
 import { Store } from '@ngrx/store';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 
 @Component({
@@ -23,12 +24,13 @@ export class HeaderComponent implements OnInit {
 
   authState: Observable<fromAuth.State>;
 
-  constructor(private authService:AuthService,private store: Store<fromApp.AppState>,private router: Router,  private breakpointObserver: BreakpointObserver) { 
+  constructor(private store: Store<fromApp.AppState>,private router: Router,  private breakpointObserver: BreakpointObserver) { 
   }
 
   isMobile:boolean;
 
   ngOnInit() {
+
 
     this.authState = this.store.select('auth');
 
@@ -44,9 +46,9 @@ export class HeaderComponent implements OnInit {
 
   logoutUser() {
     // OLD
-    this.authService.doLogout().then((data)=>{
-      this.router.navigate(['/login']);
-    });
+    // this.authService.doLogout().then((data)=>{
+    //   this.router.navigate(['/login']);
+    // });
     
     this.store.dispatch(new AuthActions.Logout());
 

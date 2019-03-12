@@ -13,7 +13,6 @@
      fxLayoutAlign="center"
      fxLayoutGap="10px"
      fxLayoutGap.xs="0">
-
   <div class="item item-1" fxFlex="30%" *ngIf="!initLoad">
 
     <mat-nav-list>
@@ -23,17 +22,15 @@
           {{ item.category }}</mat-list-item>
         <mat-divider></mat-divider>
       </span> -->
-
       <span *ngFor="let item of (categoriesNew1 | async).categories">
           <mat-list-item (click)="onCategorySelect(item)">
-            {{ item.category }}</mat-list-item>
+           {{ item.category }}</mat-list-item>
           <mat-divider></mat-divider>
         </span>
-  
 
 
 
-      <ng-template [ngIf]="authService.authenticated">
+      <ng-template >
         <mat-list-item (click)="addCategory()">
           <span *ngIf="!addCategoryBool && !lodingCategory"><img src="../../assets/tag-cat.svg"> Add Category</span>
           <span *ngIf="addCategoryBool && !lodingCategory">
