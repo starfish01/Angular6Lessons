@@ -27,8 +27,8 @@ export class CategoryEffects {
     return [];
     }), map(
       (categories) => {
-          console.log(categories)
-          console.log(categories[1].category)
+          // console.log(categories)
+          // console.log(categories[1].category)
         return {
           type: CategoriesActions.SET_CATEGORIES,
           payload: categories

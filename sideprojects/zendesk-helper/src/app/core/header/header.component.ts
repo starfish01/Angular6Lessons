@@ -6,6 +6,13 @@ import { UserService } from '../../auth/user.service';
 import { isBoolean } from 'util';
 import { Storage } from '../../shared/storage.service';
 import {LayoutModule, BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+
+import * as fromApp from '../../store/app.reducers';
+import * as fromAuth from '../../auth/store/auth.reducers';
+import * as AuthActions from '../../auth/store/auth.actions';
+import { Store } from '@ngrx/store';
+
 
 @Component({
   selector: 'app-header',
@@ -14,12 +21,17 @@ import {LayoutModule, BreakpointObserver, BreakpointState} from '@angular/cdk/la
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private authService:AuthService, private router:Router,  private breakpointObserver: BreakpointObserver) { 
+  authState: Observable<fromAuth.State>;
+
+  constructor(private authService:AuthService,private store: Store<fromApp.AppState>,private router: Router,  private breakpointObserver: BreakpointObserver) { 
   }
 
   isMobile:boolean;
 
   ngOnInit() {
+
+    this.authState = this.store.select('auth');
+
     this.breakpointObserver.observe(['(min-width: 600px)']).subscribe((state:BreakpointState)=>{
       if(state.matches) {
         this.isMobile = false;
@@ -31,13 +43,17 @@ export class HeaderComponent implements OnInit {
   }
 
   logoutUser() {
+    // OLD
     this.authService.doLogout().then((data)=>{
       this.router.navigate(['/login']);
     });
+    
+    this.store.dispatch(new AuthActions.Logout());
 
     }
 
     mobileConnect(value){
+      
       if(value === 'login') {
         this.router.navigate(['/login'])
       } else {
@@ -49,9 +65,6 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['/edit-categories'])
     }
 
-    isAuthenticated(){
-      return this.authService.isAuthenticated();
-    }
 
 
 }

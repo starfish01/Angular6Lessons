@@ -23,7 +23,7 @@ const routes: Routes = [
     // { path:'/entry/:id/edit',component: EditEntryComponent, canActivate:[AuthGuard]}
   ]},
   { path: 'edit-categories', component: EditCategoriesComponent, resolve: { data: UserResolver}},
-  { path:'login', component: LoginComponent, canActivate: [AuthGuard]},
+  { path:'login', component: LoginComponent},
   { path: 'signup', component: SignupComponent,canActivate: [AuthGuard]},
   { path: 'logout', component: LogoutComponent },
   { path:'user', component: UserdetailsComponent, resolve: { data: UserResolver} },
