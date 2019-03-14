@@ -14,7 +14,7 @@ import {LayoutModule, BreakpointObserver, BreakpointState} from '@angular/cdk/la
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private authService:AuthService, private router:Router,  private breakpointObserver: BreakpointObserver) { 
+  constructor(private authService:AuthService, private router:Router,  private breakpointObserver: BreakpointObserver, private userService:UserService) { 
   }
 
   isMobile:boolean;
@@ -27,7 +27,6 @@ export class HeaderComponent implements OnInit {
         this.isMobile = true;
       }
     })
-
   }
 
   logoutUser() {
@@ -49,9 +48,17 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['/edit-categories'])
     }
 
-    isAuthenticated(){
-      return this.authService.isAuthenticated();
+    authenticated(){
+      const state = this.userService.getUserDetails()
+      console.log(state)
+      if(state == null){
+        return false
+      } else {
+        return true
+      }
+      console.log(this.userService.getUserDetails());
     }
+
 
 
 }

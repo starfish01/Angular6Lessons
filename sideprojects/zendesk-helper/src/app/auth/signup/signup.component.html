@@ -15,13 +15,6 @@
       <input type="text" id="confirm" class="fadeIn " formControlName="confirm" placeholder="confirm password">
 
       
-      <mat-select id="plan" formControlName="plan" placeholder="plans" name="plan">
-        <mat-option *ngFor="let plan of plans" [value]="plan.value">
-          {{plan.viewValue}}
-        </mat-option>
-      </mat-select>
-
-      <input *ngIf="signupForm.value.plan == 'orgPlan'" type="text" id="orgName" class="fadeIn" formControlName="orgName" placeholder="organisation name">
 
       <input [disabled]="signupForm.invalid"  type="submit" class="fadeIn submitButton" value="Sign Up">
 

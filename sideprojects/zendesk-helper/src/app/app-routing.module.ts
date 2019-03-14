@@ -15,16 +15,16 @@ import { EditCategoriesComponent } from './edit-categories/edit-categories.compo
 
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full'},
-  { path:'main', component:ZendeskBodyComponent, resolve: { data: UserResolver}, children:[
+  { path:'main', component:ZendeskBodyComponent, children:[
     { path:':id', component:EntriesComponent, children: [
       { path:':entry', component:EntryComponent },
       { path: ':entry/edit', component:EntryEditComponent}
     ] },
     // { path:'/entry/:id/edit',component: EditEntryComponent, canActivate:[AuthGuard]}
   ]},
-  { path: 'edit-categories', component: EditCategoriesComponent, resolve: { data: UserResolver}},
-  { path:'login', component: LoginComponent, canActivate: [AuthGuard]},
-  { path: 'signup', component: SignupComponent,canActivate: [AuthGuard]},
+  { path: 'edit-categories', component: EditCategoriesComponent},
+  { path:'login', component: LoginComponent, resolve: { data: UserResolver}},
+  { path: 'signup', component: SignupComponent, resolve: { data: UserResolver}},
   { path: 'logout', component: LogoutComponent },
   { path:'user', component: UserdetailsComponent, resolve: { data: UserResolver} },
   { path: "**", redirectTo: "/main" }

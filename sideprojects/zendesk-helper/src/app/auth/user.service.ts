@@ -14,31 +14,28 @@ export class UserService {
   ) {
   }
 
-  getCurrentUserID() {
-    let user = firebase.auth().currentUser.uid;
-    return user;
+  userDetails ;
+
+  getUserDetails(){
+    return this.userDetails
   }
+
 
   getCurrentUser() {
     return new Promise<any>((resolve, reject) => {
       var user = firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
+          this.userDetails = user
+          //this is fired everytime the state changes we could use this to
+          //create the user profile so i dont need to subsribe everywhere
+
           resolve(user);
         } else {
+          this.userDetails = -1;
           reject('No user logged in');
         }
       })
     })
-  }
-
-  getCurrentUserAuthLevel() {
-    this.afs.collection('users').ref.get().then((data) => {
-      //console.log(data)
-      return data
-    }).catch(()=>{
-      console.log('error')
-    })
-
   }
 
 

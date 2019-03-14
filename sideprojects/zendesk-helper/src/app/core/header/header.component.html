@@ -6,20 +6,21 @@
 
 
   
-    <button mat-button *ngIf="isAuthenticated()" [matMenuTriggerFor]="menu">Menu</button>
+    <button mat-button *ngIf="authenticated()" [matMenuTriggerFor]="menu">Menu</button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="editCatBtn()">Edit Categories</button>
       <button mat-menu-item>Edit User</button>
       <button mat-menu-item *ngIf="isMobile" (click)="logoutUser()">Log Out</button>
       <button mat-menu-item>Version 0.1</button>
     </mat-menu>
- 
-  
+    
+
+    {{authenticated()}}
 
   <span class="fill-remaining-space"></span>
 
 
-  <span *ngIf="!isAuthenticated() && !isMobile">
+  <span *ngIf="!authenticated() && !isMobile">
 
     <button mat-button [routerLink]="[ '/login']">Login</button>
 
@@ -28,7 +29,7 @@
   </span>
 
 
-  <span *ngIf="!isAuthenticated() && isMobile">
+  <span *ngIf="!authenticated() && isMobile">
     <button mat-button [matMenuTriggerFor]="connect">Connect</button>
     <mat-menu #connect="matMenu">
       <button mat-menu-item (click)="mobileConnect('login')">Login</button>
@@ -40,7 +41,7 @@
 
 
 
-  <span *ngIf="isAuthenticated() && !isMobile">
+  <span *ngIf="authenticated() && !isMobile">
 
     <button mat-button (click)="logoutUser()">Logout</button>
 

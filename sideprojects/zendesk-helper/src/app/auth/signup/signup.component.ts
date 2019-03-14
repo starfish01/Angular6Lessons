@@ -18,11 +18,6 @@ export class SignupComponent implements OnInit {
 
   loading = false;
 
-  plans = [
-    {value: 'singlePlan', viewValue: 'Single Plan $0'},
-    {value: 'orgPlan', viewValue: 'Organisation Plan $0'},
-  ];
-
 
   private initForm() {
     let name ='';
@@ -39,27 +34,15 @@ export class SignupComponent implements OnInit {
       'email': new FormControl(email,[Validators.required,Validators.email]),
       'password': new FormControl(password,[Validators.required,Validators.minLength(6)]),
       'confirm': new FormControl(confirm,[Validators.required]),
-      'plan': new FormControl(plan,[Validators.required]),
-      'orgName':new FormControl(orgName)
     })
 
   }
 
-  constructor(private authService:AuthService, private router:Router, private iMS:InformationManagerService) { }
+  constructor(private authService:AuthService, private router:Router) { }
 
   ngOnInit() {
     this.initForm();
   }
-
-  tryGoogleLogin(){
-    this.authService.doGoogleLogin()
-    .then(res =>{
-      this.router.navigate(['/user']);
-    }, err => console.log(err)
-    )
-  }
-
-  
 
 
   tryRegister(){

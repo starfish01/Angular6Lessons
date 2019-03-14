@@ -20,17 +20,6 @@ export class LoginComponent implements OnInit {
     this.initForm();
   }
 
-  onSubmit() {
-    
-  }
-
-  tryGoogleLogin(){
-    this.authService.doGoogleLogin()
-    .then(res => {
-      this.router.navigate(['/user']);
-    })
-  }
-
   tryLogin(){
     this.loading = true;
     let value = this.loginForm.value;

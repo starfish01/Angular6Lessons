@@ -136,7 +136,7 @@ export class ZendeskBodyComponent implements OnInit {
   }
 
   getUserID() {
-    return this.userService.getCurrentUserID();
+    // return this.userService.getCurrentUserID();
   }
 
   saveData() {
