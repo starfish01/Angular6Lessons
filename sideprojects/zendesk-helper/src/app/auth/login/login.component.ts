@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducers';
-import * as AuthActions from '../store/auth.actions';
+// import * as AuthActions from '../store/auth.actions';
 
 
 
@@ -38,19 +38,19 @@ export class LoginComponent implements OnInit {
   }
 
   tryLogin(){
-    //this.loading = true;
+    this.loading = true;
     let value = this.loginForm.value;
-    this.store.dispatch(new AuthActions.TrySignin({username: value.email, password:value.password}));
+    // this.store.dispatch(new AuthActions.TrySignin({username: value.email, password:value.password}));
     
     //OLD
-    // this.authService.doLogin(value)
-    // .then(res => {
-    //   this.loading = false;
-    //   this.router.navigate(['/user']);
-    // }, err => {
-    //   this.loading = false;
-    //   console.log(err);
-    // })
+    this.authService.doLogin(value)
+    .then(res => {
+      this.loading = false;
+      this.router.navigate(['/user']);
+    }, err => {
+      this.loading = false;
+      console.log(err);
+    })
   }
 
   private initForm() {

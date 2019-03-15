@@ -9,8 +9,8 @@ import {LayoutModule, BreakpointObserver, BreakpointState} from '@angular/cdk/la
 import { Observable } from 'rxjs';
 
 import * as fromApp from '../../store/app.reducers';
-import * as fromAuth from '../../auth/store/auth.reducers';
-import * as AuthActions from '../../auth/store/auth.actions';
+// import * as fromAuth from '../../auth/store/auth.reducers';
+// import * as AuthActions from '../../auth/store/auth.actions';
 import { Store } from '@ngrx/store';
 import { AngularFireAuth } from 'angularfire2/auth';
 
@@ -22,9 +22,9 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class HeaderComponent implements OnInit {
 
-  authState: Observable<fromAuth.State>;
+  // authState: Observable<fromAuth.State>;
 
-  constructor(private store: Store<fromApp.AppState>,private router: Router,  private breakpointObserver: BreakpointObserver) { 
+  constructor(private authService:AuthService,private store: Store<fromApp.AppState>,private router: Router,  private breakpointObserver: BreakpointObserver) { 
   }
 
   isMobile:boolean;
@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
 
 
-    this.authState = this.store.select('auth');
+    // this.authState = this.store.select('auth');
 
     this.breakpointObserver.observe(['(min-width: 600px)']).subscribe((state:BreakpointState)=>{
       if(state.matches) {
@@ -46,11 +46,11 @@ export class HeaderComponent implements OnInit {
 
   logoutUser() {
     // OLD
-    // this.authService.doLogout().then((data)=>{
-    //   this.router.navigate(['/login']);
-    // });
+    this.authService.doLogout().then((data)=>{
+      this.router.navigate(['/login']);
+    });
     
-    this.store.dispatch(new AuthActions.Logout());
+    // this.store.dispatch(new AuthActions.Logout());
 
     }
 
