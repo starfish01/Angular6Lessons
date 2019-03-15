@@ -1,4 +1,4 @@
-import { Config } from 'src/environments/config';
+// import { Config } from 'src/environments/config';
 
 export const environment = {
   production: true,

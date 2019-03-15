@@ -4,23 +4,18 @@
 
   <button mat-button [routerLink]="['/']">Home</button>
 
-
-  
-    <button mat-button *ngIf="(authState | async).authenticated" [matMenuTriggerFor]="menu">Menu</button>
+    <button mat-button *ngIf="isAuthenticated()" [matMenuTriggerFor]="menu">Menu</button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="editCatBtn()">Edit Categories</button>
       <button mat-menu-item>Edit User</button>
       <button mat-menu-item *ngIf="isMobile" (click)="logoutUser()">Log Out</button>
       <button mat-menu-item>Version 0.1</button>
-    </mat-menu>
- 
-    {{ (authState | async).authenticated }}
-  
+    </mat-menu> 
 
   <span class="fill-remaining-space"></span>
 
 
-  <span *ngIf="!(authState | async).authenticated && !isMobile">
+  <span *ngIf="!isAuthenticated()">
 
     <button mat-button [routerLink]="[ '/login']">Login</button>
 
@@ -29,7 +24,7 @@
   </span>
 
 
-  <span *ngIf="!(authState | async).authenticated && isMobile">
+  <span *ngIf="!isAuthenticated() && isMobile">
     <button mat-button [matMenuTriggerFor]="connect">Connect</button>
     <mat-menu #connect="matMenu">
       <button mat-menu-item (click)="mobileConnect('login')">Login</button>
@@ -39,13 +34,10 @@
 
   </span>
 
-
-
-  <span *ngIf="(authState | async).authenticated && !isMobile">
+  <span *ngIf="isAuthenticated() && !isMobile">
 
     <button mat-button (click)="logoutUser()">Logout</button>
 
   </span>
-
 
 </mat-toolbar>

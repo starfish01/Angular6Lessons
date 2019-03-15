@@ -15,19 +15,19 @@ import { HomepageComponent } from './core/homepage/homepage.component';
 
 
 const routes: Routes = [
-  { path: '', component:HomepageComponent },
-  { path:'main', component:ZendeskBodyComponent, canActivate: [AuthGuard], children:[
-    { path:':id', component:EntriesComponent, canActivate: [AuthGuard], children: [
-      { path:':entry', component:EntryComponent, canActivate: [AuthGuard] },
-      { path: ':entry/edit', component:EntryEditComponent, canActivate: [AuthGuard]}
+  { path: '', redirectTo: '/main', pathMatch: 'full'},
+  { path:'main', component:ZendeskBodyComponent, resolve: { data: UserResolver}, children:[
+    { path:':id', component:EntriesComponent, children: [
+      { path:':entry', component:EntryComponent },
+      { path: ':entry/edit', component:EntryEditComponent}
     ] },
     // { path:'/entry/:id/edit',component: EditEntryComponent, canActivate:[AuthGuard]}
   ]},
-  { path: 'edit-categories', component: EditCategoriesComponent, canActivate: [AuthGuard] },
+  { path: 'edit-categories', component: EditCategoriesComponent },
   { path:'login', component: LoginComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'logout', component: LogoutComponent },
-  { path:'user', component: UserdetailsComponent },
+  { path:'user', component: UserdetailsComponent  },
   { path: "**", redirectTo: '' }
 ];
 
