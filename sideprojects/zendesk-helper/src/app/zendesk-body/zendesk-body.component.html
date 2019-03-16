@@ -29,8 +29,6 @@
         </span>
 
 
-
-      <ng-template >
         <mat-list-item (click)="addCategory()">
           <span *ngIf="!addCategoryBool && !lodingCategory"><img src="../../assets/tag-cat.svg"> Add Category</span>
           <span *ngIf="addCategoryBool && !lodingCategory">
@@ -45,7 +43,6 @@
           </span>
         </mat-list-item>
 
-      </ng-template>
 
     </mat-nav-list>
   </div>

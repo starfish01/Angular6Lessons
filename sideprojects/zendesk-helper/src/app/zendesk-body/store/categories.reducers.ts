@@ -38,6 +38,7 @@ export function emailDataReducer(state = initalState, action: CategoryActions.Em
         //create slug
         let slug = slugify(action.payload);
         //get uid
+        console.log('s')
         
         //create object and add it down below
         //and then add it to firebase

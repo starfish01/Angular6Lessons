@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
-import {switchMap, withLatestFrom, map} from 'rxjs/operators';
+import {switchMap, withLatestFrom, map, tap} from 'rxjs/operators';
 import {HttpClient, HttpRequest} from '@angular/common/http';
 import {Store} from '@ngrx/store';
 
@@ -11,6 +11,7 @@ import * as CategoriesActions from '../store/categories.actions';
 import {Category} from '../../shared/category.model';
 import * as fromCategories from '../store/categories.reducers';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class CategoryEffects {
@@ -34,6 +35,23 @@ export class CategoryEffects {
         };
       }
     ));
+
+    @Effect()
+    cateogryStore = this.actions$.pipe(
+      ofType(CategoriesActions.ADD_CATEGORY),
+      // withLatestFrom(this.store.select('emailData')),
+      switchMap((data) => {
+        console.log(data)
+        return this.afs.collection('categories').doc('2').set({name:1}).then((data)=>{console.log('then '+data)}).catch((error)=>{ console.log(error)})
+
+
+
+
+      })
+       
+
+    )
+
 
     //Store all from previous 
 //   @Effect({dispatch: false})
