@@ -112,7 +112,13 @@ export class ZendeskBodyComponent implements OnInit {
       return;
     }
 
-    this.store.dispatch(new CategoryActions.AddCategory(value))
+    let slug = slugify(value);
+    // console.log(slug)
+
+    let newCategory = new Category(value, this.getUserID(), slug)
+    // console.log(newCategory)
+
+    this.store.dispatch(new CategoryActions.AddCategory(newCategory))
 
     // this.lodingCategory = true;
 

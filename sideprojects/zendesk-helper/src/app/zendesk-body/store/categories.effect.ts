@@ -12,6 +12,8 @@ import {Category} from '../../shared/category.model';
 import * as fromCategories from '../store/categories.reducers';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
+import { UserService } from 'src/app/auth/user.service';
 
 @Injectable()
 export class CategoryEffects {
@@ -22,13 +24,10 @@ export class CategoryEffects {
   categoriesFetch = this.actions$.pipe(
     ofType(CategoriesActions.FETCH_CATEGORIES),
     switchMap((action: CategoriesActions.FetchCategories) => {
-        return this.afs.collection('category', ref => ref.where('displayed', '==',1)).valueChanges();
-
+        return this.afs.collection('category', ref => ref.where('displayed', '==',1).where('uID','==',this.userService.getCurrentUserID())).valueChanges();
     return [];
     }), map(
       (categories) => {
-          // console.log(categories)
-          // console.log(categories[1].category)
         return {
           type: CategoriesActions.SET_CATEGORIES,
           payload: categories
@@ -36,38 +35,25 @@ export class CategoryEffects {
       }
     ));
 
-    @Effect()
+    @Effect({dispatch: false})
     cateogryStore = this.actions$.pipe(
       ofType(CategoriesActions.ADD_CATEGORY),
-      // withLatestFrom(this.store.select('emailData')),
-      switchMap((data) => {
-        console.log(data)
-        return this.afs.collection('categories').doc('2').set({name:1}).then((data)=>{console.log('then '+data)}).catch((error)=>{ console.log(error)})
-
-
-
-
+      map((data) => {       
+        let newCat = Object.assign({},Object.assign(data).payload)
+        let itemKey = this.afs.createId();
+        newCat['id']= itemKey;
+        this.afs.collection('categories').doc(newCat.id).set(newCat)
+          .then()
+          .catch((error)=>{ console.log(error)})
       })
-       
+    );
 
-    )
-
-
-    //Store all from previous 
-//   @Effect({dispatch: false})
-//   recipeStore = this.actions$.pipe(
-//     ofType(CategoriesActions.STORE_CATEGORIES)
-//     , withLatestFrom(this.store.select('recipes')),
-//       switchMap(([action, state]) => {
-//         // const req = new HttpRequest('PUT', 'https://angular-http-5db2e.firebaseio.com/recipes.json', state.recipes, {reportProgress: true});
-//         // return this.httpClient.request(req);
-//         return null
-//     })
-//   );
 
   constructor(private actions$: Actions,
               private httpClient: HttpClient,
               private store: Store<fromCategories.State>,
-              private afs: AngularFirestore) {
+              private afs: AngularFirestore,
+              private af: AuthService,
+              private userService: UserService) {
   }
 }
