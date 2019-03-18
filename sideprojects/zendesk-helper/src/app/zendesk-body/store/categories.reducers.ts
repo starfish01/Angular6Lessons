@@ -26,18 +26,11 @@ export function emailDataReducer(state = initalState, action: CategoryActions.Em
 
     switch (action.type) {
 
-        case (CategoryActions.SET_CATEGORIES):
-        return {
-          ...state,
-          categories: [...action.payload]
-        };
-
         case CategoryActions.ADD_CATEGORY:
         return {
                 ...state,
                 categories: [...state.categories, action.payload]
             };
-
 
         case CategoryActions.UPDATE_CATEGORY:
             const category = state.categories[state.editedCategoryIndex]
@@ -64,38 +57,6 @@ export function emailDataReducer(state = initalState, action: CategoryActions.Em
                 editedCategoryIndex: -1
             };
         }
-
-        // case EmailDataActions.ADD_ENTRY: {
-        //     return {
-        //         ...state,
-        //         entries: [...state.entries, action.payload]
-        //     }
-        // }
-        // case EmailDataActions.UPDATE_ENTRY: {
-        //     const entry = state.categories[state.editedEntryIndex]
-        //     const updateEntry = {
-        //         ...entry,
-        //         ...action.payload.entry
-        //     };
-        //     const entries = [...state.entries];
-        //     entries[state.editedEntryIndex] = updateEntry;
-        //     return {
-        //         ...state,
-        //         entries: entries,
-        //         editedEntry: null,
-        //         editedEntryIndex: -1
-        //     };
-        // }
-        // case EmailDataActions.DELETE_ENTRY: {
-        //     const oldEntryList = [...state.categories];
-        //     oldEntryList.splice(state.editedEntryIndex, 1)
-        //     return {
-        //         ...state,
-        //         categories: oldEntryList,
-        //         editedEntry: null,
-        //         editedEntryIndex: -1
-        //     };
-        // }
 
         default:
             return state;

@@ -36,6 +36,7 @@ import { UserResolver } from './userdetails/user.resolver';
 import { LayoutModule } from '@angular/cdk/layout';
 import { EditCategoriesComponent } from './edit-categories/edit-categories.component';
 import { CategoryEffects } from './zendesk-body/store/categories.effect';
+import { EntryEffects } from './zendesk-body/entries/store/entries.effect';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http'; 
 // import { AuthEffects } from './auth/store/auth.effects';
@@ -69,7 +70,7 @@ import { HomepageComponent } from './core/homepage/homepage.component';
     StoreModule.forRoot(reducers),
     // StoreModule.forFeature('recipes', recipeReducer),
 
-    EffectsModule.forRoot([CategoryEffects]),
+    EffectsModule.forRoot([CategoryEffects,EntryEffects]),
     HttpClientModule,
     ClipboardModule, 
     MatToolbarModule,
