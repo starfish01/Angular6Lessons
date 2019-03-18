@@ -5,6 +5,11 @@ import { InformationManagerService } from '../information-manager.service';
 import { Entry } from 'src/app/shared/entry.model';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from 'src/app/auth/user.service';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+
+import * as fromApp from '../../store/app.reducers';
+import * as EntryActions from './store/entries.actions';
 
 var slugify = require('slugify')
 
@@ -19,13 +24,16 @@ export class EntriesComponent implements OnInit {
     private router: Router,
     private db:AngularFirestore, 
     private iMS: InformationManagerService,
-    private authService: AuthService, private userService: UserService) { }
+    private authService: AuthService, private userService: UserService,
+    private store: Store<fromApp.AppState>) { }
 
   slug: string;
   categoryID;
   entriesList:Entry[] = [];
   addEntryBool = false;
   loadingEntry = false;
+
+  entriesListObservable: Observable<{entries:Entry[]}>
 
   entryExists = false;
 
@@ -56,6 +64,13 @@ export class EntriesComponent implements OnInit {
 
   
   getEntries() {
+  
+
+
+    this.entriesListObservable = this.store.select('entries')
+    this.store.dispatch(new EntryActions.FetchEntries())
+
+
     this.iMS.getEntries().subscribe((data)=>{
       this.entriesList = [];
       data.forEach(element => {

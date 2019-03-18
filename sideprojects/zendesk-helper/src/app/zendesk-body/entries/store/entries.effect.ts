@@ -7,7 +7,8 @@ import { Store } from '@ngrx/store';
 
 
 
-// import * as CategoriesActions from '../store/categories.actions';
+import * as EntriesActions from '../store/entries.actions';
+
 // import { Category } from '../../shared/category.model';
 // import * as fromCategories from '../store/categories.reducers';
 import { AngularFirestore } from 'angularfire2/firestore';
@@ -19,19 +20,19 @@ import { UserService } from 'src/app/auth/user.service';
 export class EntryEffects {
 
   //Get Categories
-//   @Effect()
-//   categoriesFetch = this.actions$.pipe(
-//     ofType(CategoriesActions.FETCH_CATEGORIES),
-//     switchMap((action: CategoriesActions.FetchCategories) => {
-//       return this.afs.collection('category', ref => ref.where('displayed', '==', 1).where('uID', '==', this.userService.getCurrentUserID())).valueChanges();
-//     }), map(
-//       (categories) => {
-//         return {
-//           type: CategoriesActions.SET_CATEGORIES,
-//           payload: categories
-//         };
-//       }
-//     ));
+  @Effect()
+  entriesFetch = this.actions$.pipe(
+    ofType(EntriesActions.FETCH_ENTRIES),
+    switchMap((action: EntriesActions.FetchEntries) => {
+      return this.afs.collection('entries', ref => ref.where('categoryID', "==", this.userService.getCurrentUserID()).where('displayed','==',1)).valueChanges();
+    }), map(
+      (entries) => {
+        return {
+          type: EntriesActions.SET_ENTRIES,
+          payload: entries
+        };
+      }
+    ));
 
   //Add Category
 //   @Effect({ dispatch: false })

@@ -5,6 +5,7 @@ export const ADD_ENTRY = 'ADD_ENTRY';
 export const UPDATE_ENTRY = 'UPDATE_ENTRY';
 export const DELETE_ENTRY = 'DELETE_ENTRY';
 export const FETCH_ENTRIES = 'FETCH_ENTRIES';
+export const SET_ENTRIES = 'SET_ENTRIES';
 
 
 
@@ -27,6 +28,12 @@ export class DeleteEntry implements Action {
 
 export class FetchEntries implements Action {
     readonly type = FETCH_ENTRIES;
+}
+
+export class SetEntries implements Action {
+    readonly type = SET_ENTRIES;
+
+    constructor(public payload: Entry[]) { }
 }
 
 
