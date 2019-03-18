@@ -29,23 +29,24 @@ export class UpdateCategory implements Action {
 
 export class DeleteCategory implements Action {
     readonly type = DELETE_CATEGORY;
+    constructor(public payload: String) { }
 }
 
 export class FetchCategories implements Action {
     readonly type = FETCH_CATEGORIES;
 }
 
-export class SetCategories implements Action {
-    readonly type = SET_CATEGORIES;
-  
-    constructor(public payload: Category[]) {}
-  }
+// export class SetCategories implements Action {
+//     readonly type = SET_CATEGORIES;
 
-  export class StoreCategories implements Action {
-    readonly type = STORE_CATEGORIES;
-  
-    constructor(public payload: Category[]) {}
-  }
+//     constructor(public payload: Category[]) { }
+// }
+
+// export class StoreCategories implements Action {
+//     readonly type = STORE_CATEGORIES;
+
+//     constructor(public payload: Category[]) { }
+// }
 
 
 
@@ -74,4 +75,5 @@ export type EmailDataActions = AddCategory
     // | UpdateEntry
     // | DeleteEntry
     | FetchCategories
-    | SetCategories;
+    // | SetCategories;
+    ;

@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { InformationManagerService } from '../zendesk-body/information-manager.service';
 import { UserService } from '../auth/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+
+import * as fromApp from '../store/app.reducers';
+import * as CategoryActions from '../zendesk-body/store/categories.actions';
+
 
 @Component({
   selector: 'app-edit-categories',
@@ -10,7 +15,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class EditCategoriesComponent implements OnInit {
 
-  constructor(private iMS: InformationManagerService, private userService:UserService) { }
+  constructor(private iMS: InformationManagerService, private userService:UserService, private store: Store<fromApp.AppState>) { }
 
   userToken = null;
   initLoad = false;
@@ -42,7 +47,8 @@ export class EditCategoriesComponent implements OnInit {
 
   onSubmit(){
     this.selectedCat.category = this.editCategoryForm.value.title
-    this.iMS.updateCategory(this.selectedCat)
+    // this.iMS.updateCategory(this.selectedCat)
+    this.store.dispatch(new CategoryActions.UpdateCategory(this.selectedCat))
     this.selectedCat = null;
   }
 
@@ -51,7 +57,11 @@ export class EditCategoriesComponent implements OnInit {
   }
 
   delete() {
-    this.iMS.deleteCategory(this.selectedCat)
+    this.store.dispatch(new CategoryActions.DeleteCategory(this.selectedCat.id));
+
+    // console.log(this.selectedCat)
+
+    // this.iMS.deleteCategory(this.selectedCat)
     this.selectedCat = null;
   }
 
