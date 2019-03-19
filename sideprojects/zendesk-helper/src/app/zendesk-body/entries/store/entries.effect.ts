@@ -24,7 +24,7 @@ export class EntryEffects {
   entriesFetch = this.actions$.pipe(
     ofType(EntriesActions.FETCH_ENTRIES),
     switchMap((action: EntriesActions.FetchEntries) => {
-      return this.afs.collection('entries', ref => ref.where('categoryID', "==", this.userService.getCurrentUserID()).where('displayed','==',1)).valueChanges();
+      return this.afs.collection('entries').valueChanges();
     }), map(
       (entries) => {
         return {

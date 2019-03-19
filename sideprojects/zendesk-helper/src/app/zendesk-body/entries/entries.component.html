@@ -1,6 +1,14 @@
 
 <div>
   <div class="item item-3" fxFlex.md="30%" fxFlex.sm="100" >
+
+      <span *ngFor="let item of (entriesListObservable | async).entries">
+          <mat-list-item (click)="onTopicSelect(item)">
+              {{ item.title }}</mat-list-item>
+            <mat-divider></mat-divider>
+        </span>
+
+
     <mat-nav-list>
       <span *ngFor="let item of entriesList; let i = index">
         <mat-list-item (click)="onTopicSelect(item)">

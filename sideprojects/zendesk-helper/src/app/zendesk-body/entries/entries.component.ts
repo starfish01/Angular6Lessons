@@ -45,19 +45,19 @@ export class EntriesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params
-      .subscribe(
-        (params: Params) => {
-          this.slug = params.id
-          this.categoryID = this.iMS.getCategoryIDSelected();
-          if(this.categoryID == null) {
-            this.router.navigate(['main']);
-          } else {
-            this.loadingEntry = true;
+    // this.route.params
+    //   .subscribe(
+    //     (params: Params) => {
+    //       this.slug = params.id
+    //       this.categoryID = this.iMS.getCategoryIDSelected();
+    //       if(this.categoryID == null) {
+    //         this.router.navigate(['main']);
+    //       } else {
+    //         this.loadingEntry = true;
             this.getEntries()
-          }
-        }
-      );
+    //       }
+    //     }
+    //   );
   }
 
   
@@ -66,18 +66,25 @@ export class EntriesComponent implements OnInit {
   getEntries() {
   
 
+    console.log('1')
 
-    this.entriesListObservable = this.store.select('entries')
+    this.entriesListObservable = this.store.select('entriesData')
+
     this.store.dispatch(new EntryActions.FetchEntries())
 
 
-    this.iMS.getEntries().subscribe((data)=>{
-      this.entriesList = [];
-      data.forEach(element => {
-        this.entriesList.push(element)
-      });
-      this.loadingEntry = false;
+    this.entriesListObservable.subscribe((data)=>{
+      console.log(data)
     })
+
+
+    // this.iMS.getEntries().subscribe((data)=>{
+    //   this.entriesList = [];
+    //   data.forEach(element => {
+    //     this.entriesList.push(element)
+    //   });
+    //   this.loadingEntry = false;
+    // })
   }
 
   onTopicSelect(item) {

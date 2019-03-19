@@ -1,24 +1,24 @@
 import * as EntryActions from './entries.actions';
-import { Category } from 'src/app/shared/category.model';
+// import { entry } from 'src/app/shared/entry.model';
 import { Entry } from 'src/app/shared/entry.model';
 
 var slugify = require('slugify')
 
 export interface State {
-    // categories: Category[];
+    // categories: entry[];
     entries: Entry[];
-    editedCategoryIndex: number;
+    editedentryIndex: number;
     editedEntryIndex: number;
-    // editedCategory: Category;
+    // editedentry: entry;
     editedEntry: Entry;
 }
 
 const initalState: State = {
     // categories: [],
     entries: [],
-    editedCategoryIndex: -1,
+    editedentryIndex: -1,
     editedEntryIndex: -1,
-    // editedCategory: null,
+    // editedentry: null,
     editedEntry: null
 }
 
@@ -27,34 +27,41 @@ export function entriesData(state = initalState, action: EntryActions.EmailDataA
     switch (action.type) {
 
         case EntryActions.ADD_ENTRY:
-        return {
+            return {
                 ...state,
                 categories: [...state.entries, action.payload]
             };
 
+
+        case EntryActions.SET_ENTRIES:
+            return {
+                ...state,
+                entries: [...action.payload]
+            };
+
         case EntryActions.UPDATE_ENTRY:
-            const category = state.entries[state.editedCategoryIndex]
-            const updatedCategory = {
-                ...category,
-                ...action.payload.category
+            const entry = state.entries[state.editedentryIndex]
+            const updatedentry = {
+                ...entry,
+                ...action.payload
             };
             const categories = [...state.entries];
-            categories[state.editedCategoryIndex] = updatedCategory;
+            categories[state.editedentryIndex] = updatedentry;
             return {
                 ...state,
                 categories: categories,
-                editedCategory: null,
-                editedCategoryIndex: -1
+                editedentry: null,
+                editedentryIndex: -1
             };
 
         case EntryActions.DELETE_ENTRY: {
             const oldCatList = [...state.entries];
-            oldCatList.splice(state.editedCategoryIndex, 1)
+            oldCatList.splice(state.editedentryIndex, 1)
             return {
                 ...state,
                 categories: oldCatList,
-                editedCategory: null,
-                editedCategoryIndex: -1
+                editedentry: null,
+                editedentryIndex: -1
             };
         }
 
