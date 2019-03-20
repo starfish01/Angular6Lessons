@@ -1,5 +1,10 @@
 <div class="container-item">
-  <span *ngIf="entry">
+
+    <!-- {{ (entriesListObservable | async).selectedEntry.id }} -->
+
+
+
+  <!-- <span *ngIf="entry">
 
     <h3>{{ entry.title }}</h3>
     <hr>
@@ -7,7 +12,7 @@
       <textarea matInput rows="6" placeholder="Email" value="{{ entry.content }}"></textarea>
     </mat-form-field>
 
-  </span>
+  </span> -->
 
   <div>
     <button mat-stroked-button color="primary" (click)="copyToClipboard()">{{copyButtonText}}</button>

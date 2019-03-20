@@ -2,46 +2,31 @@
   <img src="../../assets/loading.svg" style="width:30px">
 </span>
 
-<!-- <span [ngIf]="!authService.authenticated">
-  Please Login
-</span> -->
-
-
-<div class="container1"
-     fxLayout
-     fxLayout.xs="column"
-     fxLayoutAlign="center"
-     fxLayoutGap="10px"
-     fxLayoutGap.xs="0">
+<div class="container1" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
   <div class="item item-1" fxFlex="30%" *ngIf="!initLoad">
 
     <mat-nav-list>
-<!--       OLD
-      <span *ngFor="let item of categoriesNew; let i = index">
+
+      <span *ngFor="let item of (categoriesNew1 | async).categories">
         <mat-list-item (click)="onCategorySelect(item)">
           {{ item.category }}</mat-list-item>
         <mat-divider></mat-divider>
-      </span> -->
-      <span *ngFor="let item of (categoriesNew1 | async).categories">
-          <mat-list-item (click)="onCategorySelect(item)">
-           {{ item.category }}</mat-list-item>
-          <mat-divider></mat-divider>
+      </span>
+
+
+      <mat-list-item (click)="addCategory()">
+        <span *ngIf="!addCategoryBool && !lodingCategory"><img src="../../assets/tag-cat.svg"> Add Category</span>
+        <span *ngIf="addCategoryBool && !lodingCategory">
+          <div class="input-and-button">
+            <img class="button-item" src="../../assets/tag-cat.svg">
+            <input #cat (focusout)="addCategoryBool = false" (keyup.enter)="addCategoryItem(cat.value)" type="text"
+              class="form-control input-item">
+          </div>
         </span>
-
-
-        <mat-list-item (click)="addCategory()">
-          <span *ngIf="!addCategoryBool && !lodingCategory"><img src="../../assets/tag-cat.svg"> Add Category</span>
-          <span *ngIf="addCategoryBool && !lodingCategory">
-            <div class="input-and-button">
-              <img class="button-item" src="../../assets/tag-cat.svg">
-              <input #cat (focusout)="addCategoryBool = false" (keyup.enter)="addCategoryItem(cat.value)" type="text"
-                class="form-control input-item">
-            </div>
-          </span>
-          <span *ngIf="lodingCategory">
-            <img src="../../assets/loading.svg" style="width:30px">
-          </span>
-        </mat-list-item>
+        <span *ngIf="lodingCategory">
+          <img src="../../assets/loading.svg" style="width:30px">
+        </span>
+      </mat-list-item>
 
 
     </mat-nav-list>
@@ -49,5 +34,5 @@
   <div class="item item-2" fxFlex="70%">
     <router-outlet></router-outlet>
   </div>
- 
+
 </div>

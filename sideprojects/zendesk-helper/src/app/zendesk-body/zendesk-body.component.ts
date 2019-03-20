@@ -24,31 +24,19 @@ var slugify = require('slugify')
 })
 export class ZendeskBodyComponent implements OnInit {
 
-  categoriesNew: Category[] = []
-
-  selectedCategory = null;
-
-  initLoad = false;
-  selectedTopic = null;
+  categoriesNew1: Observable<{categories:Category[]}>
 
   addCategoryBool = false;
-  lodingCategory = false;
 
   currentUser;
 
-
-  userToken = null;
-
   @ViewChild("cat") nameField: ElementRef;
-  // @ViewChild("entry") entryField: ElementRef;
 
-  categoriesNew1: Observable<{categories:Category[]}>
-
-  constructor(private userService: UserService, private storage: Storage, private router: Router, private route: ActivatedRoute, private iMS: InformationManagerService, private store: Store<fromApp.AppState>) {
+  constructor(private userService: UserService, private router: Router, private route: ActivatedRoute, private store: Store<fromApp.AppState>) {
     this.route.params
       .subscribe(
         (params: Params) => {
-          this.iMS.setCategoryIDSelected(null);
+          // this.iMS.setCategoryIDSelected(null);
           // this.id = +params['id'];
           // this.recipe = this.recipeService.getRecipe(this.id);
         }
@@ -56,55 +44,20 @@ export class ZendeskBodyComponent implements OnInit {
   }
 
 
-
   ngOnInit() {
 
     this.categoriesNew1 = this.store.select('emailData')
     
-
     this.store.dispatch(new CategoryActions.FetchCategories());
 
-
-    //this.initLoad = true;
-
-    // this.userService.getCurrentUser().then((data) => {
-    //   this.userToken = data.uid;
-    //   this.getCategories()
-    // }).catch((error) => {
-    //   this.userToken = null;
-    //  this.initLoad = false;
-    //   console.log(error)
-    // })
   }
 
-  // getCategories() {
-
-  //   this.iMS.getCategories(this.userToken).subscribe((data) => {
-  //     this.categoriesNew = [];
-  //     data.forEach(element => {
-  //       this.categoriesNew.push(element)
-  //     });
-  //     this.initLoad = false;
-  //   })
-  // }
 
   onCategorySelect(selectedCategory) {
-    // console.log('1')
     this.store.dispatch(new EntryActions.SelectCategory({index:selectedCategory.id}))
 
-    // this.iMS.setCategoryIDSelected(selectedCategory.id);
-    // this.router.navigate([selectedCategory.slug], { relativeTo: this.route });
-
-    // this.selectedCategory = selectedCategory
-
-    // let q = this.iMS.getEntries().subscribe((data) => {
-    //   this.selectedCategory.entries = []
-    //   data.forEach(element => {
-    //     this.selectedCategory.entries.push(element)
-    //   });
-    // })
-
-
+    this.router.navigate([selectedCategory.slug], { relativeTo: this.route });
+  
   }
 
 
@@ -116,25 +69,10 @@ export class ZendeskBodyComponent implements OnInit {
     }
 
     let slug = slugify(value);
-    // console.log(slug)
 
     let newCategory = new Category(value, this.getUserID(), slug)
-    // console.log(newCategory)
 
     this.store.dispatch(new CategoryActions.AddCategory(newCategory))
-
-    // this.lodingCategory = true;
-
-    // let slug = slugify(value);
-
-    // let createdCategory = new Category(value, this.getUserID(), slug)
-
-    // this.storage.storeCategory(createdCategory).then((data) => {
-    //   this.lodingCategory = false;
-    // }).catch((err) => {
-    //   this.lodingCategory = false;
-    //   console.log(err)
-    // })
 
     this.addCategoryBool = false;
   }
@@ -149,12 +87,5 @@ export class ZendeskBodyComponent implements OnInit {
   getUserID() {
     return this.userService.getCurrentUserID();
   }
-
-  saveData() {
-    this.storage.saveData(this.categoriesNew)
-  }
-
-
-
 
 }

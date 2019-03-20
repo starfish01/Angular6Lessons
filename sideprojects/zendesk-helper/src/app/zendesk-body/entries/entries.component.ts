@@ -21,10 +21,9 @@ var slugify = require('slugify')
 export class EntriesComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, 
-    private router: Router,
-    private db:AngularFirestore, 
+    private router: Router, 
     private iMS: InformationManagerService,
-    private authService: AuthService, private userService: UserService,
+    private userService: UserService,
     private store: Store<fromApp.AppState>) { }
 
   slug: string;
@@ -64,18 +63,14 @@ export class EntriesComponent implements OnInit {
 
   
   getEntries() {
-  
-
-    console.log('1')
 
     this.entriesListObservable = this.store.select('entriesData')
 
     this.store.dispatch(new EntryActions.FetchEntries())
 
-    this.entriesListObservable.subscribe((data)=>{
-      console.log(data)
-    })
-
+    // this.entriesListObservable.subscribe((data)=>{
+    //   console.log(data)
+    // })
 
     // this.iMS.getEntries().subscribe((data)=>{
     //   this.entriesList = [];
@@ -87,7 +82,10 @@ export class EntriesComponent implements OnInit {
   }
 
   onTopicSelect(item) {
-    this.iMS.setEntrySelected(item);
+
+    this.store.dispatch(new EntryActions.SelectEntry({index:item}))
+    
+    // this.iMS.setEntrySelected(item);
     this.router.navigate([item.slug], {relativeTo: this.route});
   }
 
@@ -109,6 +107,8 @@ export class EntriesComponent implements OnInit {
 
     this.addEntryBool = false;
     this.loadingEntry = true;
+
+    //
 
     let slug = slugify(value)
 

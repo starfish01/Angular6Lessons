@@ -10,9 +10,26 @@ export const SET_ENTRIES = 'SET_ENTRIES';
 export const SELECTED_CATEGORY = 'SELECTED_CATEGORY';
 export const UNSELECT_CATEGORY = 'UNSELECT_CATEGORY'; 
 
+export const SELECT_ENTRY = 'SELECT_ENTRY';
+export const UNSELECT_ENTRY = 'UNSELECT_ENTRY';
+
+export const SELECTED_ENTRY = 'SELECTED_ENTRY';
 
 
-// Category Actions
+
+export class SelectedEntry implements Action {
+    readonly type = SELECTED_ENTRY;
+}
+
+export class SelectEntry implements Action {
+    readonly type = SELECT_ENTRY;
+    constructor(public payload: {index: Entry}) {}
+}
+
+export class UnselectEntry implements Action {
+    readonly type = UNSELECT_ENTRY;
+}
+
 
 export class SelectCategory implements Action {
     readonly type = SELECTED_CATEGORY;
@@ -60,4 +77,7 @@ export type EmailDataActions =
     | SetEntries
     | SelectCategory
     | UnselectCategory
+    | SelectEntry
+    | UnselectEntry
+    | SelectedEntry
     ;
