@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { AngularFireModule } from 'angularfire2';
 import { InformationManagerService } from '../../information-manager.service';
@@ -13,6 +13,7 @@ import * as fromApp from '../../../store/app.reducers';
 
 import * as EntryActions from '../store/entries.actions';
 import { Observable } from 'rxjs';
+import { take, first } from 'rxjs/operators';
 
 
 
@@ -24,41 +25,65 @@ import { Observable } from 'rxjs';
 })
 export class EntryComponent implements OnInit {
 
+  @Input('entrySelected') element; 
+
+
+
   constructor(private route: ActivatedRoute, 
     private router: Router,
     private store: Store<fromApp.AppState>,
-    private _clipboardService: ClipboardService) { }
+    private _clipboardService: ClipboardService) { 
+
+
+      //working here at the moment
+     this.router.getCurrentNavigation().extras.state.selectedEntry
+
+    }
 
     entriesListObservable: Observable<{entries:Entry[]}>
 
-    slug:string = null;
+    slug = null;
     entry: Entry = null;
     copyButtonText = 'Copy';
 
   ngOnInit() {
+
+
     this.route.params
       .subscribe(
         (params: Params) => {
 
           this.entriesListObservable = this.store.select('entriesData')
 
-          this.entriesListObservable.subscribe((data)=>{
-            console.log(data.selectedEntry)
-          })
-
+          // console.log(this.router)
 
           // this.store.dispatch(new EntryActions.SelectEntry().payload.index)
 
+    
         
-          // this.slug = params.id
+          this.slug = params
+
+          // console.log(this.slug)
+
           // this.entry = this.iMS.getEntrySelected();
           // if(this.entry == null) {
           //   this.router.navigate(['main']);
           // } else {
           //   // this.getEntry();
           // }
+
+          this.getEntryData();
+
         }
       );
+  }
+
+  getEntryData(){
+
+    // this.entriesListObservable.subscribe((data)=>{
+    //   console.log(data)
+
+    // })
   }
 
 

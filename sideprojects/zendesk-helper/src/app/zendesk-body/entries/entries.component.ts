@@ -32,6 +32,8 @@ export class EntriesComponent implements OnInit {
   addEntryBool = false;
   loadingEntry = false;
 
+  entrySelected: Entry = null;
+
   entriesListObservable: Observable<{entries:Entry[]}>
 
   entryExists = false;
@@ -83,10 +85,12 @@ export class EntriesComponent implements OnInit {
 
   onTopicSelect(item) {
 
+    this.entrySelected = item;
+
     this.store.dispatch(new EntryActions.SelectEntry({index:item}))
     
     // this.iMS.setEntrySelected(item);
-    this.router.navigate([item.slug], {relativeTo: this.route});
+    this.router.navigate([item.slug], {relativeTo: this.route, state: { selectedEntry: item }});
   }
 
   addEntry() {

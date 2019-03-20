@@ -22,7 +22,7 @@ export function entriesData(state = initalState, action: EntryActions.EmailDataA
     switch (action.type) {
 
        
-        case EntryActions.UNSELECT_ENTRY: 
+        case EntryActions.SELECTED_ENTRY: 
             return {
                 ...state,
                 selectedEntry: null
