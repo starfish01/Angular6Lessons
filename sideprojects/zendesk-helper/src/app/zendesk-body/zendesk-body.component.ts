@@ -11,8 +11,9 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import * as fromApp from '../store/app.reducers';
-import * as CategoryActions from './store/categories.actions';
 
+import * as CategoryActions from './store/categories.actions';
+import * as EntryActions from './entries/store/entries.actions';
 
 var slugify = require('slugify')
 
@@ -88,18 +89,20 @@ export class ZendeskBodyComponent implements OnInit {
   // }
 
   onCategorySelect(selectedCategory) {
+    // console.log('1')
+    this.store.dispatch(new EntryActions.SelectCategory({index:selectedCategory.id}))
 
-    this.iMS.setCategoryIDSelected(selectedCategory.id);
-    this.router.navigate([selectedCategory.slug], { relativeTo: this.route });
+    // this.iMS.setCategoryIDSelected(selectedCategory.id);
+    // this.router.navigate([selectedCategory.slug], { relativeTo: this.route });
 
-    this.selectedCategory = selectedCategory
+    // this.selectedCategory = selectedCategory
 
-    let q = this.iMS.getEntries().subscribe((data) => {
-      this.selectedCategory.entries = []
-      data.forEach(element => {
-        this.selectedCategory.entries.push(element)
-      });
-    })
+    // let q = this.iMS.getEntries().subscribe((data) => {
+    //   this.selectedCategory.entries = []
+    //   data.forEach(element => {
+    //     this.selectedCategory.entries.push(element)
+    //   });
+    // })
 
 
   }

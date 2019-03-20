@@ -6,6 +6,7 @@ var slugify = require('slugify')
 
 export interface State {
     // categories: entry[];
+    selectedCategory: String;
     entries: Entry[];
     editedentryIndex: number;
     editedEntryIndex: number;
@@ -14,6 +15,7 @@ export interface State {
 }
 
 const initalState: State = {
+    selectedCategory: null,
     // categories: [],
     entries: [],
     editedentryIndex: -1,
@@ -26,10 +28,23 @@ export function entriesData(state = initalState, action: EntryActions.EmailDataA
 
     switch (action.type) {
 
+        case EntryActions.UNSELECT_CATEGORY: 
+            return {
+                ...state,
+                selectedCategory: null
+            }
+
+        case EntryActions.SELECTED_CATEGORY:
+        return {
+            ...state,
+            selectedCategory: action.payload.index
+        }
+
+
         case EntryActions.ADD_ENTRY:
             return {
                 ...state,
-                categories: [...state.entries, action.payload]
+                entries: [...state.entries, action.payload]
             };
 
 

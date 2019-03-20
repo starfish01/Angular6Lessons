@@ -1,13 +1,15 @@
+<div *ngIf="(entriesListObservable | async).selectedCategory != null ">
+  <div class="item item-3" fxFlex.md="30%" fxFlex.sm="100">
 
-<div>
-  <div class="item item-3" fxFlex.md="30%" fxFlex.sm="100" >
+    <span *ngFor="let item of (entriesListObservable | async).entries">
+      <span *ngIf="item.categoryID == (entriesListObservable | async).selectedCategory">
 
-      <span *ngFor="let item of (entriesListObservable | async).entries">
-          <mat-list-item (click)="onTopicSelect(item)">
-              {{ item.title }}</mat-list-item>
-            <mat-divider></mat-divider>
-        </span>
+        <mat-list-item (click)="onTopicSelect(item)">
+          {{ item.title }}</mat-list-item>
+        <mat-divider></mat-divider>
 
+      </span>
+    </span>
 
     <mat-nav-list>
       <span *ngFor="let item of entriesList; let i = index">
@@ -16,31 +18,27 @@
         <mat-divider></mat-divider>
       </span>
 
+      <mat-list-item (click)="addEntry()">
+        <span *ngIf="!addEntryBool && !loadingEntry"><img src="../../assets/tag-cat.svg"> Add Entry</span>
+        <span *ngIf="addEntryBool && !loadingEntry">
+          <div class="input-and-button">
+            <img class="button-item" src="../../assets/tag-cat.svg">
+            <input #entry (focusout)="addEntryBool = false" (keyup.enter)="addEntryItem(entry.value)" type="text"
+              class="form-control input-item">
+          </div>
+        </span>
+        <span *ngIf="loadingEntry">
+          <img src="../../assets/loading.svg" style="width:30px">
+        </span>
 
-      
-
-        <mat-list-item (click)="addEntry()">
-
-          <span *ngIf="!addEntryBool && !loadingEntry"><img src="../../assets/tag-cat.svg"> Add Entry</span>
-          <span *ngIf="addEntryBool && !loadingEntry">
-            <div class="input-and-button">
-              <img class="button-item" src="../../assets/tag-cat.svg">
-              <input #entry (focusout)="addEntryBool = false" (keyup.enter)="addEntryItem(entry.value)" type="text"
-                class="form-control input-item">
-            </div>
-          </span>
-          <span *ngIf="loadingEntry">
-            <img src="../../assets/loading.svg" style="width:30px">
-          </span>
-
-        </mat-list-item>
+      </mat-list-item>
 
     </mat-nav-list>
   </div>
 
-  <div class="item item-3" fxFlex.sm="100" fxFlex.md="70%" >
-    
-        <router-outlet></router-outlet>
-    
+  <div class="item item-3" fxFlex.sm="100" fxFlex.md="70%">
+
+    <router-outlet></router-outlet>
+
   </div>
 </div>

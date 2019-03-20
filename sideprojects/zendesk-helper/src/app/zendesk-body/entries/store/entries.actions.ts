@@ -7,9 +7,21 @@ export const DELETE_ENTRY = 'DELETE_ENTRY';
 export const FETCH_ENTRIES = 'FETCH_ENTRIES';
 export const SET_ENTRIES = 'SET_ENTRIES';
 
+export const SELECTED_CATEGORY = 'SELECTED_CATEGORY';
+export const UNSELECT_CATEGORY = 'UNSELECT_CATEGORY'; 
+
 
 
 // Category Actions
+
+export class SelectCategory implements Action {
+    readonly type = SELECTED_CATEGORY;
+    constructor(public payload: {index: string}) {}
+}
+
+export class UnselectCategory implements Action {
+    readonly type = UNSELECT_CATEGORY;
+}
 
 export class AddEntry implements Action {
     readonly type = ADD_ENTRY;
@@ -46,4 +58,6 @@ export type EmailDataActions =
     | DeleteEntry
     | FetchEntries
     | SetEntries
+    | SelectCategory
+    | UnselectCategory
     ;

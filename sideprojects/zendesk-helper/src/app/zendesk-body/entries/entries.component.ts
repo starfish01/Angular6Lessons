@@ -72,7 +72,6 @@ export class EntriesComponent implements OnInit {
 
     this.store.dispatch(new EntryActions.FetchEntries())
 
-
     this.entriesListObservable.subscribe((data)=>{
       console.log(data)
     })
