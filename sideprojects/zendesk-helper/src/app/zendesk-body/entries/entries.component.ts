@@ -90,7 +90,7 @@ export class EntriesComponent implements OnInit {
     this.store.dispatch(new EntryActions.SelectEntry({index:item}))
     
     // this.iMS.setEntrySelected(item);
-    this.router.navigate([item.slug], {relativeTo: this.route, state: { selectedEntry: item }});
+    this.router.navigate([item.slug, item.id], {relativeTo: this.route, state: { selectedEntry: item }});
   }
 
   addEntry() {

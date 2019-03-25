@@ -18,8 +18,8 @@ const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full'},
   { path:'main', component:ZendeskBodyComponent, resolve: { data: UserResolver}, children:[
     { path:':id', component:EntriesComponent, children: [
-      { path:':entry', component:EntryComponent },
-      { path: ':entry/edit', component:EntryEditComponent}
+      { path:':entry/:id', component:EntryComponent },
+      { path: ':entry/:id/edit', component:EntryEditComponent}
     ] },
     // { path:'/entry/:id/edit',component: EditEntryComponent, canActivate:[AuthGuard]}
   ]},

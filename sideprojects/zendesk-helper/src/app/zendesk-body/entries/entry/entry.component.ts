@@ -34,13 +34,12 @@ export class EntryComponent implements OnInit {
     private store: Store<fromApp.AppState>,
     private _clipboardService: ClipboardService) { 
 
-
-      //working here at the moment
      this.router.getCurrentNavigation().extras.state.selectedEntry
 
     }
 
-    entriesListObservable: Observable<{entries:Entry[]}>
+    entriesListObservable: Observable<Entry>
+    selectedEntry:Entry;
 
     slug = null;
     entry: Entry = null;
@@ -48,23 +47,15 @@ export class EntryComponent implements OnInit {
 
   ngOnInit() {
 
-
     this.route.params
       .subscribe(
         (params: Params) => {
 
-          this.entriesListObservable = this.store.select('entriesData')
-
-          // console.log(this.router)
-
-          // this.store.dispatch(new EntryActions.SelectEntry().payload.index)
-
-    
+          this.entriesListObservable = this.store.select(state => state.entriesData.selectedEntry);
+          this.entriesListObservable.subscribe((data)=>{
+            this.selectedEntry = data;
+          }).unsubscribe();
         
-          this.slug = params
-
-          // console.log(this.slug)
-
           // this.entry = this.iMS.getEntrySelected();
           // if(this.entry == null) {
           //   this.router.navigate(['main']);
@@ -72,17 +63,23 @@ export class EntryComponent implements OnInit {
           //   // this.getEntry();
           // }
 
-          this.getEntryData();
+          this.getEntryData(params.id);
 
         }
       );
   }
 
-  getEntryData(){
+  getEntryData(entryID){
+
+  //  this.store.dispatch(new EntryActions.SelectEntry(entryID))
+
+  //  let counter = this.store.select(state => state.entriesData.selectedEntry);
+
+  //  console.log(counter)
+
 
     // this.entriesListObservable.subscribe((data)=>{
     //   console.log(data)
-
     // })
   }
 
