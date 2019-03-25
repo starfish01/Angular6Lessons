@@ -63,13 +63,8 @@ export class EntriesComponent implements OnInit {
     this.catObserv = this.store.select(state => state.entriesData.selectedCategory);
 
     this.catObserv.subscribe((data) => {
-      console.log(data)
       if (data === null) {
-        //check if there is a slug with the param
-console.log(params)
-          // set if possible
 
-          //else
         this.router.navigate(['main'])
       }
     }).unsubscribe()
