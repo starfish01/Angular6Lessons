@@ -33,15 +33,12 @@ export class EntryComponent implements OnInit {
     private router: Router,
     private store: Store<fromApp.AppState>,
     private _clipboardService: ClipboardService) { 
-
-     this.router.getCurrentNavigation().extras.state.selectedEntry
-
     }
 
     entriesListObservable: Observable<Entry>
     selectedEntry:Entry;
 
-    slug = null;
+    // slug = null;
     entry: Entry = null;
     copyButtonText = 'Copy';
 
@@ -50,18 +47,18 @@ export class EntryComponent implements OnInit {
     this.route.params
       .subscribe(
         (params: Params) => {
-
+          
           this.entriesListObservable = this.store.select(state => state.entriesData.selectedEntry);
           this.entriesListObservable.subscribe((data)=>{
             this.selectedEntry = data;
           }).unsubscribe();
         
           // this.entry = this.iMS.getEntrySelected();
-          // if(this.entry == null) {
+          if(this.selectedEntry == null) {
           //   this.router.navigate(['main']);
-          // } else {
+          } else {
           //   // this.getEntry();
-          // }
+          }
 
           this.getEntryData(params.id);
 
@@ -71,16 +68,6 @@ export class EntryComponent implements OnInit {
 
   getEntryData(entryID){
 
-  //  this.store.dispatch(new EntryActions.SelectEntry(entryID))
-
-  //  let counter = this.store.select(state => state.entriesData.selectedEntry);
-
-  //  console.log(counter)
-
-
-    // this.entriesListObservable.subscribe((data)=>{
-    //   console.log(data)
-    // })
   }
 
 

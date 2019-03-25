@@ -1,26 +1,20 @@
 <div class="container-item">
 
-  {{selectedEntry.title}}
+  <span *ngIf="selectedEntry">
 
-    <!-- {{ (entriesListObservable | async).selectedEntry.id }} -->
-
-
-
-  <!-- <span *ngIf="entry">
-
-    <h3>{{ entry.title }}</h3>
+    <h3>{{ selectedEntry.title }}</h3>
     <hr>
     <mat-form-field appearance="outline">
-      <textarea matInput rows="6" placeholder="Email" value="{{ entry.content }}"></textarea>
+      <textarea matInput rows="6" placeholder="Email" value="{{ selectedEntry.content }}"></textarea>
     </mat-form-field>
 
-  </span> -->
+  </span>
 
   <div>
     <button mat-stroked-button color="primary" (click)="copyToClipboard()">{{copyButtonText}}</button>
-    
-      <button mat-stroked-button color="primary" (click)="editEntry()">Edit</button>
-   
+
+    <button mat-stroked-button color="primary" (click)="editEntry()">Edit</button>
+
   </div>
 
 

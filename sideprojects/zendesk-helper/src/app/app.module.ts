@@ -42,6 +42,9 @@ import { HttpClientModule } from '@angular/common/http';
 // import { AuthEffects } from './auth/store/auth.effects';
 import { HomepageComponent } from './core/homepage/homepage.component';
 
+// import { StoreModule } from '@ngrx/store';
+// import { todoReducer } from './reducers/todo.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 
 @NgModule({
@@ -71,6 +74,10 @@ import { HomepageComponent } from './core/homepage/homepage.component';
     // StoreModule.forFeature('recipes', recipeReducer),
 
     EffectsModule.forRoot([CategoryEffects,EntryEffects]),
+    // StoreModule.provideStore({ reducers }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 10
+    }),
     HttpClientModule,
     ClipboardModule, 
     MatToolbarModule,
