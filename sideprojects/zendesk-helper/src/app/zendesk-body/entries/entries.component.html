@@ -1,3 +1,10 @@
+<div *ngIf="(catObserv | async) === null">
+
+  Loading..
+
+</div>
+
+
 
 <div *ngIf="(catObserv | async) !== null">
   <div class="item item-3" fxFlex.md="30%" fxFlex.sm="100">

@@ -64,15 +64,10 @@ export class EntriesComponent implements OnInit {
 
     this.catObserv.subscribe((data) => {
       if (data === null) {
-
         this.router.navigate(['main'])
       }
     }).unsubscribe()
-
   }
-
-
-
 
   onTopicSelect(item) {
 
@@ -98,6 +93,7 @@ export class EntriesComponent implements OnInit {
       return;
     }
 
+    // TODO: move this over store 
 
     this.addEntryBool = false;
     this.loadingEntry = true;

@@ -7,6 +7,15 @@ import { UserService } from 'src/app/auth/user.service';
 import { Entry } from 'src/app/shared/entry.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EventEmitter } from 'events';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../../store/app.reducers';
+
+import * as EntryActions from '../store/entries.actions';
+
+
+
+
 
 @Component({
   selector: 'app-entry-edit',
@@ -18,11 +27,15 @@ export class EntryEditComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private db: AngularFireModule,
+    private store: Store<fromApp.AppState>,
     private iMS: InformationManagerService,
     private authService: AuthService, private userService: UserService) { }
 
   slug: string;
   entry: Entry;
+
+  editEntrySelected: Observable<Entry>
+
 
   entryUpdateForm: FormGroup;
 
@@ -32,14 +45,24 @@ export class EntryEditComponent implements OnInit {
     this.route.params
       .subscribe(
         (params: Params) => {
-          this.slug = params.id
-          this.entry = this.iMS.getEntrySelected();
-          if (this.entry == null) {
-            this.router.navigate(['main']);
-          } else {
+
+
+
+          this.editEntrySelected = this.store.select(state => state.entriesData.selectedEntry);
+          this.editEntrySelected.subscribe((data)=>{
+            this.entry = data;
+          }).unsubscribe();
+
+
+
+          // this.slug = params.id
+          // this.entry = this.iMS.getEntrySelected();
+          // if (this.entry == null) {
+          //   this.router.navigate(['main']);
+          // } else {
             this.initForm();
-            // this.getEntry();
-          }
+          //   // this.getEntry();
+          // }
         }
       );
   }
@@ -58,14 +81,17 @@ export class EntryEditComponent implements OnInit {
   }
 
   onSubmit() {
-    this.iMS.updateEntry(this.entryUpdateForm.value);
-    this.router.navigate(['../../'], {relativeTo: this.route})
+
+    this.store.dispatch(new EntryActions.UpdateEntry(this.entry))
+    // this.store.dispatch(new )
+    // this.iMS.updateEntry(this.entryUpdateForm.value);
+    // this.router.navigate(['../../'], {relativeTo: this.route})
   }
 
   deleteEntry() {
-    this.iMS.deleteEntry();
-    this.redirectAfterChange()
-    this.iMS.setEntrySelected(null);
+    // this.iMS.deleteEntry();
+    // this.redirectAfterChange()
+    // this.iMS.setEntrySelected(null);
   }
 
   redirectAfterChange() {

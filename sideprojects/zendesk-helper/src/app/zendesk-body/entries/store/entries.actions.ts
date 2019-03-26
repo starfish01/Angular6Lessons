@@ -47,7 +47,7 @@ export class AddEntry implements Action {
 
 export class UpdateEntry implements Action {
     readonly type = UPDATE_ENTRY;
-    constructor(public payload: { category: Entry }) { }
+    constructor(public payload: Entry) { }
 }
 
 export class DeleteEntry implements Action {

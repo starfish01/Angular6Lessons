@@ -21,6 +21,36 @@ export function entriesData(state = initalState, action: EntryActions.EmailDataA
 
     switch (action.type) {
 
+
+
+        case EntryActions.UPDATE_ENTRY:
+
+        console.log('reducer')
+        console.log(action.payload.id)
+        console.log(state.entries)
+        // state.entries.indexOf()
+
+        let index = state.entries.findIndex(x => x.id ===action.payload.id);
+        //cool this is correct
+        console.log(index)
+
+
+
+            // const entry = state.entries[state.editedentryndex]
+            // const updatedentry = {
+            //     ...entry,
+            //     ...action.payload
+            // };
+            // const categories = [...state.entries];
+            // categories[state.editedentryIndex] = updatedentry;
+            return {
+                ...state,
+                // categories: categories,
+            };
+
+
+
+
        
         case EntryActions.SELECTED_ENTRY: 
             return {
@@ -61,20 +91,7 @@ export function entriesData(state = initalState, action: EntryActions.EmailDataA
                 entries: [...action.payload]
             };
 
-        // case EntryActions.UPDATE_ENTRY:
-        //     const entry = state.entries[state.editedentryIndex]
-        //     const updatedentry = {
-        //         ...entry,
-        //         ...action.payload
-        //     };
-        //     const categories = [...state.entries];
-        //     categories[state.editedentryIndex] = updatedentry;
-        //     return {
-        //         ...state,
-        //         categories: categories,
-        //         editedentry: null,
-        //         editedentryIndex: -1
-        //     };
+        
 
         // case EntryActions.DELETE_ENTRY: {
         //     const oldCatList = [...state.entries];

@@ -49,15 +49,14 @@ export class EntryEffects {
 //   );
 
   //Update Category
-//   @Effect({ dispatch: false })
-//   categoryUpdate = this.actions$.pipe(
-//     ofType(CategoriesActions.UPDATE_CATEGORY),
-//     map((data) => {
-//       let updatingItem = Object.assign({}, Object.assign(data).payload)
-//       this.afs.collection('category').doc(updatingItem.id).update(updatingItem)
-
-//     })
-//   );
+  @Effect({ dispatch: false })
+  entryUpdate = this.actions$.pipe(
+    ofType(EntriesActions.UPDATE_ENTRY),
+    map((data) => {
+      let updatingItem = Object.assign({}, Object.assign(data).payload)
+      this.afs.collection('entries').doc(updatingItem.id).update(updatingItem)
+    })
+  );
 
   //Delete Category
 //   @Effect({ dispatch: false })
