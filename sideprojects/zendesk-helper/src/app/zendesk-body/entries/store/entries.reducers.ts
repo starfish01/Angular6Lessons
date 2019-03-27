@@ -26,14 +26,19 @@ export function entriesData(state = initalState, action: EntryActions.EmailDataA
         case EntryActions.UPDATE_ENTRY:
 
         console.log('reducer')
-        console.log(action.payload.id)
-        console.log(state.entries)
+        
         // state.entries.indexOf()
-
+        console.log(action.payload)
         let index = state.entries.findIndex(x => x.id ===action.payload.id);
-        //cool this is correct
         console.log(index)
+        
+        state.entries[index].title = action.payload.title
+        state.entries[index].content = action.payload.content
 
+        console.log(action.payload)
+
+        console.log(state.entries[index])
+        // console.log(item1)
 
 
             // const entry = state.entries[state.editedentryndex]

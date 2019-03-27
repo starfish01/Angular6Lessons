@@ -82,6 +82,11 @@ export class EntryEditComponent implements OnInit {
 
   onSubmit() {
 
+    this.entry = {
+      ...this.entry,
+      ...this.entryUpdateForm.value
+    }
+
     this.store.dispatch(new EntryActions.UpdateEntry(this.entry))
     // this.store.dispatch(new )
     // this.iMS.updateEntry(this.entryUpdateForm.value);
