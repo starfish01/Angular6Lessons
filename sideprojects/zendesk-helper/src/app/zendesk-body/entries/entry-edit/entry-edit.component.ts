@@ -40,7 +40,7 @@ export class EntryEditComponent implements OnInit {
   entryUpdateForm: FormGroup;
 
   ngOnInit() {
-    
+
 
     this.route.params
       .subscribe(
@@ -49,7 +49,7 @@ export class EntryEditComponent implements OnInit {
 
 
           this.editEntrySelected = this.store.select(state => state.entriesData.selectedEntry);
-          this.editEntrySelected.subscribe((data)=>{
+          this.editEntrySelected.subscribe((data) => {
             this.entry = data;
           }).unsubscribe();
 
@@ -60,7 +60,7 @@ export class EntryEditComponent implements OnInit {
           // if (this.entry == null) {
           //   this.router.navigate(['main']);
           // } else {
-            this.initForm();
+          this.initForm();
           //   // this.getEntry();
           // }
         }
@@ -88,23 +88,23 @@ export class EntryEditComponent implements OnInit {
     }
 
     this.store.dispatch(new EntryActions.UpdateEntry(this.entry))
-    // this.store.dispatch(new )
-    // this.iMS.updateEntry(this.entryUpdateForm.value);
-    // this.router.navigate(['../../'], {relativeTo: this.route})
+
+    this.router.navigate(['../'], { relativeTo: this.route })
   }
 
   deleteEntry() {
+    this.store.dispatch(new EntryActions.DeleteEntry(this.entry))
     // this.iMS.deleteEntry();
     // this.redirectAfterChange()
     // this.iMS.setEntrySelected(null);
   }
 
   redirectAfterChange() {
-    this.router.navigate(['../../'], {relativeTo: this.route})
+    this.router.navigate(['../../'], { relativeTo: this.route })
   }
 
   cancelEntryChanges() {
-    this.router.navigate(['../'], {relativeTo: this.route})
+    this.router.navigate(['../'], { relativeTo: this.route })
   }
 
 }

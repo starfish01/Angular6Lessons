@@ -1,21 +1,12 @@
-<div *ngIf="(catObserv | async) === null">
-
-  Loading..
-
-</div>
-
-
-
-<div *ngIf="(catObserv | async) !== null">
+<div *ngIf="(entriesListObservable | async).selectedCategory != null ">
   <div class="item item-3" fxFlex.md="30%" fxFlex.sm="100">
-
 
     <mat-nav-list>
 
       <span *ngFor="let item of (entriesListObservable | async).entries">
         <span *ngIf="item.categoryID == (entriesListObservable | async).selectedCategory">
 
-          <mat-list-item (click)="onTopicSelect(item)">
+          <mat-list-item (click)="onTopicSelect(item)" >
             {{ item.title }}</mat-list-item>
           <mat-divider></mat-divider>
 
@@ -48,7 +39,7 @@
 
   <div class="item item-3" fxFlex.sm="100" fxFlex.md="70%">
 
-    <router-outlet></router-outlet>
+    <router-outlet ></router-outlet>
 
   </div>
 </div>

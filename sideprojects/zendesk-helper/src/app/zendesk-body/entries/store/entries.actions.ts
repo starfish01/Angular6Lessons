@@ -52,7 +52,7 @@ export class UpdateEntry implements Action {
 
 export class DeleteEntry implements Action {
     readonly type = DELETE_ENTRY;
-    constructor(public payload: String) { }
+    constructor(public payload: Entry) { }
 }
 
 export class FetchEntries implements Action {

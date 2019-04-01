@@ -13,74 +13,51 @@ export interface State {
 const initalState: State = {
     selectedCategory: null,
     entries: [],
-    selectedEntry:null,
-   
+    selectedEntry: null,
+
 }
 
 export function entriesData(state = initalState, action: EntryActions.EmailDataActions) {
 
     switch (action.type) {
 
-
-
         case EntryActions.UPDATE_ENTRY:
 
-        console.log('reducer')
-        
-        // state.entries.indexOf()
-        console.log(action.payload)
-        let index = state.entries.findIndex(x => x.id ===action.payload.id);
-        console.log(index)
-        
-        state.entries[index].title = action.payload.title
-        state.entries[index].content = action.payload.content
+            let index = state.entries.findIndex(x => x.id === action.payload.id);
 
-        console.log(action.payload)
+            state.entries[index].title = action.payload.title
+            state.entries[index].content = action.payload.content
 
-        console.log(state.entries[index])
-        // console.log(item1)
-
-
-            // const entry = state.entries[state.editedentryndex]
-            // const updatedentry = {
-            //     ...entry,
-            //     ...action.payload
-            // };
-            // const categories = [...state.entries];
-            // categories[state.editedentryIndex] = updatedentry;
             return {
                 ...state,
-                // categories: categories,
             };
 
 
 
-
-       
-        case EntryActions.SELECTED_ENTRY: 
+        case EntryActions.SELECTED_ENTRY:
             return {
                 ...state,
                 selectedEntry: null
             }
 
         case EntryActions.SELECT_ENTRY:
-        return {
-            ...state,
-            selectedEntry: action.payload.index
-        }
+            return {
+                ...state,
+                selectedEntry: action.payload.index
+            }
 
 
-        case EntryActions.UNSELECT_CATEGORY: 
+        case EntryActions.UNSELECT_CATEGORY:
             return {
                 ...state,
                 selectedCategory: null
             }
 
         case EntryActions.SELECTED_CATEGORY:
-        return {
-            ...state,
-            selectedCategory: action.payload.index
-        }
+            return {
+                ...state,
+                selectedCategory: action.payload.index
+            }
 
 
         case EntryActions.ADD_ENTRY:
@@ -96,18 +73,23 @@ export function entriesData(state = initalState, action: EntryActions.EmailDataA
                 entries: [...action.payload]
             };
 
-        
 
-        // case EntryActions.DELETE_ENTRY: {
-        //     const oldCatList = [...state.entries];
-        //     oldCatList.splice(state.editedentryIndex, 1)
-        //     return {
-        //         ...state,
-        //         categories: oldCatList,
-        //         editedentry: null,
-        //         editedentryIndex: -1
-        //     };
-        // }
+
+        case EntryActions.DELETE_ENTRY: {
+
+            //need the effect for this
+
+
+            let index = state.entries.findIndex(x => x.id === action.payload.id);
+
+            const oldList = [...state.entries];
+            oldList.splice(index,1);
+            state.entries = oldList
+
+            return {
+                ...state,
+            };
+        }
 
         default:
             return state;
