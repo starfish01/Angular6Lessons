@@ -72,6 +72,8 @@ export class EntriesComponent implements OnInit {
 
     onTopicSelect(item) {
 
+        console.log(item)
+
         this.entrySelected = item;
 
         this.store.dispatch(new EntryActions.SelectEntry({ index: item }))

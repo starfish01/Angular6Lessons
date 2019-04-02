@@ -8,7 +8,7 @@
     <mat-nav-list>
 
       <span *ngFor="let item of (categoriesNew1 | async).categories">
-        <mat-list-item (click)="onCategorySelect(item)">
+        <mat-list-item [ngClass]="{'selectedCategory': itemSelected === item.id}" (click)="onCategorySelect(item)">
           {{ item.category }}</mat-list-item>
         <mat-divider></mat-divider>
       </span>

@@ -27,6 +27,7 @@ export class ZendeskBodyComponent implements OnInit {
   categoriesNew1: Observable<{categories:Category[]}>
 
   addCategoryBool = false;
+  itemSelected:string;
 
   currentUser;
 
@@ -55,7 +56,7 @@ export class ZendeskBodyComponent implements OnInit {
 
   onCategorySelect(selectedCategory) {
     this.store.dispatch(new EntryActions.SelectCategory({index:selectedCategory.id}))
-
+    this.itemSelected = selectedCategory.id;
     this.router.navigate([selectedCategory.slug], { relativeTo: this.route });
   
   }

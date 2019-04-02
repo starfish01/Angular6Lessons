@@ -6,7 +6,7 @@
       <span *ngFor="let item of (entriesListObservable | async).entries">
         <span *ngIf="item.categoryID == (entriesListObservable | async).selectedCategory && item.displayed === 1">
           
-          <mat-list-item (click)="onTopicSelect(item)" >
+          <mat-list-item [ngClass]="{'selectedEntry': entrySelected !== null && entrySelected.id === item.id}" (click)="onTopicSelect(item)" >
             {{ item.title }}</mat-list-item>
           <mat-divider></mat-divider>
 
@@ -15,7 +15,7 @@
 
       <span *ngFor="let item of entriesList; let i = index">
         <mat-list-item (click)="onTopicSelect(item)">
-          {{ item.title }}</mat-list-item>
+          {{ item.title }} -- </mat-list-item>
         <mat-divider></mat-divider>
       </span>
 
