@@ -1,13 +1,20 @@
+
+<span *ngIf="(CategoriesListObservable | async) !== null" >
 <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
   <div class="item" fxFlex="30%">
+
+
     <mat-nav-list>
-      <span *ngFor="let item of categoriesNew; let i = index">
+      <span *ngFor="let item of (CategoriesListObservable | async).categories; let i = index">
         <mat-list-item (click)="editCategory(item)">
           {{ item.category }}</mat-list-item>
         <mat-divider></mat-divider>
       </span>
     </mat-nav-list>
   </div>
+
+
+
   <div class="item" fxFlex="30%">
 
     <span *ngIf="selectedCat != null">
@@ -31,3 +38,5 @@
     </span>
   </div>
 </div>
+
+</span>

@@ -43,9 +43,8 @@ export class EntryEffects {
       
       newEntry.id = this.afs.createId();
 
-      this.afs.collection('entries').add(newEntry)
-        .then()
-        .catch((error) => { console.log(error) })
+      this.afs.collection('entries').doc(newEntry.id).set(newEntry, { merge: true })
+  
     })
   );
 
@@ -55,6 +54,7 @@ export class EntryEffects {
     ofType(EntriesActions.UPDATE_ENTRY),
     map((data) => {
       let updatingItem = Object.assign({}, Object.assign(data).payload)
+
       this.afs.collection('entries').doc(updatingItem.id).update(updatingItem)
     })
   );
@@ -65,10 +65,8 @@ export class EntryEffects {
     ofType(EntriesActions.DELETE_ENTRY),
     map((data) => {
       let removingItem = Object.assign(data).payload
-      
-      //ISSUE HERE DELETING DOCUMENT
-      
-      // this.afs.collection('entries').doc(removingItem.id).update({ displayed: 0 })
+
+      this.afs.collection('entries').doc(removingItem.id).update({ displayed: 0 })
     })
   );
 

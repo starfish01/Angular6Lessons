@@ -4,8 +4,8 @@
     <mat-nav-list>
 
       <span *ngFor="let item of (entriesListObservable | async).entries">
-        <span *ngIf="item.categoryID == (entriesListObservable | async).selectedCategory">
-
+        <span *ngIf="item.categoryID == (entriesListObservable | async).selectedCategory && item.displayed === 1">
+          
           <mat-list-item (click)="onTopicSelect(item)" >
             {{ item.title }}</mat-list-item>
           <mat-divider></mat-divider>

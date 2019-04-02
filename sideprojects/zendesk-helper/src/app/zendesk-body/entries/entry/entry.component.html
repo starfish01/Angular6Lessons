@@ -5,7 +5,7 @@
     <h3>{{ selectedEntry.title }}</h3>
     <hr>
     <mat-form-field appearance="outline">
-      <textarea matInput rows="6" placeholder="Email" value="{{ selectedEntry.content }}"></textarea>
+      <textarea matInput [(ngModel)]="textArea" rows="6" placeholder="Email" value="{{ selectedEntry.content }}"></textarea>
     </mat-form-field>
 
   </span>
@@ -16,7 +16,5 @@
     <button mat-stroked-button color="primary" (click)="editEntry()">Edit</button>
 
   </div>
-
-
 
 </div>

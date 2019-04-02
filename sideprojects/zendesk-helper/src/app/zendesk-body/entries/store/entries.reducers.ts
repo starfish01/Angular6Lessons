@@ -74,15 +74,11 @@ export function entriesData(state = initalState, action: EntryActions.EmailDataA
 
         case EntryActions.DELETE_ENTRY: {
 
-            //need the effect for this
-
-
             let index = state.entries.findIndex(x => x.id === action.payload.id);
 
             const oldList = [...state.entries];
-            oldList.splice(index,1);
+            oldList.splice(index, 1);
             state.entries = oldList
-            
 
             return {
                 ...state,

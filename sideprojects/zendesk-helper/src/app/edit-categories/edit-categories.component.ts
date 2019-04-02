@@ -6,6 +6,9 @@ import { Store } from '@ngrx/store';
 
 import * as fromApp from '../store/app.reducers';
 import * as CategoryActions from '../zendesk-body/store/categories.actions';
+import { Observable } from 'rxjs';
+import { Category } from '../shared/category.model';
+import { Router, NavigationStart } from '@angular/router';
 
 
 @Component({
@@ -15,17 +18,19 @@ import * as CategoryActions from '../zendesk-body/store/categories.actions';
 })
 export class EditCategoriesComponent implements OnInit {
 
-  constructor(private iMS: InformationManagerService, private userService:UserService, private store: Store<fromApp.AppState>) { }
+  constructor(private userService: UserService, private store: Store<fromApp.AppState>) {
+
+  }
 
   userToken = null;
   initLoad = false;
-  categoriesNew =[];
+  categoriesNew = [];
   selectedCat = null;
   editCategoryForm: FormGroup;
 
-  ngOnInit() {
+  CategoriesListObservable: Observable<{ categories: Category[] }>
 
-    this.initLoad = true;
+  ngOnInit() {
 
     this.userService.getCurrentUser().then((data) => {
       this.userToken = data.uid;
@@ -37,43 +42,37 @@ export class EditCategoriesComponent implements OnInit {
     })
   }
 
-  editCategory(selectedCatNew){
+  editCategory(selectedCatNew) {
     this.selectedCat = selectedCatNew
     let categoryTitle = selectedCatNew.category;
     this.editCategoryForm = new FormGroup({
-      'title': new FormControl(categoryTitle,[Validators.required]),
+      'title': new FormControl(categoryTitle, [Validators.required]),
     })
   }
 
-  onSubmit(){
+  onSubmit() {
     this.selectedCat.category = this.editCategoryForm.value.title
-    // this.iMS.updateCategory(this.selectedCat)
     this.store.dispatch(new CategoryActions.UpdateCategory(this.selectedCat))
     this.selectedCat = null;
   }
 
-  cancel(){
+  cancel() {
     this.selectedCat = null;
   }
 
   delete() {
     this.store.dispatch(new CategoryActions.DeleteCategory(this.selectedCat.id));
 
-    // console.log(this.selectedCat)
-
-    // this.iMS.deleteCategory(this.selectedCat)
     this.selectedCat = null;
   }
 
   getCategories() {
 
-    this.iMS.getCategories(this.userToken).subscribe((data) => {
-      this.categoriesNew = [];
-      data.forEach(element => {
-        this.categoriesNew.push(element)
-      });
-      this.initLoad = false;
-    })
+    this.CategoriesListObservable = this.store.select('emailData')
+
+
+    this.store.dispatch(new CategoryActions.FetchCategories())
+
   }
 
 }

@@ -27,6 +27,10 @@ export class EntryComponent implements OnInit {
 
   @Input('entrySelected') element; 
 
+  // @Input('textArea') textArea;
+
+
+  textArea: string;
 
 
   constructor(private route: ActivatedRoute, 
@@ -58,6 +62,7 @@ export class EntryComponent implements OnInit {
           //   this.router.navigate(['main']);
           } else {
           //   // this.getEntry();
+          this.textArea = this.selectedEntry.content;
           }
 
           this.getEntryData(params.id);
@@ -72,7 +77,8 @@ export class EntryComponent implements OnInit {
 
 
   copyToClipboard() {
-    this._clipboardService.copyFromContent(this.entry.content)
+
+    this._clipboardService.copyFromContent(this.textArea)
     this.copyButtonText = 'Copied!'
 
     setTimeout(() => {
