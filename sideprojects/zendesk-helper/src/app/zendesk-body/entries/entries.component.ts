@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { InformationManagerService } from '../information-manager.service';
 import { Entry } from 'src/app/shared/entry.model';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from 'src/app/auth/user.service';
@@ -22,7 +21,6 @@ export class EntriesComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private iMS: InformationManagerService,
     private userService: UserService,
     private store: Store<fromApp.AppState>) { }
 
@@ -37,6 +35,7 @@ export class EntriesComponent implements OnInit {
   entriesListObservable: Observable<{ entries: Entry[] }>
 
   catObserv: Observable<any>
+  categorySelected: string;
 
   entryExists = false;
 
@@ -65,6 +64,8 @@ export class EntriesComponent implements OnInit {
     this.catObserv.subscribe((data) => {
       if (data === null) {
         this.router.navigate(['main'])
+      } else {
+        this.categorySelected = data;
       }
     }).unsubscribe()
   }
@@ -93,22 +94,12 @@ export class EntriesComponent implements OnInit {
       return;
     }
 
-    // TODO: move this over store 
-
-    this.addEntryBool = false;
-    this.loadingEntry = true;
-
-
     let slug = slugify(value)
 
     let newEntry = new Entry(value, this.getUserID(), slug);
-
-    this.iMS.storeEntry(this.categoryID, newEntry)
-      .then((data) => {
-        this.loadingEntry = false;
-      }).catch((error) => {
-        this.loadingEntry = false;
-      })
+    newEntry.categoryID = this.categorySelected
+    
+    this.store.dispatch(new EntryActions.AddEntry(newEntry))
   }
 
 

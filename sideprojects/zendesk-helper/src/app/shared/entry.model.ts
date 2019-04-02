@@ -7,10 +7,6 @@ export class Entry {
         public content:string = 'New Entry',
         public displayed = 1,
         public id:string = null,
-
-        
+        public categoryID:string = ''       
     ) {}
 }
-
-
-//title:'funnel topic 1',description:'Description',displayed:1},{title:'topic 2',description:'Description',displayed:2}],id:1},

@@ -22,7 +22,6 @@ export function entriesData(state = initalState, action: EntryActions.EmailDataA
     switch (action.type) {
 
         case EntryActions.UPDATE_ENTRY:
-
             let index = state.entries.findIndex(x => x.id === action.payload.id);
 
             state.entries[index].title = action.payload.title
@@ -31,8 +30,6 @@ export function entriesData(state = initalState, action: EntryActions.EmailDataA
             return {
                 ...state,
             };
-
-
 
         case EntryActions.SELECTED_ENTRY:
             return {
@@ -85,6 +82,7 @@ export function entriesData(state = initalState, action: EntryActions.EmailDataA
             const oldList = [...state.entries];
             oldList.splice(index,1);
             state.entries = oldList
+            
 
             return {
                 ...state,

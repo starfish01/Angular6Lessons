@@ -35,18 +35,19 @@ export class EntryEffects {
     ));
 
   //Add Category
-//   @Effect({ dispatch: false })
-//   cateogryStore = this.actions$.pipe(
-//     ofType(CategoriesActions.ADD_CATEGORY),
-//     map((data) => {
-//       let newCat = Object.assign({}, Object.assign(data).payload)
-//       let itemKey = this.afs.createId();
-//       newCat['id'] = itemKey;
-//       this.afs.collection('category').doc(newCat.id).set(newCat)
-//         .then()
-//         .catch((error) => { console.log(error) })
-//     })
-//   );
+  @Effect({ dispatch: false })
+  cateogryStore = this.actions$.pipe(
+    ofType(EntriesActions.ADD_ENTRY),
+    map((data) => {
+      let newEntry = Object.assign({}, Object.assign(data).payload)
+      
+      newEntry.id = this.afs.createId();
+
+      this.afs.collection('entries').add(newEntry)
+        .then()
+        .catch((error) => { console.log(error) })
+    })
+  );
 
   //Update Category
   @Effect({ dispatch: false })
@@ -59,14 +60,17 @@ export class EntryEffects {
   );
 
   //Delete Category
-//   @Effect({ dispatch: false })
-//   categoryDelete = this.actions$.pipe(
-//     ofType(CategoriesActions.DELETE_CATEGORY),
-//     map((data) => {
-//       let removingItem = Object.assign(data).payload
-//       this.afs.collection('category').doc(removingItem).update({ displayed: 0 })
-//     })
-//   );
+  @Effect({ dispatch: false })
+  categoryDelete = this.actions$.pipe(
+    ofType(EntriesActions.DELETE_ENTRY),
+    map((data) => {
+      let removingItem = Object.assign(data).payload
+      
+      //ISSUE HERE DELETING DOCUMENT
+      
+      // this.afs.collection('entries').doc(removingItem.id).update({ displayed: 0 })
+    })
+  );
 
 
   constructor(private actions$: Actions,
