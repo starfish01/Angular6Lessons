@@ -1,5 +1,4 @@
 import * as EntryActions from './entries.actions';
-// import { entry } from 'src/app/shared/entry.model';
 import { Entry } from 'src/app/shared/entry.model';
 
 var slugify = require('slugify')

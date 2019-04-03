@@ -6,7 +6,6 @@ var slugify = require('slugify')
 
 export interface State {
     categories: Category[];
-    // entries: Entry[];
     editedCategoryIndex: number;
     editedEntryIndex: number;
     editedCategory: Category;
@@ -15,7 +14,6 @@ export interface State {
 
 const initalState: State = {
     categories: [],
-    // entries: [],
     editedCategoryIndex: -1,
     editedEntryIndex: -1,
     editedCategory: null,
@@ -27,16 +25,16 @@ export function emailDataReducer(state = initalState, action: CategoryActions.Em
     switch (action.type) {
 
         case CategoryActions.ADD_CATEGORY:
-        return {
+            return {
                 ...state,
                 categories: [...state.categories, action.payload]
             };
 
-            case (CategoryActions.SET_CATEGORIES):
-        return {
-          ...state,
-          categories: [...action.payload]
-        };
+        case (CategoryActions.SET_CATEGORIES):
+            return {
+                ...state,
+                categories: [...action.payload]
+            };
 
         case CategoryActions.UPDATE_CATEGORY:
             const category = state.categories[state.editedCategoryIndex]
@@ -62,6 +60,13 @@ export function emailDataReducer(state = initalState, action: CategoryActions.Em
                 editedCategory: null,
                 editedCategoryIndex: -1
             };
+        }
+
+        case CategoryActions.CLEAR_DATA: {
+            state = initalState
+            return {
+                ...state
+            }
         }
 
         default:

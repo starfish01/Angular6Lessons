@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
-import { catchError } from 'rxjs/operators';
-
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { Observable } from 'rxjs';
 import { AngularFirestoreDocument, AngularFirestore } from 'angularfire2/firestore';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../store/app.reducers';
+import * as CategoryActions from '../zendesk-body/store/categories.actions';
 
 interface User {
   uid: string,
@@ -22,7 +22,7 @@ export class AuthService {
 
   private authState: any;
 
-  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore) {
+  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore,private store: Store<fromApp.AppState>) {
     this.afAuth.authState.subscribe((auth) => {
       this.authState = auth
     })
@@ -35,10 +35,6 @@ export class AuthService {
     })
     
   }
-
-  // get authenticated(): boolean {
-  //   return this.authState !== null;
-  // }
 
   isAuthenticated() {
     return this.authState !== null;
@@ -61,8 +57,6 @@ export class AuthService {
   private updateUserData(user) {
     // Sets user data to firestore on login
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-
-
 
     const data: User = {
       uid: user.uid,
@@ -104,6 +98,9 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       if (firebase.auth().currentUser) {
         this.afAuth.auth.signOut();
+
+        this.store.dispatch(new CategoryActions.ClearData())
+
         this.userToken = null;
         this.authState = null;
         resolve();

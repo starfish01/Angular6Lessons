@@ -7,7 +7,7 @@
     <button mat-button *ngIf="isAuthenticated()" [matMenuTriggerFor]="menu">Menu</button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="editCatBtn()">Edit Categories</button>
-      <button mat-menu-item>Edit User</button>
+      <!-- <button mat-menu-item>Edit User</button> -->
       <button mat-menu-item *ngIf="isMobile" (click)="logoutUser()">Log Out</button>
       <button mat-menu-item>Version 0.1</button>
     </mat-menu> 

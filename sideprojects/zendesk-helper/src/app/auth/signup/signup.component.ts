@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { InformationManagerService } from 'src/app/zendesk-body/information-manager.service';
 
 @Component({
   selector: 'app-signup',
@@ -37,15 +36,12 @@ export class SignupComponent implements OnInit {
     this.signupForm = new FormGroup({
       'name': new FormControl(name,[Validators.required]),
       'email': new FormControl(email,[Validators.required,Validators.email]),
-      'password': new FormControl(password,[Validators.required,Validators.minLength(6)]),
-      'confirm': new FormControl(confirm,[Validators.required]),
-      'plan': new FormControl(plan,[Validators.required]),
-      'orgName':new FormControl(orgName)
+      'password': new FormControl(password,[Validators.required,Validators.minLength(6)])
     })
 
   }
 
-  constructor(private authService:AuthService, private router:Router, private iMS:InformationManagerService) { }
+  constructor(private authService:AuthService, private router:Router) { }
 
   ngOnInit() {
     this.initForm();

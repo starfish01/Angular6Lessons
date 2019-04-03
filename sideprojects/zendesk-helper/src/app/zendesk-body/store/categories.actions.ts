@@ -9,13 +9,14 @@ export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
 export const SET_CATEGORIES = 'SET_CATEGORIES';
 export const STORE_CATEGORIES = 'STORE_CATEGORIES';
 
-// export const ADD_ENTRY = 'ADD_ENTRY';
-// export const UPDATE_ENTRY = 'UPDATE_ENTRY';
-// export const DELETE_ENTRY = 'DELETE_ENTRY';
-
-
+export const CLEAR_DATA = 'CLEAR_DATA'
 
 // Category Actions
+
+export class ClearData implements Action {
+    readonly type = CLEAR_DATA;
+}
+
 
 export class AddCategory implements Action {
     readonly type = ADD_CATEGORY;
@@ -42,38 +43,11 @@ export class SetCategories implements Action {
     constructor(public payload: Category[]) { }
 }
 
-// export class StoreCategories implements Action {
-//     readonly type = STORE_CATEGORIES;
-
-//     constructor(public payload: Category[]) { }
-// }
-
-
-
-// Entry Actions
-
-// export class AddEntry implements Action {
-//     readonly type = ADD_ENTRY;
-//     constructor(public payload: Category) { }
-// }
-
-// export class UpdateEntry implements Action {
-//     readonly type = UPDATE_ENTRY;
-//     constructor(public payload: { entry: Entry }) { }
-// }
-
-// export class DeleteEntry implements Action {
-//     readonly type = DELETE_ENTRY;
-// }
-
-
 
 export type EmailDataActions = AddCategory
     | UpdateCategory
     | DeleteCategory
-    // | AddEntry
-    // | UpdateEntry
-    // | DeleteEntry
     | FetchCategories
-    | SetCategories;
+    | SetCategories
+    | ClearData
     ;

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { InformationManagerService } from '../zendesk-body/information-manager.service';
 import { UserService } from '../auth/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -8,7 +7,6 @@ import * as fromApp from '../store/app.reducers';
 import * as CategoryActions from '../zendesk-body/store/categories.actions';
 import { Observable } from 'rxjs';
 import { Category } from '../shared/category.model';
-import { Router, NavigationStart } from '@angular/router';
 
 
 @Component({

@@ -23,11 +23,9 @@ import { UserdetailsComponent } from './userdetails/userdetails.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UserService } from './auth/user.service';
 import { AuthGuard } from './auth/auth.guard';
-import { Storage } from './shared/storage.service';
 import { EntriesComponent } from './zendesk-body/entries/entries.component';
 import { EntryComponent } from './zendesk-body/entries/entry/entry.component';
 import { EntryEditComponent } from './zendesk-body/entries/entry-edit/entry-edit.component';
-import { InformationManagerService } from './zendesk-body/information-manager.service';
 import { ClipboardModule } from 'ngx-clipboard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatToolbarModule,MatSelectModule,MatGridListModule,MatButtonModule,MatInputModule,MatMenuModule,MatDividerModule,MatCardModule,MatListModule,MatFormFieldModule} from '@angular/material';
@@ -39,11 +37,7 @@ import { CategoryEffects } from './zendesk-body/store/categories.effect';
 import { EntryEffects } from './zendesk-body/entries/store/entries.effect';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http'; 
-// import { AuthEffects } from './auth/store/auth.effects';
 import { HomepageComponent } from './core/homepage/homepage.component';
-
-// import { StoreModule } from '@ngrx/store';
-// import { todoReducer } from './reducers/todo.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 
@@ -72,10 +66,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
     StoreModule.forRoot(reducers),
-    // StoreModule.forFeature('recipes', recipeReducer),
-
     EffectsModule.forRoot([CategoryEffects,EntryEffects]),
-    // StoreModule.provideStore({ reducers }),
     StoreDevtoolsModule.instrument({
       maxAge: 10
     }),
@@ -95,7 +86,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     MatSelectModule,
     LayoutModule
   ],
-  providers: [AuthService, UserService, AuthGuard,Storage,InformationManagerService,UserResolver],
+  providers: [AuthService, UserService, AuthGuard,UserResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

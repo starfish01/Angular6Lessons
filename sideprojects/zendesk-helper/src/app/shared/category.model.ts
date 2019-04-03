@@ -1,5 +1,3 @@
-import { Entry } from '../shared/entry.model';
-
 export class Category {
     constructor(
         public category: string,
@@ -10,5 +8,4 @@ export class Category {
         public entries:[] = [],
         public displayed = 1
     ) { }
-
 }

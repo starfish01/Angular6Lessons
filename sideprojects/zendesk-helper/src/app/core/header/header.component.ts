@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
-import {LayoutModule, BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
-import { UserService } from 'src/app/auth/user.service';
-
+import { BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
 
 
 @Component({
@@ -19,7 +17,6 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private authService:AuthService,
-    private userService:UserService,
     private router: Router,  
     private breakpointObserver: BreakpointObserver) { 
   }

@@ -3,11 +3,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
-import { Store } from '@ngrx/store';
-import * as fromApp from '../../store/app.reducers';
-// import * as AuthActions from '../store/auth.actions';
-
-
 
 @Component({
   selector: 'app-login',
@@ -18,9 +13,9 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  loading =false;
+  loading = false;
 
-  constructor(private authService: AuthService, private router:Router,private store: Store<fromApp.AppState>) { }
+  constructor(private authService: AuthService, private router:Router) { }
 
   ngOnInit() {
     this.initForm();
@@ -40,9 +35,7 @@ export class LoginComponent implements OnInit {
   tryLogin(){
     this.loading = true;
     let value = this.loginForm.value;
-    // this.store.dispatch(new AuthActions.TrySignin({username: value.email, password:value.password}));
     
-    //OLD
     this.authService.doLogin(value)
     .then(res => {
       this.loading = false;

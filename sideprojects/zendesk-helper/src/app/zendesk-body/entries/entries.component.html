@@ -13,12 +13,6 @@
         </span>
       </span>
 
-      <span *ngFor="let item of entriesList; let i = index">
-        <mat-list-item (click)="onTopicSelect(item)">
-          {{ item.title }} -- </mat-list-item>
-        <mat-divider></mat-divider>
-      </span>
-
       <mat-list-item (click)="addEntry()">
         <span *ngIf="!addEntryBool && !loadingEntry"><img src="../../assets/tag-cat.svg"> Add Entry</span>
         <span *ngIf="addEntryBool && !loadingEntry">

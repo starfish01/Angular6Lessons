@@ -2,17 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { switchMap, withLatestFrom, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpRequest } from '@angular/common/http';
-import { Store } from '@ngrx/store';
-
-
-
 
 import * as EntriesActions from '../store/entries.actions';
-
-// import { Category } from '../../shared/category.model';
-// import * as fromCategories from '../store/categories.reducers';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from 'src/app/auth/user.service';
 
@@ -72,10 +64,6 @@ export class EntryEffects {
 
 
   constructor(private actions$: Actions,
-    private httpClient: HttpClient,
-    // private store: Store<fromEntry.State>,
-    private afs: AngularFirestore,
-    private af: AuthService,
-    private userService: UserService) {
+    private afs: AngularFirestore) {
   }
 }

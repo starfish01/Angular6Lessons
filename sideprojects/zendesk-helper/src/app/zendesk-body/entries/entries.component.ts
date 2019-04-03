@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { AngularFirestore } from 'angularfire2/firestore';
 import { Entry } from 'src/app/shared/entry.model';
-import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from 'src/app/auth/user.service';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -17,6 +15,7 @@ var slugify = require('slugify')
     templateUrl: './entries.component.html',
     styleUrls: ['./entries.component.scss']
 })
+
 export class EntriesComponent implements OnInit {
 
     constructor(private route: ActivatedRoute,
@@ -71,8 +70,6 @@ export class EntriesComponent implements OnInit {
     }
 
     onTopicSelect(item) {
-
-        console.log(item)
 
         this.entrySelected = item;
 
