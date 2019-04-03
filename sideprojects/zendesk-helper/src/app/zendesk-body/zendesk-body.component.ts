@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Category } from '../shared/category.model';
 import { UserService } from '../auth/user.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -16,7 +16,12 @@ var slugify = require('slugify')
   templateUrl: './zendesk-body.component.html',
   styleUrls: ['./zendesk-body.component.scss']
 })
-export class ZendeskBodyComponent implements OnInit {
+export class ZendeskBodyComponent implements OnInit, OnDestroy {
+
+  ngOnDestroy(){
+    console.log('boom')
+  }
+
 
   categoriesNew1: Observable<{ categories: Category[] }>
 

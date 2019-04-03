@@ -5,6 +5,7 @@ import { switchMap, withLatestFrom, map, tap } from 'rxjs/operators';
 import * as CategoriesActions from '../store/categories.actions';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { UserService } from 'src/app/auth/user.service';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable()
 export class CategoryEffects {
@@ -14,6 +15,20 @@ export class CategoryEffects {
   categoriesFetch = this.actions$.pipe(
     ofType(CategoriesActions.FETCH_CATEGORIES),
     switchMap((action: CategoriesActions.FetchCategories) => {
+
+this.afAuth.authState.subscribe((state)=>{
+
+    
+  if(state){
+    console.log('signedIn')
+  } else {
+    console.log('out')
+  }
+
+})
+
+
+
       return this.afs.collection('category', ref => ref.where('displayed', '==', 1).where('uID', '==', this.userService.getCurrentUserID())).valueChanges();
     }), map(
       (categories) => {
@@ -62,6 +77,7 @@ export class CategoryEffects {
 
   constructor(private actions$: Actions,
     private afs: AngularFirestore,
+    private afAuth: AngularFireAuth,
     private userService: UserService) {
   }
 }

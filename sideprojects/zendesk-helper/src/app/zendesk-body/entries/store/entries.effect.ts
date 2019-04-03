@@ -7,6 +7,8 @@ import * as EntriesActions from '../store/entries.actions';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from 'src/app/auth/user.service';
+import { FirebaseAuth } from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable()
 export class EntryEffects {
@@ -64,6 +66,8 @@ export class EntryEffects {
 
 
   constructor(private actions$: Actions,
-    private afs: AngularFirestore) {
+    private afs: AngularFirestore,
+    public afAuth: AngularFireAuth,
+    ) {
   }
 }
