@@ -19,7 +19,7 @@ var slugify = require('slugify')
 export class ZendeskBodyComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
-    console.log('boom')
+
   }
 
 
@@ -27,6 +27,8 @@ export class ZendeskBodyComponent implements OnInit, OnDestroy {
 
   addCategoryBool = false;
   itemSelected: string;
+
+  lodingCategory = false;
 
   currentUser;
 
@@ -48,6 +50,7 @@ export class ZendeskBodyComponent implements OnInit, OnDestroy {
     this.categoriesNew1 = this.store.select('emailData')
 
     this.store.dispatch(new CategoryActions.FetchCategories());
+    
 
   }
 

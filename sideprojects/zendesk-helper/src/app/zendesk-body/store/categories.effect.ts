@@ -16,20 +16,19 @@ export class CategoryEffects {
     ofType(CategoriesActions.FETCH_CATEGORIES),
     switchMap((action: CategoriesActions.FetchCategories) => {
 
-this.afAuth.authState.subscribe((state)=>{
+      // this.afAuth.authState.subscribe((state) => {
 
-    
-  if(state){
-    console.log('signedIn')
-  } else {
-    console.log('out')
-  }
-
-})
-
-
+      //   if (state) {
+      //     return this.afs.collection('category', ref => ref.where('displayed', '==', 1).where('uID', '==', this.userService.getCurrentUserID())).valueChanges();
+      //   } else {
+      //     return this.afs.collection('category', ref => ref.where('displayed', '==', 1).where('uID', '==', this.userService.getCurrentUserID())).valueChanges();
+      //   }
+        
+      // })
 
       return this.afs.collection('category', ref => ref.where('displayed', '==', 1).where('uID', '==', this.userService.getCurrentUserID())).valueChanges();
+
+    
     }), map(
       (categories) => {
         return {
