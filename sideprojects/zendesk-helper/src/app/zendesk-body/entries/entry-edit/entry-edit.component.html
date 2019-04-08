@@ -14,7 +14,7 @@
       
         <div>
           <button mat-stroked-button color="primary" [disabled]="!entryUpdateForm.valid" type="submit">Save</button>
-          <button mat-stroked-button color="primary" *ngIf="userService.getCurrentUserID() === entry.uID" type="button"
+          <button mat-stroked-button color="primary" type="button"
             (click)="deleteEntry()">Delete</button>
           <button mat-stroked-button color="primary" [disabled]="!entryUpdateForm.valid" type="button"
             (click)="cancelEntryChanges()">Cancel</button>

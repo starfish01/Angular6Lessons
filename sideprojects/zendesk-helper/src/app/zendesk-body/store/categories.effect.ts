@@ -26,6 +26,7 @@ export class CategoryEffects {
         
       // })
 
+
       return this.afs.collection('category', ref => ref.where('displayed', '==', 1).where('uID', '==', this.userService.getCurrentUserID())).valueChanges();
 
     
@@ -46,6 +47,7 @@ export class CategoryEffects {
       let newCat = Object.assign({}, Object.assign(data).payload)
       let itemKey = this.afs.createId();
       newCat['id'] = itemKey;
+
       this.afs.collection('category').doc(newCat.id).set(newCat)
         .then()
         .catch((error) => { console.log(error) })
