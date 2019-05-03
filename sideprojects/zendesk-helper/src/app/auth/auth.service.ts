@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import * as fromApp from '../store/app.reducers';
 import * as CategoryActions from '../zendesk-body/store/categories.actions';
 
+
 interface User {
   uid: string,
   email: string,
@@ -100,6 +101,8 @@ export class AuthService {
         this.afAuth.auth.signOut();
 
         this.store.dispatch(new CategoryActions.ClearData())
+
+        // this.store.dispatch(new )
 
         this.userToken = null;
         this.authState = null;

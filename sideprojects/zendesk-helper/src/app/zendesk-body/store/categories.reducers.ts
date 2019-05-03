@@ -63,7 +63,7 @@ export function emailDataReducer(state = initalState, action: CategoryActions.Em
         }
 
         case CategoryActions.CLEAR_DATA: {
-            state = initalState
+            state = undefined
             return {
                 ...state
             }
